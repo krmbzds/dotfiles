@@ -1,0 +1,14 @@
+brew-cask
+curl
+git
+gnupg
+htop-osx
+sqlite
+tree
+unrar
+vim
+watch
+webp
+wget
+youtube-dl
+zsh
