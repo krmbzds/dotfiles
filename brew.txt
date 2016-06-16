@@ -1,7 +1,6 @@
 brew-cask
 curl
 git
-gnupg
 htop-osx
 sqlite
 tree
@@ -12,3 +11,4 @@ webp
 wget
 youtube-dl
 zsh
+homebrew/versions/gnupg21
