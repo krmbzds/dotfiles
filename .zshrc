@@ -51,6 +51,8 @@ function f {
   find . -iname "*$1*"
 }
 
+alias gpg="gpg2"
+
 alias grep_ip="grep -Eo \
   '([0-9]{1,3}\.){3}[0-9]{1,3}'"
 alias grep_url="grep -Eo \
@@ -66,4 +68,3 @@ alias rand="for i in {1..5} ; do \
 alias gpg_restart="pkill gpg-agent ; pkill ssh-agent ; \
   eval \$(gpg-agent --daemon --enable-ssh-support --use-standard-socket \
   --log-file ~/.gnupg/gpg-agent.log --write-env-file)"
-  
