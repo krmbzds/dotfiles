@@ -2,8 +2,21 @@ syntax on
 
 set number
 set wrap
-set linebreak " break lines by words
-set scrolloff=5 " set scroll offset to 5
+set linebreak                   " break lines by words
+set scrolloff=5                 " set scroll offset to 5
+set nocompatible                " break away from old vi compatibility
+set encoding=utf-8 nobomb       " use utf-8 w/o bom
+set shortmess=atI               " mute intro message
+set showcmd                     " show partial command as it is typed
+set showmatch                   " show matching brackets
+set showmode                    " show current mode
+set softtabstop=2               " make tabs as wide as two spaces
+set tabstop=2                   " make tabs as wide as two spaces
+set shiftwidth=2                " set > tab to 2 spaces
+set expandtab                   " use spaces instead of tabs
+set tabpagemax=15               " maximum 15 tabs
+set ttyfast                     " optimize for fast terminal connections
+set wildmenu                    " enchance cli completion
 
 " unmap arrow keys in normal mode
 " to force use of h,j,k,l keys
@@ -28,3 +41,9 @@ vnoremap / /\v
 " traverse over visual lines by default
 nnoremap j gj
 nnoremap 0 g0
+
+set directory=~/.vim/swaps      " centralized swaps
+set backupdir=~/.vim/backups    " centralized backups
+set undodir=~/.vim/undo         " centralized undo history
+
+set viminfo=%100,'100,/100,h,\"500,:100,n~/.viminfo
