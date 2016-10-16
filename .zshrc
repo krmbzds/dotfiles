@@ -1,4 +1,5 @@
 export ZSH=/Users/kerem/.oh-my-zsh
+export HOMEBREW_NO_ANALYTICS=1
 ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
