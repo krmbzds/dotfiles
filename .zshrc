@@ -4,16 +4,6 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
-# START gpg-agent
-if [ -f "${HOME}/.gpg-agent-info" ]; then
- . "${HOME}/.gpg-agent-info"
- export GPG_AGENT_INFO
- export SSH_AUTH_SOCK
- export SSH_AGENT_PID
-fi
-export GPG_TTY=$(tty)
-# END gpg-agent
-
 PAGER=less
 EDITOR=vim
 VISUAL=vim
@@ -57,6 +47,16 @@ zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
 zstyle ':completion:*' menu select=long-list select=0
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' verbose yes
+
+# START gpg-agent
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+ . "${HOME}/.gpg-agent-info"
+ export GPG_AGENT_INFO
+ export SSH_AUTH_SOCK
+ export SSH_AGENT_PID
+fi
+export GPG_TTY=$(tty)
+# END gpg-agent
 
 function f {
   find . -iname "*$1*"
