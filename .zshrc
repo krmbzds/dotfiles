@@ -62,6 +62,12 @@ function f {
   find . -iname "*$1*"
 }
 
+function fix_perm {
+  sudo mkdir $2
+  sudo chgrp -R $1 $2
+  sudo chmod -R g+w $2
+}
+
 alias gpg="gpg2"
 
 alias grep_ip="grep -Eo \
