@@ -8,6 +8,9 @@ mkdir ~/.gnupg ; chmod 700 ~/.gnupg
 mkdir ~/.ssh ; chmod 700 ~/.ssh
 mkdir -p ~/.vim/{backups,swaps,undo}
 
+mkdir -p ~/Pictures/Screenshots/
+defaults write com.apple.screencapture location ~/Pictures/Screenshots
+
 sudo curl -s "https://sks-keyservers.net/sks-keyservers.netCA.pem" -o /etc/sks-keyservers.netCA.pem
 
 chflags nohidden ~/Library
@@ -16,8 +19,8 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+# defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+# defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
@@ -25,8 +28,8 @@ defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
-defaults write NSGlobalDomain KeyRepeat -int 0
-defaults write NSGlobalDomain InitialKeyRepeat -int 15
+# defaults write NSGlobalDomain KeyRepeat -int 0
+# defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 defaults write com.apple.ActivityMonitor IconType -int 5
 defaults write com.apple.ActivityMonitor ShowCategory -int 100
@@ -64,7 +67,7 @@ defaults write com.apple.mail-shared DisableURLLoading -bool true
 
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
-defaults write com.apple.NetworkBrowser DisableAirDrop -bool true
+# defaults write com.apple.NetworkBrowser DisableAirDrop -bool true
 
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptEnabled -bool false
 defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
@@ -83,7 +86,7 @@ defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 defaults write com.apple.screencapture disable-shadow -bool true
-defaults write com.apple.screencapture location -string "${HOME}/Desktop"
+defaults write com.apple.screencapture location -string "${HOME}/Pictures/Screenshots"
 defaults write com.apple.screencapture type -string "png"
 
 defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
@@ -93,7 +96,7 @@ defaults write com.apple.spotlight orderedItems -array \
   '{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
   '{"enabled" = 1;"name" = "DIRECTORIES";}' \
   '{"enabled" = 1;"name" = "PDF";}' \
-  '{"enabled" = 1;"name" = "FONTS";}' \
+  '{"enabled" = 0;"name" = "FONTS";}' \
   '{"enabled" = 0;"name" = "DOCUMENTS";}' \
   '{"enabled" = 0;"name" = "MESSAGES";}' \
   '{"enabled" = 0;"name" = "CONTACT";}' \
@@ -127,11 +130,11 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.c
 
 sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 
-echo "Boot into Recovery Mode (or disable SIP), unlock the disk and run:"
-echo "cd /Volumes/Macintosh HD/System/Library"
-echo "chmod -x ./CoreServices/mapspushd"
-echo "chmod -x ./Frameworks/Security.framework/Versions/A/Resources/IDSKeychainSyncingProxy.bundle/Contents/MacOS/IDSKeychainSyncingProxy"
-echo "Otherwise, these two processes go nuts and crash repeatedly with the following agents/daemons disabled."
+# echo "Boot into Recovery Mode (or disable SIP), unlock the disk and run:"
+# echo "cd /Volumes/Macintosh HD/System/Library"
+# echo "chmod -x ./CoreServices/mapspushd"
+# echo "chmod -x ./Frameworks/Security.framework/Versions/A/Resources/IDSKeychainSyncingProxy.bundle/Contents/MacOS/IDSKeychainSyncingProxy"
+# echo "Otherwise, these two processes go nuts and crash repeatedly with the following agents/daemons disabled."
 
 launchctl unload -w /System/Library/LaunchAgents/com.apple.accountsd.plist
 launchctl unload -w /System/Library/LaunchAgents/com.apple.AddressBook.SourceSync.plist
@@ -174,7 +177,7 @@ sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.awacsd.plist
 sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.CrashReporterSupportHelper.plist
 sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.diagnosticd.plist
 sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.GameController.gamecontrollerd.plist
-sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.locationd.plist
+# sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.locationd.plist
 sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.netbiosd.plist
 sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.SubmitDiagInfo.plist
 
@@ -192,15 +195,15 @@ sudo systemsetup -setusingnetworktime on
 
 sudo spctl --master-enable
 
-# sudo hostname -s mac
-# sudo scutil --set ComputerName mac
-# sudo scutil --set LocalHostName mac
-# sudo scutil --set HostName mac
-# sudo sysctl kern.hostname=mac
-# echo "kern.hostname=mac" | sudo tee -a /etc/sysctl.conf
+sudo hostname -s alpha
+sudo scutil --set ComputerName alpha
+sudo scutil --set LocalHostName alpha
+sudo scutil --set HostName alpha
+sudo sysctl kern.hostname=alpha
+echo "kern.hostname=alpha" | sudo tee -a /etc/sysctl.conf
 
 sudo killall Dock
 sudo killall Finder
 sudo killall mds
 sudo killall SystemUIServer
-sudo killall blued
+# sudo killall blued
