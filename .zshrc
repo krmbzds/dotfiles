@@ -1,8 +1,15 @@
-export ZSH=/Users/kerem/.oh-my-zsh
+source ~/antigen.zsh
+
+# Plugin configurations
+antigen use oh-my-zsh
+antigen bundle git
+antigen bundle ssh-agent
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen theme robbyrussell
+antigen apply
+
+# Disable Homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
-ZSH_THEME="robbyrussell"
-plugins=(git)
-source $ZSH/oh-my-zsh.sh
 
 PAGER=less
 EDITOR=vim
@@ -48,7 +55,6 @@ zstyle ':completion:*' menu select=long-list select=0
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' verbose yes
 
-# START gpg-agent
 if [ -f "${HOME}/.gpg-agent-info" ]; then
  . "${HOME}/.gpg-agent-info"
  export GPG_AGENT_INFO
@@ -56,7 +62,6 @@ if [ -f "${HOME}/.gpg-agent-info" ]; then
  export SSH_AGENT_PID
 fi
 export GPG_TTY=$(tty)
-# END gpg-agent
 
 function f {
   find . -iname "*$1*"
@@ -75,8 +80,6 @@ alias grep_ip="grep -Eo \
 alias grep_url="grep -Eo \
   '(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'"
 
-alias mac_rand="openssl rand -hex 6|sed 's/\(..\)/\1:/g; s/.$//'"
-alias mac_troll="printf 00:20:91:;openssl rand -hex 3|sed 's/\(..\)/\1:/g; s/.$//'"
 alias rand="for i in {1..5} ; do \
   gpg --gen-random --armor 1 30 ; \
   openssl rand -base64 30 ; \
