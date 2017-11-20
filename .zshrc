@@ -3,10 +3,20 @@ source ~/antigen.zsh
 # Plugin configurations
 antigen use oh-my-zsh
 antigen bundle git
+antigen bundle git-flow-avh
 antigen bundle ssh-agent
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen theme robbyrussell
 antigen apply
+
+# OS specific plugins
+if [[ $CURRENT_OS == 'OS X' ]]; then
+  antigen bundle brew
+  antigen bundle brew-cask
+  antigen bundle gem
+  antigen bundle rvm
+  antigen bundle osx
+fi
 
 # Disable Homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
