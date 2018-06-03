@@ -1,48 +1,50 @@
 Homebrew Installation
 =====================
 
-1. Switch to administrator account:
+1. Install Homebrew:
 
-```
-su - admin
-```
-
-2. Install Homebrew:
-
-```
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```sh
+mkdir .homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C .homebrew
 ```
 
-3. Go to `System Preferences > Users & Groups` and add a new group called `brew`
+2. Add `~/.homebrew/bin` and `~/.homebrew/sbin` to your `PATH`:
 
-4. Add Administrator and Standard accounts to the `brew` group
+```sh
+function path {
+  if [[ -d "$1" ]] ; then
+    if [[ -z "$PATH" ]] ; then
+      export PATH=$1
+    else
+      export PATH=$PATH:$1
+    fi
+  fi
+}
 
-5. Update directory permissions for multi-user compatibility:
-
-```
-sudo chgrp -R brew /usr/local/*
-sudo chmod -R g+w /usr/local/*
-sudo mkdir /Library/Caches/Homebrew
-sudo chgrp -R brew /Library/Caches/Homebrew
-sudo chmod -R g+w /Library/Caches/Homebrew
-sudo mkdir /opt
-sudo chgrp -R brew /opt
-sudo chmod -R g+w /opt
-sudo mkdir /usr/local/Caskroom
-sudo chgrp -R brew /usr/local/Caskroom
-sudo chmod -R g+w /usr/local/Caskroom
-sudo mkdir /usr/local/var/homebrew/locks/
-sudo chgrp -R brew /usr/local/var/homebrew/locks/
-sudo chmod -R g+w /usr/local/var/homebrew/locks/
-```
-
-6. Switch back to standard user:
-```
-exit
+export PATH=''
+path ~/.homebrew/sbin
+path ~/.homebrew/bin
+path /usr/local/sbin
+path /usr/local/bin
+path /usr/sbin
+path /usr/bin
+path /sbin
+path /bin
+path /usr/X11R6/bin
 ```
 
-7. Check if everything is working properly:
+3. Check if everything is working properly:
 
 ```
 brew doctor
 ```
+
+You will see the following warning, which is expected: 
+
+```
+Warning: Your Homebrew's prefix is not /usr/local.
+You can install Homebrew anywhere you want but some bottles (binary packages)
+can only be used with a /usr/local prefix and some formulae (packages)
+may not build correctly with a non-/usr/local prefix.
+```
+
+You're done.
