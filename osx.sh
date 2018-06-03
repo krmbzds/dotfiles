@@ -4,12 +4,10 @@ set -o errtrace
 set -o nounset
 set -o pipefail
 
-mkdir ~/.gnupg ; chmod 700 ~/.gnupg
-mkdir ~/.ssh ; chmod 700 ~/.ssh
+mkdir -p ~/.gnupg ; chmod 700 ~/.gnupg
+mkdir -p ~/.ssh ; chmod 700 ~/.ssh
 mkdir -p ~/.vim/{backups,swaps,undo}
-
-mkdir -p ~/Pictures/Screenshots/
-defaults write com.apple.screencapture location ~/Pictures/Screenshots
+mkdir -p "${HOME}/Pictures/Screenshots"
 
 sudo curl -s "https://sks-keyservers.net/sks-keyservers.netCA.pem" -o /etc/sks-keyservers.netCA.pem
 
@@ -19,8 +17,8 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-# defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-# defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
@@ -28,15 +26,13 @@ defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
-# defaults write NSGlobalDomain KeyRepeat -int 0
-# defaults write NSGlobalDomain InitialKeyRepeat -int 15
+defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 defaults write com.apple.ActivityMonitor IconType -int 5
 defaults write com.apple.ActivityMonitor ShowCategory -int 100
 
 defaults write com.apple.appstore ShowDebugMenu -bool true
-
-defaults write com.apple.CrashReporter DialogType none
 
 defaults write com.apple.dashboard mcx-disabled -bool true
 
@@ -53,7 +49,6 @@ defaults write com.apple.dock expose-animation-duration -float 0.1
 defaults write com.apple.dock orientation -string "left"
 
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
 
 defaults write com.apple.finder AppleShowAllFiles -bool true
 defaults write com.apple.finder DisableAllAnimations -bool true
@@ -67,7 +62,7 @@ defaults write com.apple.mail-shared DisableURLLoading -bool true
 
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
-# defaults write com.apple.NetworkBrowser DisableAirDrop -bool true
+defaults write com.apple.NetworkBrowser DisableAirDrop -bool true
 
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptEnabled -bool false
 defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
@@ -120,7 +115,7 @@ sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1
 sudo defaults write /Library/Preferences/com.apple.alf loggingenabled -bool true
 sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -bool true
 
-sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0
+# sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0
 
 sudo defaults write /Library/Preferences/com.apple.mDNSResponder NoMulticastAdvertisements -bool true
 
@@ -130,56 +125,84 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.c
 
 sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 
-# echo "Boot into Recovery Mode (or disable SIP), unlock the disk and run:"
-# echo "cd /Volumes/Macintosh HD/System/Library"
-# echo "chmod -x ./CoreServices/mapspushd"
-# echo "chmod -x ./Frameworks/Security.framework/Versions/A/Resources/IDSKeychainSyncingProxy.bundle/Contents/MacOS/IDSKeychainSyncingProxy"
-# echo "Otherwise, these two processes go nuts and crash repeatedly with the following agents/daemons disabled."
+echo
+echo "Important! Boot into Recovery Mode (to bypass SIP), unlock and mount the"
+echo "disk, then open Terminal and run the following commands:"
+echo
+echo "cd /Volumes/Macintosh\ HD/System/Library"
+echo "chmod -x ./CoreServices/mapspushd"
+echo "chmod -x ./PrivateFrameworks/PassKitCore.framework/passd"
+echo "chmod -x ./Frameworks/Security.framework/Versions/A/Resources/IDSKeychainSyncingProxy.bundle/Contents/MacOS/IDSKeychainSyncingProxy"
+echo "reboot"
+echo
+echo "If not stopped from executing, these processes go nuts and use 100% CPU"
+echo "with the following launch agents and daemons disabled."
+echo
 
-launchctl unload -w /System/Library/LaunchAgents/com.apple.accountsd.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.AddressBook.SourceSync.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.AirPlayUIAgent.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.akd.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.askpermissiond.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.AOSPushRelay.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.bird.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.CalendarAgent.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.CallHistoryPluginHelper.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.CallHistorySyncHelper.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.cloudd.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.cloudfamilyrestrictionsd-mac.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.cloudpaird.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.cloudphotosd.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.CommCenter-osx.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.diagnostics_agent.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.findmymacmessenger.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.gamed.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.helpd.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.familycircled.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.familynotificationd.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.icloud.fmfd.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.identityservicesd.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.imagent.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.IMLoggingAgent.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.metadata.SpotlightNetHelper.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.photolibraryd.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.SafariCloudHistoryPushAgent.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.safaridavclient.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.SafariNotificationAgent.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.sharingd.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.soagent.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.suggestd.plist
-launchctl unload -w /System/Library/LaunchAgents/com.apple.telephonyutilities.callservicesd.plist
+launchctl unload -w /System/Library/LaunchAgents/com.apple.accountsd.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.AddressBook.ContactsAccountsService.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.AddressBook.SourceSync.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.AirPlayUIAgent.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.akd.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.askpermissiond.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.AOSPushHeartbeat.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.AOSPushRelay.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.bird.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.CalendarAgent.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.CallHistoryPluginHelper.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.CallHistorySyncHelper.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.cloudd.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.cloudfamilyrestrictionsd-mac.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.cloudpaird.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.cloudphotosd.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.CommCenter-osx.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.diagnostics_agent.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.familycircled.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.familynotificationd.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.findmymacmessenger.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.gamed.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.helpd.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.icloud.fmfd.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.identityservicesd.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.imagent.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.IMLoggingAgent.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.mediaremoteagent.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.metadata.SpotlightNetHelper.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.photolibraryd.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.photoanalysisd.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.SafariCloudHistoryPushAgent.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.safaridavclient.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.SafariNotificationAgent.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.sharingd.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.soagent.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.SocialPushAgent.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.suggestd.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.swcd.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.telephonyutilities.callservicesd.plist 2>/dev/null
 
-sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.apsd.plist
-sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.awacsd.plist
-# sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.blued.plist
-sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.CrashReporterSupportHelper.plist
-sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.diagnosticd.plist
-sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.GameController.gamecontrollerd.plist
-# sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.locationd.plist
-sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.netbiosd.plist
-sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.SubmitDiagInfo.plist
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.apsd.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.awacsd.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.awdd.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.CrashReporterSupportHelper.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.ctkd.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.diagnosticd.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.findmymac.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.GameController.gamecontrollerd.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.icloud.findmydeviced.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.locationd.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.mobileassetd.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.nehelper.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.netbiosd.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.nfcd.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.nfsd.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.postfix.master.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.postfix.newaliases.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.seld.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.SubmitDiagInfo.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.symptomsd.plist 2>/dev/null
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.tccd.plist 2>/dev/null
+
+sudo pkill Dock Finder mds SystemUIServer blued
 
 sudo mdutil -i on / > /dev/null
 sudo mdutil -E / > /dev/null
@@ -192,18 +215,54 @@ sudo pmset -a sms 0
 sudo pmset -a womp 0
 
 sudo systemsetup -setusingnetworktime on
+sudo systemsetup -setnetworktimeserver time1.google.com
 
-sudo spctl --master-enable
+sudo spctl --master-enable && echo ; echo "Enabled SecAssessment system policy"
 
-sudo hostname -s alpha
-sudo scutil --set ComputerName alpha
-sudo scutil --set LocalHostName alpha
-sudo scutil --set HostName alpha
-sudo sysctl kern.hostname=alpha
-echo "kern.hostname=alpha" | sudo tee -a /etc/sysctl.conf
+echo
+echo -n "Enter hostname: "
+read name
+sudo hostname -s $name
+sudo scutil --set ComputerName $name
+sudo scutil --set LocalHostName $name
+sudo scutil --set HostName $name
+sudo sysctl kern.hostname=$name
 
-sudo killall Dock
-sudo killall Finder
-sudo killall mds
-sudo killall SystemUIServer
-# sudo killall blued
+echo "kern.hostname=$name" | sudo tee -a /etc/sysctl.conf
+
+echo
+echo "Warning: the following commands are experimental and will likely break/crash parts of the OS!"
+echo "SIP must be disabled for these commands to work (it should be re-enabled after)."
+echo
+
+echo -n "Continue? (y/n) "
+read a
+if echo "$a" | grep -ivq "^y" ; then echo "Done" ; exit 0 ; fi
+
+sudo chmod -x /System/Library/CoreServices/mapspushd
+sudo chmod -x /System/Library/Frameworks/Security.framework/Versions/A/Resources/IDSKeychainSyncingProxy.bundle/Contents/MacOS/IDSKeychainSyncingProxy
+sudo chmod -x /System/Library/PrivateFrameworks/PassKitCore.framework/passd
+
+sudo chmod -x /System/Library/CoreServices/OSDUIHelper.app/Contents/MacOS/OSDUIHelper
+sudo chmod -x /System/Library/CoreServices/PowerChime.app/Contents/MacOS/PowerChime
+
+sudo chmod -x /System/Library/Frameworks/Security.framework/Versions/A/Resources/CloudKeychainProxy.bundle/Contents/MacOS/CloudKeychainProxy
+
+sudo chmod -x /System/Library/PrivateFrameworks/AssistantServices.framework/assistantd
+sudo chmod -x /System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoted
+
+sudo chmod -x /System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/storeaccountd
+sudo chmod -x /System/Library/PrivateFrameworks/GeoServices.framework/geodMachServiceBridge
+sudo chmod -x /System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/Support/fud
+
+sudo chmod -x /usr/libexec/autofsd
+sudo chmod -x /usr/libexec/automountd
+sudo chmod -x /usr/libexec/DuetHeuristic-BM
+sudo chmod -x /usr/libexec/keyboardservicesd
+sudo chmod -x /usr/libexec/languageassetd
+sudo chmod -x /usr/libexec/WiFiVelocityAgent
+sudo chmod -x /usr/libexec/wifivelocityd
+
+sudo chmod -x /System/Library/Input\ Methods/EmojiFunctionRowIM.app/Contents/PlugIns/EmojiFunctionRowIM_Extension.appex/Contents/MacOS/EmojiFunctionRowIM_Extension
+
+echo "Done"
