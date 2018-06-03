@@ -1,0 +1,19 @@
+[
+  { "keys": ["super+f"], "command": "show_panel", "args": {"panel": "replace", "reverse": false} },
+
+  { "keys": ["super+alt+r"], "command": "goto_symbol_in_project" },
+  { "keys": ["super+shift+r"], "command": "goto_definition" },
+
+  { "keys": ["super+shift+t"], "command": "reopen_last_file" },
+
+  { "keys": ["h"], "command": "move", "args": {"by": "characters", "forward": false}, "context": [ {"key": "control", "operand": "sidebar_tree"} ] },
+  { "keys": ["j"], "command": "move", "args": {"by": "lines", "forward": true}, "context": [ {"key": "control", "operand": "sidebar_tree"} ] },
+  { "keys": ["k"], "command": "move", "args": {"by": "lines", "forward": false}, "context": [ {"key": "control", "operand": "sidebar_tree"} ] },
+  { "keys": ["l"], "command": "move", "args": {"by": "characters", "forward": true}, "context": [ {"key": "control", "operand": "sidebar_tree"} ] },
+  
+  { "keys": ["super+shift+j"], "command": "prev_view" },
+  { "keys": ["super+shift+k"], "command": "next_view" },
+
+  { "keys": ["ctrl+alt+super+j"], "command": "jump_back" },
+  { "keys": ["ctrl+alt+super+k"], "command": "jump_forward" }
+]
