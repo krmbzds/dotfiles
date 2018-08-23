@@ -1,7 +1,10 @@
 [user]
     name = Kerem Bozdas
     email = krmbzds.github@gmail.com
+    signingKey = 38FD2B3F677F9C34
 [core]
     editor = vi
 [color]
     ui = true
+[commit]
+    gpgsign = true
