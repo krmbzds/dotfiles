@@ -1,6 +1,12 @@
 Homebrew Installation
 =====================
 
+0. Install Xcode:
+
+```sh
+xcode-select --install
+```
+
 1. Install Homebrew:
 
 ```sh
