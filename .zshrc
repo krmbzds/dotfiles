@@ -20,7 +20,6 @@ path /usr/sbin
 path /usr/bin
 path /sbin
 path /bin
-path /usr/X11R6/bin
 
 source ~/.antigen.zsh
 
