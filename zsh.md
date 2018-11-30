@@ -23,5 +23,5 @@ curl -L https://git.io/vFQoT > ~/.zshrc
 
 ```
 su - admin
-sudo dscl . -create /Users/kerem UserShell /usr/local/bin/zsh
+sudo dscl . -create /Users/kerem UserShell /Users/kerem/.homebrew/bin/zsh
 ```
