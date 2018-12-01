@@ -55,6 +55,7 @@ export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
 export HOMEBREW_CASK_OPTS=--require-sha
 export HOMEBREW_PREFIX=~/.homebrew/
+export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 
 # Replace ssh-agent with gpg-agent
 export GPG_TTY="$(tty)"
