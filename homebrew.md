@@ -1,19 +1,19 @@
 Homebrew Installation
 =====================
 
-0. Install Xcode:
+1. Install Xcode Command Line Tools:
 
 ```sh
 xcode-select --install
 ```
 
-1. Install Homebrew:
+2. Install Homebrew:
 
 ```sh
 mkdir .homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C .homebrew
 ```
 
-2. Add `~/.homebrew/bin` and `~/.homebrew/sbin` to your `PATH`:
+3. Add `~/.homebrew/bin` and `~/.homebrew/sbin` to your `PATH`:
 
 ```sh
 function path {
@@ -35,7 +35,6 @@ path /usr/sbin
 path /usr/bin
 path /sbin
 path /bin
-path /usr/X11R6/bin
 ```
 
 3. Check if everything is working properly:
