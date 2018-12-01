@@ -9,8 +9,6 @@ mkdir -p ~/.ssh ; chmod 700 ~/.ssh
 mkdir -p ~/.vim/{backups,swaps,undo}
 mkdir -p "${HOME}/Pictures/Screenshots"
 
-sudo curl -s "https://sks-keyservers.net/sks-keyservers.netCA.pem" -o /etc/sks-keyservers.netCA.pem
-
 chflags nohidden ~/Library
 
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1

@@ -59,7 +59,7 @@ export HOMEBREW_PREFIX=~/.homebrew/
 # Replace ssh-agent with gpg-agent
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpg-connect-agent updatestartuptty /bye >/dev/null
+gpgconf --launch gpg-agent
 
 # Load RVM *yoicks*
 source ~/.rvm/scripts/rvm
