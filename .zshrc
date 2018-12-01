@@ -50,6 +50,9 @@ HISTFILE=~/.zsh_history
 HISTSIZE=9999
 SAVEHIST=$HISTSIZE
 
+# Make Shift+Tab go back in autocomplete
+bindkey '^[[Z' reverse-menu-complete
+
 # Your secure and local home brewery
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
