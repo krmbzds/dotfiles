@@ -18,6 +18,9 @@ set tabpagemax=15               " maximum 15 tabs
 set ttyfast                     " optimize for fast terminal connections
 set wildmenu                    " enchance cli completion
 
+" make backspace act normally
+set backspace=indent,eol,start
+
 " unmap arrow keys in normal mode
 " to force use of h,j,k,l keys
 noremap <left> <nop>
