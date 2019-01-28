@@ -21,8 +21,23 @@ path /usr/bin
 path /sbin
 path /bin
 
-source ~/.antigen.zsh
+# Locale settings
+export LANG=en_US.UTF-8
+export LC_ALL=$LANG
+export LC_CTYPE=$LANG
 
+# User preferences
+export PAGER=less
+export EDITOR=vim
+export VISUAL=subl
+
+# Shell history settings
+HISTFILE=~/.zsh_history
+HISTSIZE=9999
+SAVEHIST=$HISTSIZE
+
+# Zsh plugin management
+source ~/.antigen.zsh
 antigen use oh-my-zsh
 antigen bundle brew
 antigen bundle brew-cask
@@ -37,18 +52,6 @@ antigen bundle vi-mode
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen theme robbyrussell
 antigen apply
-
-LANG=en_US.UTF-8
-LC_ALL=$LANG
-LC_CTYPE=$LANG
-
-PAGER=less
-EDITOR=vim
-VISUAL=vim
-
-HISTFILE=~/.zsh_history
-HISTSIZE=9999
-SAVEHIST=$HISTSIZE
 
 # Make Shift+Tab go back in autocomplete
 bindkey '^[[Z' reverse-menu-complete
