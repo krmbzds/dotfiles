@@ -31,3 +31,10 @@ bash rvm-installer --branch stable --ignore-dotfiles
 ```sh
 source $HOME/.rvm/scripts/rvm
 ```
+
+6. Remove artifacts:
+
+```sh
+rm rvm-installer
+rm rvm-installer.asc
+```
