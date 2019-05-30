@@ -1,0 +1,26 @@
+{
+  "bootstrapped": true,
+  "in_process_packages":
+  [
+  ],
+  "installed_packages":
+  [
+    "Advanced CSV",
+    "AdvancedNewFile",
+    "All Autocomplete",
+    "DashDoc",
+    "DocBlockr",
+    "EditorConfig",
+    "Git",
+    "GitGutter",
+    "Gitignored File Excluder",
+    "NeoVintageous",
+    "Origami",
+    "Package Control",
+    "SortBy",
+    "SublimeLinter",
+    "SublimeLinter-json",
+    "Theme - Primer",
+    "Trimmer"
+  ]
+}
