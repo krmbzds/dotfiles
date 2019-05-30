@@ -48,7 +48,6 @@ antigen bundle gpg-agent
 antigen bundle osx
 antigen bundle rvm
 antigen bundle ssh-agent
-antigen bundle vi-mode
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen theme robbyrussell
 antigen apply
@@ -68,5 +67,15 @@ export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 
-# Load RVM *yoicks*
-source ~/.rvm/scripts/rvm
+# Command line fuzzy finder
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPS="--extended"
+export FZF_DEFAULT_COMMAND="fd --type f"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# My public key fingerprint
+export FINGERPRINT="1B01B3C4EEFBE1730136D89338FD2B3F677F9C34"
+
+# For my personal journal script
+export JOURNAL_DIR="$HOME/Documents/Repositories/Personal/journal"
+alias journal="$JOURNAL_DIR/journal"
