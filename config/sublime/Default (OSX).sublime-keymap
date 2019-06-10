@@ -6,8 +6,6 @@
 
   { "keys": ["super+shift+t"], "command": "reopen_last_file" },
 
-  { "keys": ["ctrl+alt+h"], "command": "dash_doc"},
-
   { "keys": ["h"], "command": "move", "args": {"by": "characters", "forward": false}, "context": [ {"key": "control", "operand": "sidebar_tree"} ] },
   { "keys": ["j"], "command": "move", "args": {"by": "lines", "forward": true}, "context": [ {"key": "control", "operand": "sidebar_tree"} ] },
   { "keys": ["k"], "command": "move", "args": {"by": "lines", "forward": false}, "context": [ {"key": "control", "operand": "sidebar_tree"} ] },
