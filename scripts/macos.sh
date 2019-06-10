@@ -8,6 +8,7 @@ mkdir -p ~/.gnupg ; chmod 700 ~/.gnupg
 mkdir -p ~/.ssh ; chmod 700 ~/.ssh
 mkdir -p ~/.vim/{backups,swaps,undo}
 mkdir -p "${HOME}/Pictures/Screenshots"
+mkdir -p "${HOME}/Applications/Utilities"
 
 chflags nohidden ~/Library
 
