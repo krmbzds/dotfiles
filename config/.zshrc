@@ -77,5 +77,8 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FINGERPRINT="1B01B3C4EEFBE1730136D89338FD2B3F677F9C34"
 
 # For my personal journal script
-export JOURNAL_DIR="$HOME/Documents/Repositories/Personal/journal"
+export JOURNAL_DIR=~/Documents/Repositories/Personal/journal
 alias journal="$JOURNAL_DIR/journal"
+
+# Load version managers (rustup, rvm, nvm, etc.)
+test -s ~/.version-managers && source ~/.version-managers
