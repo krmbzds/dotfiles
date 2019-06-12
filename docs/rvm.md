@@ -29,7 +29,7 @@ bash rvm-installer --branch stable --ignore-dotfiles
 5. Load RVM into shell session (update `.zshrc`):
 
 ```sh
-source $HOME/.rvm/scripts/rvm
+source ~/.rvm/scripts/rvm
 ```
 
 6. Remove artifacts:
