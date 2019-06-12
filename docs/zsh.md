@@ -16,7 +16,7 @@ curl -L git.io/antigen > ~/.antigen.zsh
 3. Get ZSH config files from my dotfiles repo:
 
 ```
-curl -L https://git.io/vFQoT > ~/.zshrc
+curl -L https://git.io/fjgjN > ~/.zshrc
 ```
 
 4. Switch non-admin user's shell to ZSH:
