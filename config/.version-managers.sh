@@ -1,7 +1,7 @@
-# Version Manager Configurations
+#!/bin/sh
 
-# To use source this file in your shell profile:
-# test -s ~/.version-managers && source ~/.version-managers
+# Version Manager Configurations
+# Source this file in your shell profile to use it
 
 # Rust version manager
 function activate_rustup {

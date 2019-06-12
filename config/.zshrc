@@ -81,4 +81,4 @@ export JOURNAL_DIR=~/Documents/Repositories/Personal/journal
 alias journal="$JOURNAL_DIR/journal"
 
 # Load version managers (rustup, rvm, nvm, etc.)
-test -s ~/.version-managers && source ~/.version-managers
+test -s ~/.version-managers.sh && source ~/.version-managers.sh
