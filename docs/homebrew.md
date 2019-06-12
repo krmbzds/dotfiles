@@ -53,3 +53,59 @@ may not build correctly with a non-/usr/local prefix.
 ```
 
 You're done.
+
+
+## Software Installation (Optional)
+
+You can use [Homebrew Bundle][homebrew-bundle] to systematically install software:
+
+```sh
+brew bundle  # --file=~/Brewfile
+```
+
+For this to work, you need to create a Brewfile like [this one][my-brewfile]:
+
+```rb
+tap 'homebrew/core'
+tap 'homebrew/services'
+tap 'homebrew/cask'
+tap 'homebrew/cask-fonts'
+
+brew 'fd'
+brew 'fzf'
+brew 'git'
+brew 'gnupg'
+brew 'pinentry-mac'
+brew 'tree'
+brew 'vim'
+
+cask 'font-source-code-pro'
+
+cask 'brave-browser',       args: { appdir: '~/Applications' }
+cask 'iterm2',              args: { appdir: '~/Applications' }
+cask 'omnifocus',           args: { appdir: '~/Applications' }
+cask 'sublime-text',        args: { appdir: '~/Applications' }
+
+cask 'alfred',              args: { appdir: '~/Applications/Utilities' }
+cask 'appcleaner',          args: { appdir: '~/Applications/Utilities' }
+cask 'karabiner-elements',  args: { appdir: '~/Applications/Utilities' }
+cask 'keka',                args: { appdir: '~/Applications/Utilities' }
+cask 'macs-fan-control',    args: { appdir: '~/Applications/Utilities' }
+cask 'pinentry-mac',        args: { appdir: '~/Applications/Utilities' }
+cask 'spectacle',           args: { appdir: '~/Applications/Utilities' }
+cask 'transmission',        args: { appdir: '~/Applications/Utilities' }
+cask 'vanilla',             args: { appdir: '~/Applications/Utilities' }
+cask 'vlc',                 args: { appdir: '~/Applications/Utilities' }
+```
+
+Apart from the initial installation, it is also possible to enforce your Brewfile: 
+
+```sh
+brew bundle cleanup --force  # --file=~/Brewfile
+```
+
+This will remove any package that's not present or dependent to a package listed in your Brewfile.
+
+
+[homebrew-bundle]: https://github.com/Homebrew/homebrew-bundle
+[my-brewfile]: ../config/Brewfile
