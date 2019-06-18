@@ -23,7 +23,6 @@ cask 'appcleaner',          args: { appdir: '~/Applications/Utilities' }
 cask 'karabiner-elements',  args: { appdir: '~/Applications/Utilities' }
 cask 'keka',                args: { appdir: '~/Applications/Utilities' }
 cask 'macs-fan-control',    args: { appdir: '~/Applications/Utilities' }
-cask 'pinentry-mac',        args: { appdir: '~/Applications/Utilities' }
 cask 'spectacle',           args: { appdir: '~/Applications/Utilities' }
 cask 'transmission',        args: { appdir: '~/Applications/Utilities' }
 cask 'vanilla',             args: { appdir: '~/Applications/Utilities' }
