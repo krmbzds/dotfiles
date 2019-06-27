@@ -1,0 +1,23 @@
+[
+  {
+    "key": "ctrl+alt+cmd+j",
+    "command": "workbench.action.previousEditor"
+  },
+  {
+    "key": "ctrl+alt+cmd+k",
+    "command": "workbench.action.nextEditor"
+  },
+  {
+    "key": "shift+cmd+k",
+    "command": "workbench.action.navigateForward"
+  },
+  {
+    "key": "shift+cmd+j",
+    "command": "workbench.action.navigateBack"
+  },
+  {
+    "key": "escape",
+    "command": "search.action.clearSearchResults",
+    "when": "hasSearchResult"
+  }
+]
