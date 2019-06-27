@@ -1,5 +1,5 @@
 {
-  "editor.acceptSuggestionOnEnter": "off",
+  "editor.acceptSuggestionOnEnter": "smart",
   "editor.emptySelectionClipboard": true,
   "editor.fontFamily": "Source Code Pro",
   "editor.fontSize": 13,
