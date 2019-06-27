@@ -19,5 +19,37 @@
     "key": "escape",
     "command": "search.action.clearSearchResults",
     "when": "hasSearchResult"
+  },
+  {
+    "key": "ctrl+f ctrl+f",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "ctrl+f ctrl+e",
+    "command": "workbench.view.explorer"
+  },
+  {
+    "key": "ctrl+f ctrl+s",
+    "command": "workbench.view.search"
+  },
+  {
+    "key": "ctrl+f ctrl+g",
+    "command": "workbench.view.scm"
+  },
+  {
+    "key": "ctrl+f ctrl+d",
+    "command": "workbench.view.debug"
+  },
+  {
+    "key": "ctrl+f ctrl+o",
+    "command": "workbench.action.output.toggleOutput"
+  },
+  {
+    "key": "ctrl+f ctrl+c",
+    "command": "workbench.debug.action.toggleRepl"
+  },
+  {
+    "key": "ctrl+f ctrl+t",
+    "command": "workbench.action.terminal.toggleTerminal"
   }
 ]
