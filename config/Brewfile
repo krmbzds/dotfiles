@@ -8,22 +8,30 @@ brew 'fzf'
 brew 'git'
 brew 'gnupg'
 brew 'pinentry-mac'
+brew 'postgresql'
+brew 'rclone'
 brew 'tree'
 brew 'vim'
+brew 'youtube-dl'
+brew 'zsh'
 
 cask 'font-source-code-pro'
 
 cask 'brave-browser',       args: { appdir: '~/Applications' }
 cask 'iterm2',              args: { appdir: '~/Applications' }
 cask 'omnifocus',           args: { appdir: '~/Applications' }
+cask 'sublime-merge',       args: { appdir: '~/Applications' }
 cask 'sublime-text',        args: { appdir: '~/Applications' }
 
-cask 'alfred',              args: { appdir: '~/Applications/Utilities' }
+cask 'anki',                args: { appdir: '~/Applications/Utilities' }
 cask 'appcleaner',          args: { appdir: '~/Applications/Utilities' }
+cask 'calibre',             args: { appdir: '~/Applications/Utilities' }
+cask 'insomnia',            args: { appdir: '~/Applications/Utilities' }
 cask 'karabiner-elements',  args: { appdir: '~/Applications/Utilities' }
 cask 'keka',                args: { appdir: '~/Applications/Utilities' }
 cask 'macs-fan-control',    args: { appdir: '~/Applications/Utilities' }
+cask 'netnewswire',         args: { appdir: '~/Applications/Utilities' }
+cask 'postico',             args: { appdir: '~/Applications/Utilities' }
 cask 'spectacle',           args: { appdir: '~/Applications/Utilities' }
 cask 'transmission',        args: { appdir: '~/Applications/Utilities' }
-cask 'vanilla',             args: { appdir: '~/Applications/Utilities' }
 cask 'vlc',                 args: { appdir: '~/Applications/Utilities' }
