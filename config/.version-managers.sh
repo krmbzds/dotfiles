@@ -19,6 +19,13 @@ function activate_nvm {
   source ~/.nvm/nvm.sh ~/.nvm/bash_completion
 }
 
+# ASDF version manager
+function activate_asdf {
+  source ~/.asdf/asdf.sh
+  source ~/.asdf/completions/asdf.bash
+}
+
 # activate_rustup
 # activate_rvm
 # activate_nvm
+# activate_asdf
