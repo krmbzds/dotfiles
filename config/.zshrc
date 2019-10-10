@@ -41,6 +41,8 @@ source ~/.antigen.zsh
 antigen use oh-my-zsh
 antigen bundle brew
 antigen bundle brew-cask
+antigen bundle docker
+antigen bundle docker-compose
 antigen bundle gem
 antigen bundle git
 antigen bundle git-flow-avh
