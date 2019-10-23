@@ -11,7 +11,7 @@ git clone https://github.com/nvm-sh/nvm.git ~/.nvm
 
 ```sh
 cd ~/.nvm
-git checkout v0.34.0
+git checkout v0.35.0
 ```
 
 3. Load NVM into shell session (update `.zshrc`):
