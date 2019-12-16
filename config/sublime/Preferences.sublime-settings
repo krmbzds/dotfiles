@@ -1,5 +1,5 @@
 {
-  "auto_complete": true,
+  "auto_complete": false,
   "auto_complete_commit_on_tab": true,
   "color_scheme": "Packages/Theme - Primer/primer.light.tmTheme",
   "copy_with_empty_selection": true,
@@ -60,6 +60,7 @@
     "*.db",
     "*.sublime-workspace"
   ],
+  "find_selected_text": true,
   "folder_exclude_patterns":
   [
     ".svn",
