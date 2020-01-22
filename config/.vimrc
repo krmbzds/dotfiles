@@ -30,10 +30,10 @@ noremap <up> <nop>
 
 set gdefault " global replace by default
 
-set hlsearch " highlight search
-set incsearch " incremental search
+set hlsearch   " highlight search
+set incsearch  " incremental search
 set ignorecase " ignore case if all lower case
-set smartcase " if mixed make case sensitive search
+set smartcase  " if mixed make case sensitive search
 
 set showcmd " display the last comment
 
@@ -44,6 +44,8 @@ vnoremap / /\v
 " traverse over visual lines by default
 nnoremap j gj
 nnoremap 0 g0
+
+set rtp+=~/.homebrew/opt/fzf    " use fzf
 
 set directory=~/.vim/swaps      " centralized swaps
 set backupdir=~/.vim/backups    " centralized backups
