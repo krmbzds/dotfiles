@@ -13,12 +13,6 @@ function activate_rvm {
   source ~/.rvm/scripts/rvm
 }
 
-# Node version manager
-function activate_nvm {
-  export NVM_DIR=~/.nvm
-  source ~/.nvm/nvm.sh ~/.nvm/bash_completion
-}
-
 # ASDF version manager
 function activate_asdf {
   source ~/.asdf/asdf.sh
@@ -27,5 +21,4 @@ function activate_asdf {
 
 # activate_rustup
 # activate_rvm
-# activate_nvm
 # activate_asdf
