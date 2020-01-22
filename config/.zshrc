@@ -36,6 +36,11 @@ HISTFILE=~/.zsh_history
 HISTSIZE=9999
 SAVEHIST=$HISTSIZE
 
+# Brew completions
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
 # Zsh plugin management
 source ~/.antigen.zsh
 antigen use oh-my-zsh
