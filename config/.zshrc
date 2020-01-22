@@ -76,6 +76,9 @@ gpgconf --launch gpg-agent
 
 # Command line fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+bindkey '^T' fzf-completion
+bindkey '^I' $fzf_default_completion
+export FZF_COMPLETION_TRIGGER=''
 export FZF_DEFAULT_OPS="--extended"
 export FZF_DEFAULT_COMMAND="fd --type f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
