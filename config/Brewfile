@@ -33,6 +33,6 @@ cask 'keka',                args: { appdir: '~/Applications/Utilities' }
 cask 'macs-fan-control',    args: { appdir: '~/Applications/Utilities' }
 cask 'netnewswire',         args: { appdir: '~/Applications/Utilities' }
 cask 'postico',             args: { appdir: '~/Applications/Utilities' }
-cask 'spectacle',           args: { appdir: '~/Applications/Utilities' }
+cask 'rectangle',           args: { appdir: '~/Applications/Utilities' }
 cask 'transmission',        args: { appdir: '~/Applications/Utilities' }
 cask 'vlc',                 args: { appdir: '~/Applications/Utilities' }
