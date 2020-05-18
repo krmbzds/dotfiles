@@ -1,0 +1,270 @@
+= Local Development Setup
+:author: Kerem Bozdas
+:experimental:
+:toc: left
+:toclevels: 4
+:icons: font
+:autofit-option:
+:source-highlighter: rouge
+:rouge-style: github
+:revdate: 2020-06-18
+//:source-linenums-option:
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+
+
+== Installations
+
+[NOTE]
+Over time I have found out that installations under a user's home directory
+is less problematic and tend to cause less permission errors. For that reason,
+I will be installing everything under `~` as long as it's possible.
+
+=== Package Managers
+
+==== Homebrew
+
+Install Xcode Command Line Tools:
+
+[source,sh]
+----
+xcode-select --install
+----
+
+Install Homebrew:
+
+[source,sh]
+----
+mkdir .homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C .homebrew
+----
+
+Add `~/.homebrew/bin` and `~/.homebrew/sbin` to your `PATH` in `~/.zshrc`:
+
+.Adding homebrew to your path
+====
+[source,sh,highlight='12,13']
+----
+function path {
+  if [[ -d "$1" ]] ; then
+    if [[ -z "$PATH" ]] ; then
+      export PATH=$1
+    else
+      export PATH=$PATH:$1
+    fi
+  fi
+}
+
+export PATH=''
+path ~/.homebrew/sbin <1>
+path ~/.homebrew/bin <2>
+path /usr/local/sbin
+path /usr/local/bin
+path /usr/sbin
+path /usr/bin
+path /sbin
+path /bin
+----
+====
+
+Check if everything is working properly:
+
+[source,sh]
+----
+brew doctor
+----
+
+You will see the following warning, which is expected:
+
+[WARNING]
+Your Homebrew's prefix is not /usr/local.
+You can install Homebrew anywhere you want but some bottles (binary packages)
+can only be used with a /usr/local prefix and some formulae (packages)
+may not build correctly with a non-/usr/local prefix.
+
+=== Software
+
+==== Brewfile
+
+You can use https://github.com/Homebrew/homebrew-bundle[Homebrew Bundle] to systematically install software:
+
+[source,sh]
+----
+brew bundle  # --file=~/Brewfile
+----
+
+For this to work, you need to create a Brewfile like link:../config/Brewfile[this one].
+
+.Brewfile
+====
+[source,rb]
+----
+tap 'homebrew/core'
+tap 'homebrew/services'
+tap 'homebrew/cask'
+tap 'homebrew/cask-fonts'
+
+brew 'fd'
+brew 'fzf'
+brew 'git'
+brew 'gnupg'
+brew 'pinentry-mac'
+brew 'postgresql'
+brew 'rclone'
+brew 'tree'
+brew 'vim'
+brew 'youtube-dl'
+brew 'zsh'
+
+cask 'font-source-code-pro'
+
+cask 'brave-browser',       args: { appdir: '~/Applications' }
+cask 'iterm2',              args: { appdir: '~/Applications' }
+cask 'omnifocus',           args: { appdir: '~/Applications' }
+cask 'sublime-merge',       args: { appdir: '~/Applications' }
+cask 'sublime-text',        args: { appdir: '~/Applications' }
+
+cask 'anki',                args: { appdir: '~/Applications/Utilities' }
+cask 'appcleaner',          args: { appdir: '~/Applications/Utilities' }
+cask 'calibre',             args: { appdir: '~/Applications/Utilities' }
+cask 'insomnia',            args: { appdir: '~/Applications/Utilities' }
+cask 'karabiner-elements',  args: { appdir: '~/Applications/Utilities' }
+cask 'keka',                args: { appdir: '~/Applications/Utilities' }
+cask 'macs-fan-control',    args: { appdir: '~/Applications/Utilities' }
+cask 'netnewswire',         args: { appdir: '~/Applications/Utilities' }
+cask 'postico',             args: { appdir: '~/Applications/Utilities' }
+cask 'spectacle',           args: { appdir: '~/Applications/Utilities' }
+cask 'transmission',        args: { appdir: '~/Applications/Utilities' }
+cask 'vlc',                 args: { appdir: '~/Applications/Utilities' }
+----
+====
+
+Apart from the initial installation, it is also possible to enforce your Brewfile:
+
+[source,sh]
+----
+brew bundle cleanup --force  # --file=~/Brewfile
+----
+
+This will remove any package that's not present or dependent to a package listed in your Brewfile.
+
+==== Z Shell
+
+Install ZSH using Homebrew:
+
+----
+brew install zsh
+----
+
+Install Antigen to manage plugins:
+
+----
+curl -L git.io/antigen > ~/.antigen.zsh
+----
+
+Get ZSH config files from my dotfiles repo:
+
+----
+curl -L https://git.io/fjgjN > ~/.zshrc
+----
+
+Switch non-admin user's shell to ZSH:
+
+----
+su - admin
+sudo dscl . -create /Users/kerem UserShell /Users/kerem/.homebrew/bin/zsh <1>
+----
+
+<1> Replace `kerem` with your user
+
+=== Version Managers
+
+==== Ruby Version Manager
+
+Import GPG Keys:
+
+[source,sh]
+----
+gpg --keyserver hkp://keys.gnupg.net \
+    --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+----
+
+Download the Installer:
+
+[source,sh]
+----
+\curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer
+\curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer.asc
+----
+
+Verify Installer Signature:
+
+[source,sh]
+----
+gpg --verify rvm-installer.asc
+----
+
+Run the Installer:
+
+[source,sh]
+----
+bash rvm-installer --branch stable --ignore-dotfiles
+----
+
+Load RVM into shell session (update `.zshrc`):
+
+[source,sh]
+----
+source ~/.rvm/scripts/rvm
+----
+
+Remove artifacts:
+
+[source,sh]
+----
+rm rvm-installer
+rm rvm-installer.asc
+----
+
+==== Node Version Manager
+
+Clone the NVM repository:
+
+[source,sh]
+----
+git clone https://github.com/nvm-sh/nvm.git ~/.nvm
+----
+
+Check out to the latest NVM version branch:
+
+[source,sh]
+----
+cd ~/.nvm
+git checkout v0.35.3
+----
+
+Load NVM into shell session (update `.zshrc`):
+
+[source,sh]
+----
+export NVM_DIR=~/.nvm
+source ~/.nvm/nvm.sh ~/.nvm/bash_completion
+----
+
+==== Rust Version Manager
+
+Run installation script:
+
+[source,sh]
+----
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
+----
+
+Load rustup into shell session (update `.zshrc`):
+
+[source,sh]
+----
+path ~/.cargo/bin
+----
