@@ -8,6 +8,7 @@
     "Advanced CSV",
     "AdvancedNewFile",
     "All Autocomplete",
+    "Asciidoctor",
     "BetterFindBuffer",
     "DashDoc",
     "DocBlockr",
@@ -17,9 +18,7 @@
     "Git",
     "GitGutter",
     "Gitignored File Excluder",
-    "LsBookmarks",
     "NeoVintageous",
-    "Origami",
     "Package Control",
     "Pretty YAML",
     "RSpec",
@@ -27,7 +26,6 @@
     "SublimeLinter",
     "SublimeLinter-json",
     "SyncedSideBar",
-    "TabNine",
     "Theme - Primer",
     "Trimmer"
   ]
