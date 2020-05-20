@@ -15,6 +15,14 @@
 :caution-caption: :fire:
 :warning-caption: :warning:
 
+== Operating System
+
+=== macOS
+
+- Latest version of macOS for development
+- Set up https://github.com/drduh/macOS-Security-and-Privacy-Guide#full-disk-encryption[full disk encryption], enable https://github.com/drduh/macOS-Security-and-Privacy-Guide#firewall[firewall]
+- Create a standard user account for daily use: https://github.com/drduh/macOS-Security-and-Privacy-Guide#admin-and-standard-user-accounts[first user is always an admin]
+- Install apps with Homebrew Cask under `~/Applications`
 
 == Installations
 
@@ -112,32 +120,24 @@ brew 'git'
 brew 'gnupg'
 brew 'pinentry-mac'
 brew 'postgresql'
-brew 'rclone'
 brew 'tree'
 brew 'vim'
-brew 'youtube-dl'
 brew 'zsh'
 
 cask 'font-source-code-pro'
 
-cask 'brave-browser',       args: { appdir: '~/Applications' }
+cask 'firefox',             args: { appdir: '~/Applications' }
 cask 'iterm2',              args: { appdir: '~/Applications' }
 cask 'omnifocus',           args: { appdir: '~/Applications' }
 cask 'sublime-merge',       args: { appdir: '~/Applications' }
 cask 'sublime-text',        args: { appdir: '~/Applications' }
 
-cask 'anki',                args: { appdir: '~/Applications/Utilities' }
 cask 'appcleaner',          args: { appdir: '~/Applications/Utilities' }
-cask 'calibre',             args: { appdir: '~/Applications/Utilities' }
 cask 'insomnia',            args: { appdir: '~/Applications/Utilities' }
 cask 'karabiner-elements',  args: { appdir: '~/Applications/Utilities' }
 cask 'keka',                args: { appdir: '~/Applications/Utilities' }
-cask 'macs-fan-control',    args: { appdir: '~/Applications/Utilities' }
-cask 'netnewswire',         args: { appdir: '~/Applications/Utilities' }
 cask 'postico',             args: { appdir: '~/Applications/Utilities' }
-cask 'spectacle',           args: { appdir: '~/Applications/Utilities' }
-cask 'transmission',        args: { appdir: '~/Applications/Utilities' }
-cask 'vlc',                 args: { appdir: '~/Applications/Utilities' }
+cask 'rectangle',           args: { appdir: '~/Applications/Utilities' }
 ----
 ====
 
