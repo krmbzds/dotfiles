@@ -3,7 +3,7 @@
   email = krmbzds.github@gmail.com
   signingKey = 38FD2B3F677F9C34
 [core]
-  editor = subl -n -w
+  editor = nvim
 [color]
   ui = true
 [commit]
