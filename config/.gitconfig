@@ -4,6 +4,7 @@
   signingKey = 38FD2B3F677F9C34
 [core]
   editor = nvim
+  autocrlf = input
 [color]
   ui = true
 [commit]
