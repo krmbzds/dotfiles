@@ -1,8 +1,9 @@
 {
   "auto_complete": false,
   "auto_complete_commit_on_tab": true,
-  "color_scheme": "Packages/Theme - Primer/primer.light.tmTheme",
+  "color_scheme": "Packages/Solarized Color Scheme/Solarized (light).sublime-color-scheme",
   "copy_with_empty_selection": true,
+  "enable_tab_scrolling": false,
   "ensure_newline_at_eof_on_save": true,
   "extra_file_exclude_patterns":
   [
@@ -34,7 +35,6 @@
     ".hg",
     "CVS",
     "tmp",
-    "node_modules",
     "node_modules"
   ],
   "file_exclude_patterns":
@@ -80,16 +80,13 @@
   ],
   "index_files": true,
   "open_files_in_new_window": false,
+  "overlay_scroll_bars": "enabled",
   "rulers":
   [
     79
   ],
   "tab_size": 2,
-  "theme": "Primer.sublime-theme",
-  "theme_primer_sidebar_font_normal": true,
-  "theme_primer_sidebar_tree_normal": true,
-  "theme_primer_tab_active_red": true,
-  "theme_primer_tabs_font_normal": true,
+  "theme": "Fits.sublime-theme",
   "translate_tabs_to_spaces": true,
   "trim_trailing_white_space_on_save": true,
   "vintageous_reset_mode_when_switching_tabs": false,
