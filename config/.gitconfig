@@ -11,3 +11,5 @@
 [commit]
   cleanup = whitespace
   gpgsign = true
+[credential]
+  helper = osxkeychain
