@@ -5,16 +5,11 @@
   ],
   "installed_packages":
   [
-    "Advanced CSV",
     "AdvancedNewFile",
     "All Autocomplete",
-    "Asciidoctor",
     "BetterFindBuffer",
-    "DashDoc",
     "DocBlockr",
-    "Dockerfile Syntax Highlighting",
     "EditorConfig",
-    "Emmet",
     "Git",
     "GitGutter",
     "Gitignored File Excluder",
