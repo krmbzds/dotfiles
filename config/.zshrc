@@ -85,6 +85,7 @@ export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 export FINGERPRINT="1B01B3C4EEFBE1730136D89338FD2B3F677F9C34"
 gpgconf --launch gpg-agent
+gpg-connect-agent updatestartuptty /bye >/dev/null
 
 # - - - - - - - - - - - - - - - - - - - -
 # Fuzzy Finder Settings
@@ -100,9 +101,20 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Key Bindings
 # - - - - - - - - - - - - - - - - - - - -
 
-bindkey '^[[Z' reverse-menu-complete
 bindkey '^T' fzf-completion
 bindkey '^I' $fzf_default_completion
+bindkey '^[[Z' reverse-menu-complete
+
+# - - - - - - - - - - - - - - - - - - - -
+# Aliases
+# - - - - - - - - - - - - - - - - - - - -
+
+alias ls='exa'
+alias vi='nvim'
+alias vim='nvim'
+alias tree='exa -T'
+alias gst='git status'
+alias vimdiff='nvim -d'
 
 # - - - - - - - - - - - - - - - - - - - -
 # Version Managers
