@@ -76,6 +76,7 @@ path /bin
 # - - - - - - - - - - - - - - - - - - - -
 
 source ~/.p10k.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=180'
 
 # - - - - - - - - - - - - - - - - - - - -
 # GPG Agent
@@ -101,9 +102,10 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Key Bindings
 # - - - - - - - - - - - - - - - - - - - -
 
-bindkey '^T' fzf-completion
-bindkey '^I' $fzf_default_completion
+bindkey '^ ' autosuggest-execute
 bindkey '^[[Z' reverse-menu-complete
+bindkey '^I' $fzf_default_completion
+bindkey '^T' fzf-completion
 
 # - - - - - - - - - - - - - - - - - - - -
 # Aliases
