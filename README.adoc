@@ -87,10 +87,9 @@ brew doctor
 You will see the following warning, which is expected:
 
 [WARNING]
-Your Homebrew's prefix is not /usr/local.
-You can install Homebrew anywhere you want but some bottles (binary packages)
-can only be used with a /usr/local prefix and some formulae (packages)
-may not build correctly with a non-/usr/local prefix.
+Warning: Your Homebrew's prefix is not /usr/local.
+Some of Homebrew's bottles (binary packages) can only be used with the default
+prefix (/usr/local).
 
 === Software
 
@@ -103,43 +102,7 @@ You can use https://github.com/Homebrew/homebrew-bundle[Homebrew Bundle] to syst
 brew bundle  # --file=~/Brewfile
 ----
 
-For this to work, you need to create a Brewfile like link:../config/Brewfile[this one].
-
-.Brewfile
-====
-[source,rb]
-----
-tap 'homebrew/core'
-tap 'homebrew/services'
-tap 'homebrew/cask'
-tap 'homebrew/cask-fonts'
-
-brew 'fd'
-brew 'fzf'
-brew 'git'
-brew 'gnupg'
-brew 'pinentry-mac'
-brew 'postgresql'
-brew 'tree'
-brew 'vim'
-brew 'zsh'
-
-cask 'font-source-code-pro'
-
-cask 'firefox',             args: { appdir: '~/Applications' }
-cask 'iterm2',              args: { appdir: '~/Applications' }
-cask 'omnifocus',           args: { appdir: '~/Applications' }
-cask 'sublime-merge',       args: { appdir: '~/Applications' }
-cask 'sublime-text',        args: { appdir: '~/Applications' }
-
-cask 'appcleaner',          args: { appdir: '~/Applications/Utilities' }
-cask 'insomnia',            args: { appdir: '~/Applications/Utilities' }
-cask 'karabiner-elements',  args: { appdir: '~/Applications/Utilities' }
-cask 'keka',                args: { appdir: '~/Applications/Utilities' }
-cask 'postico',             args: { appdir: '~/Applications/Utilities' }
-cask 'rectangle',           args: { appdir: '~/Applications/Utilities' }
-----
-====
+For this to work, you need to create a Brewfile. Check `config/Brewfile` for an example.
 
 Apart from the initial installation, it is also possible to enforce your Brewfile:
 
@@ -158,10 +121,11 @@ Install ZSH using Homebrew:
 brew install zsh
 ----
 
-Install Antigen to manage plugins:
+Install Zinit to manage plugins:
 
 ----
-curl -L git.io/antigen > ~/.antigen.zsh
+mkdir ~/.zinit
+git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
 ----
 
 Get ZSH config files from my dotfiles repo:
@@ -226,45 +190,4 @@ Remove artifacts:
 ----
 rm rvm-installer
 rm rvm-installer.asc
-----
-
-==== Node Version Manager
-
-Clone the NVM repository:
-
-[source,sh]
-----
-git clone https://github.com/nvm-sh/nvm.git ~/.nvm
-----
-
-Check out to the latest NVM version branch:
-
-[source,sh]
-----
-cd ~/.nvm
-git checkout v0.35.3
-----
-
-Load NVM into shell session (update `.zshrc`):
-
-[source,sh]
-----
-export NVM_DIR=~/.nvm
-source ~/.nvm/nvm.sh ~/.nvm/bash_completion
-----
-
-==== Rust Version Manager
-
-Run installation script:
-
-[source,sh]
-----
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path
-----
-
-Load rustup into shell session (update `.zshrc`):
-
-[source,sh]
-----
-path ~/.cargo/bin
 ----
