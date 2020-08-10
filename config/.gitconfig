@@ -4,6 +4,7 @@
   signingKey = 38FD2B3F677F9C34
 [core]
   editor = nvim
+  pager = delta
   excludesfile = ~/.gitignore_global
   autocrlf = input
 [color]
@@ -13,3 +14,8 @@
   gpgsign = true
 [credential]
   helper = osxkeychain
+[delta]
+  line-numbers = true
+  syntax-theme = Solarized (light)
+[interactive]
+  diffFilter = delta --color-only
