@@ -1,0 +1,40 @@
+# Browser
+browser "open -ga firefox %u"
+
+# Key bindings
+bind-key j down
+bind-key k up
+bind-key j next articlelist
+bind-key k prev articlelist
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key G end
+bind-key g home
+bind-key d pagedown
+bind-key u pageup
+bind-key l open
+bind-key h quit
+bind-key a toggle-article-read
+bind-key n next-unread
+bind-key N prev-unread
+bind-key D pb-download
+bind-key U show-urls
+bind-key x pb-delete
+
+# Solarized color scheme
+color background         default   default
+color listnormal         default   default
+color listnormal_unread  default   default
+color listfocus          white     yellow
+color listfocus_unread   white     yellow
+color info               default   white
+color article            default   default
+
+# Highlights
+highlight article "^(Title):.*$" blue default
+highlight article "https?://[^ ]+" red default
+highlight article "\\[image\\ [0-9]+\\]" green default
+
+# Open YouTube videos with VLC media player
+macro o set browser "youtube-dl --get-url --format best '%u' | vlc --play-and-exit --no-osd -" ; open-in-browser ; set browser "open -ga firefox %u"
+
