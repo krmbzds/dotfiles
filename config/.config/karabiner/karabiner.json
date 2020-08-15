@@ -42,14 +42,14 @@
                         ]
                     },
                     {
-                        "description": "Vim Arrows [Control + H/J/K/L → Arrow Keys]",
+                        "description": "Vim Arrows [Right Command + H/J/K/L → Arrow Keys]",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
+                                            "right_command"
                                         ],
                                         "optional": [
                                             "caps_lock",
@@ -69,7 +69,7 @@
                                     "key_code": "j",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
+                                            "right_command"
                                         ],
                                         "optional": [
                                             "caps_lock",
@@ -89,7 +89,7 @@
                                     "key_code": "k",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
+                                            "right_command"
                                         ],
                                         "optional": [
                                             "caps_lock",
@@ -105,12 +105,12 @@
                                 "type": "basic"
                             },
                             {
-                                "description": "control+l → right arrow",
+                                "description": "right_command+l → right arrow",
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": {
                                         "mandatory": [
-                                            "control"
+                                            "right_command"
                                         ],
                                         "optional": [
                                             "caps_lock",
@@ -145,7 +145,24 @@
                 },
                 {
                     "disable_built_in_keyboard_if_exists": false,
-                    "fn_function_keys": [],
+                    "fn_function_keys": [
+                        {
+                            "from": {
+                                "key_code": "f1"
+                            },
+                            "to": {
+                                "key_code": "f19"
+                            }
+                        },
+                        {
+                            "from": {
+                                "key_code": "f2"
+                            },
+                            "to": {
+                                "key_code": "f20"
+                            }
+                        }
+                    ],
                     "identifiers": {
                         "is_keyboard": true,
                         "is_pointing_device": false,
@@ -256,6 +273,9 @@
                 }
             ],
             "name": "Default profile",
+            "parameters": {
+                "delay_milliseconds_before_open_device": 1000
+            },
             "selected": true,
             "simple_modifications": [],
             "virtual_hid_keyboard": {
