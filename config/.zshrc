@@ -29,6 +29,12 @@ HISTSIZE=9999
 SAVEHIST=$HISTSIZE
 
 # - - - - - - - - - - - - - - - - - - - -
+# ZSH Autosuggestions
+# - - - - - - - - - - - - - - - - - - - -
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=180'
+
+# - - - - - - - - - - - - - - - - - - - -
 # Zsh Plugin Management
 # - - - - - - - - - - - - - - - - - - - -
 
@@ -76,7 +82,6 @@ path /bin
 # - - - - - - - - - - - - - - - - - - - -
 
 source ~/.p10k.zsh
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=180'
 
 # - - - - - - - - - - - - - - - - - - - -
 # GPG Agent
@@ -108,19 +113,27 @@ bindkey '^I' $fzf_default_completion
 bindkey '^T' fzf-completion
 
 # - - - - - - - - - - - - - - - - - - - -
-# Aliases
-# - - - - - - - - - - - - - - - - - - - -
-
-alias ls='exa'
-alias vi='nvim'
-alias vim='nvim'
-alias tree='exa -T'
-alias gst='git status'
-alias vimdiff='nvim -d'
-
-# - - - - - - - - - - - - - - - - - - - -
 # Version Managers
 # - - - - - - - - - - - - - - - - - - - -
 
 test -s ~/.version-managers.sh && source ~/.version-managers.sh
 
+# - - - - - - - - - - - - - - - - - - - -
+# Aliases
+# - - - - - - - - - - - - - - - - - - - -
+
+alias c='clear'
+alias l='exa -la'
+alias ls='exa'
+alias tree='exa -T'
+
+alias vi='nvim'
+alias vim='nvim'
+
+alias gl='git log'
+alias gdh='git diff HEAD'
+alias gst='git status'
+alias vimdiff='nvim -d'
+
+alias nb='newsboat'
+alias yt='newsboat -u ~/.config/newsboat/youtube-urls -c ~/.config/newsboat/youtube-cache.db'

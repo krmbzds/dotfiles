@@ -1,6 +1,10 @@
 # Browser
 browser "open -ga firefox %u"
 
+show-read-articles    yes
+show-read-feeds       yes
+mark-as-read-on-hover no
+
 # Key bindings
 bind-key j down
 bind-key k up
@@ -37,4 +41,4 @@ highlight article "\\[image\\ [0-9]+\\]" green default
 
 # Open YouTube videos with VLC media player
 macro o set browser "youtube-dl --get-url --format best '%u' | vlc --play-and-exit --no-osd -" ; open-in-browser ; set browser "open -ga firefox %u"
-
+macro O set browser "youtube-dl --get-url --format best '%u' | vlc --play-and-exit --no-osd -" ; open-in-browser-and-mark-read  ; set browser "open -ga firefox %u"
