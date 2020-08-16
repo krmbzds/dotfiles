@@ -51,6 +51,7 @@ compinit
 
 zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
+zinit light qoomon/zsh-lazyload
 
 # - - - - - - - - - - - - - - - - - - - -
 # Path Configuration
@@ -116,7 +117,7 @@ bindkey '^T' fzf-completion
 # Version Managers
 # - - - - - - - - - - - - - - - - - - - -
 
-test -s ~/.version-managers.sh && source ~/.version-managers.sh
+lazyload rvm -- 'source ~/.rvm/scripts/rvm'
 
 # - - - - - - - - - - - - - - - - - - - -
 # Aliases
