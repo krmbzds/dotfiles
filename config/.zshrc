@@ -32,7 +32,11 @@ SAVEHIST=$HISTSIZE
 # ZSH Autosuggestions
 # - - - - - - - - - - - - - - - - - - - -
 
+DISABLE_MAGIC_FUNCTIONS=true
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=180'
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # - - - - - - - - - - - - - - - - - - - -
 # Zsh Plugin Management
@@ -40,17 +44,20 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=180'
 
 source ~/.zinit/bin/zinit.zsh
 
-zinit ice lucid ver'master' depth=1
-zinit light romkatv/powerlevel10k
+zinit depth=1 lucid nocd for \
+  romkatv/powerlevel10k
 
-zinit ice blockf atpull'zinit creinstall -q .'
-zinit light zsh-users/zsh-completions
+zinit wait lucid light-mode for \
+  atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
+    zdharma/fast-syntax-highlighting \
+  atload"_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions \
+  blockf atpull'zinit creinstall -q .' \
+    zsh-users/zsh-completions
 
-autoload compinit
-compinit
+zinit ice multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null";
+zinit load junegunn/fzf
 
-zinit light zdharma/fast-syntax-highlighting
-zinit light zsh-users/zsh-autosuggestions
 zinit light qoomon/zsh-lazyload
 
 # - - - - - - - - - - - - - - - - - - - -
@@ -99,16 +106,16 @@ gpg-connect-agent updatestartuptty /bye >/dev/null
 # Fuzzy Finder Settings
 # - - - - - - - - - - - - - - - - - - - -
 
-source ~/.fzf.zsh
 export FZF_COMPLETION_TRIGGER=''
 export FZF_DEFAULT_OPS="--extended"
-export FZF_DEFAULT_COMMAND="fd --type f"
+export FZF_DEFAULT_COMMAND="fd -HIt f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # - - - - - - - - - - - - - - - - - - - -
 # Key Bindings
 # - - - - - - - - - - - - - - - - - - - -
 
+zle -N autosuggest-execute
 bindkey '^ ' autosuggest-execute
 bindkey '^[[Z' reverse-menu-complete
 bindkey '^I' $fzf_default_completion
@@ -125,9 +132,10 @@ lazyload rvm -- 'source ~/.rvm/scripts/rvm'
 # - - - - - - - - - - - - - - - - - - - -
 
 alias c='clear'
-alias l='exa -la'
-alias ls='exa'
+alias ls='exa -aF --git --color=always --color-scale -s=extension --group-directories-first'
 alias tree='exa -T'
+
+alias find='fd -HI -E=".git" --color=always'
 
 alias vi='nvim'
 alias vim='nvim'
