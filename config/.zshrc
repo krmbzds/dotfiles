@@ -83,6 +83,7 @@ path /bin
 # - - - - - - - - - - - - - - - - - - - -
 
 source ~/.p10k.zsh
+eval $(gdircolors ~/.config/dircolors/solarized.ansi-light)
 
 # - - - - - - - - - - - - - - - - - - - -
 # GPG Agent
