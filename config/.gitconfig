@@ -17,5 +17,6 @@
 [delta]
   line-numbers = true
   syntax-theme = Solarized (light)
+  side-by-side = true
 [interactive]
   diffFilter = delta --color-only
