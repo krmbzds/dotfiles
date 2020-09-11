@@ -40,5 +40,5 @@ highlight article "https?://[^ ]+" red default
 highlight article "\\[image\\ [0-9]+\\]" green default
 
 # Open YouTube videos with VLC media player
-macro o set browser "youtube-dl --get-url --format best '%u' | vlc --play-and-exit --no-osd -" ; open-in-browser ; set browser "open -ga firefox %u"
-macro O set browser "youtube-dl --get-url --format best '%u' | vlc --play-and-exit --no-osd -" ; open-in-browser-and-mark-read  ; set browser "open -ga firefox %u"
+macro o set browser "youtube-dl --get-url --format best '%u' | vlc --play-and-exit --no-osd --fullscreen -" ; open-in-browser ; set browser "open -ga firefox %u"
+macro O set browser "youtube-dl --get-url --format best '%u' | vlc --play-and-exit --no-osd --fullscreen -" ; open-in-browser-and-mark-read  ; set browser "open -ga firefox %u"
