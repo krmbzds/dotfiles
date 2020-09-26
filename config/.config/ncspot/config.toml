@@ -1,0 +1,146 @@
+###########################################
+# Basic options
+###########################################
+
+default_keybindings = false
+use_nerdfont = false
+notify = true
+volnorm = true
+volnorm_pregain = -3
+
+[saved_state]
+shuffle = false
+
+[keybindings]
+
+###########################################
+# Song controls (unbinded: nN, c, eE, xX)
+###########################################
+
+# - - - - - - - - - - - - - - - - - - - - -
+# Fast forward / rewind
+# - - - - - - - - - - - - - - - - - - - - -
+
+"b" = "seek -1000"
+"f" = "seek +1000"
+"B" = "seek -10000"
+"F" = "seek +10000"
+
+# - - - - - - - - - - - - - - - - - - - - -
+# Play / pause
+# - - - - - - - - - - - - - - - - - - - - -
+
+"p" = "playpause"
+"Enter" = "play"
+"s" = "stop"
+
+# - - - - - - - - - - - - - - - - - - - - -
+# Track manipulation
+# - - - - - - - - - - - - - - - - - - - - -
+
+"H" = "previous"
+"L" = "next"
+"r" = "repeat"
+"z" = "shuffle"
+"D" = "delete"
+"S" = "save"
+# Open context menu
+"O" = "open current"
+"o" = "open selected"
+"A" = "goto artist"
+"a" = "goto album"
+
+# - - - - - - - - - - - - - - - - - - - - -
+# Queue
+# - - - - - - - - - - - - - - - - - - - - -
+
+" " = "queue"
+"Ctrl+s" = "save queue"
+# Move selected song up/down in the queue
+"J" = "shift down 1"
+"K" = "shift up 1"
+"C" = "clear"
+
+###########################################
+# Sound
+###########################################
+
+"+" = "volup"
+"-" = "voldown"
+
+###########################################
+# Movements
+###########################################
+
+# - - - - - - - - - - - - - - - - - - - - -
+# Focus
+# - - - - - - - - - - - - - - - - - - - - -
+
+"F1" = "focus queue"
+"F2" = "focus library"
+"F3" = "focus search"
+"1" = "focus queue"
+"2" = "focus library"
+"/" = "focus search"
+
+# - - - - - - - - - - - - - - - - - - - - -
+# Go to the playing track
+# - - - - - - - - - - - - - - - - - - - - -
+
+"." = "move playing"
+
+# - - - - - - - - - - - - - - - - - - - - -
+# Navigation
+# - - - - - - - - - - - - - - - - - - - - -
+
+"Down" = "move down 1"
+"G" = "move bottom"
+"g" = "move top"
+"Left" = "move left 1"
+"Right" = "move right 1"
+"Ctrl+d" = "move down 5"
+"Ctrl+u" = "move up 5"
+"Up" = "move up 1"
+"h" = "move left 1"
+"j" = "move down 1"
+"k" = "move up 1"
+"l" = "move right 1"
+"q" = "back"
+
+###########################################
+# Sharing
+###########################################
+
+"Y" = "share selected"
+"y" = "share current"
+
+###########################################
+# Other
+###########################################
+
+"Q" = "quit"
+"Z" = "quit"
+"?" = "help"
+"U" = "update"
+
+###########################################
+# Theme
+###########################################
+
+[theme]
+background = "light white"
+primary = "light yellow"
+secondary = "blue"
+title = "red"
+playing = "blue"
+playing_bg = "white"
+playing_selected = "white"
+highlight = "light white"
+highlight_bg = "yellow"
+error = "light white"
+error_bg = "red"
+statusbar_progress = "blue"
+statusbar = "black"
+statusbar_bg = "light white"
+cmdline = "green"
+cmdline_bg = "white"
