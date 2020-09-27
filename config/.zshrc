@@ -147,3 +147,4 @@ alias vimdiff='nvim -d'
 
 alias nb='newsboat'
 alias yt='newsboat -u ~/.config/newsboat/youtube-urls -c ~/.config/newsboat/youtube-cache.db'
+alias sp='ncspot -b ~/.config/ncspot/'
