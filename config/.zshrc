@@ -129,6 +129,14 @@ bindkey '^T' fzf-completion
 lazyload rvm -- 'source ~/.rvm/scripts/rvm'
 
 # - - - - - - - - - - - - - - - - - - - -
+# Journal
+# - - - - - - - - - - - - - - - - - - - -
+
+export FINGERPRINT="1B01B3C4EEFBE1730136D89338FD2B3F677F9C34"
+export JOURNAL_DIR="$HOME/Documents/Repositories/Personal/journal"
+alias journal="$JOURNAL_DIR/journal"
+
+# - - - - - - - - - - - - - - - - - - - -
 # Aliases
 # - - - - - - - - - - - - - - - - - - - -
 
