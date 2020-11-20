@@ -39,6 +39,12 @@ highlight article "^(Title):.*$" blue default
 highlight article "https?://[^ ]+" red default
 highlight article "\\[image\\ [0-9]+\\]" green default
 
+# Open webpage in Outline
+macro l set browser "open -ga firefox https://outline.com/%u"; open-in-browser-and-mark-read ; set browser "open -ga firefox %u"
+
 # Open YouTube videos with VLC media player
-macro o set browser "youtube-dl --get-url --format best '%u' | vlc --play-and-exit --no-osd --fullscreen -" ; open-in-browser ; set browser "open -ga firefox %u"
-macro O set browser "youtube-dl --get-url --format best '%u' | vlc --play-and-exit --no-osd --fullscreen -" ; open-in-browser-and-mark-read  ; set browser "open -ga firefox %u"
+macro o set browser "youtube-dl --get-url --format best '%u' | vlc --play-and-exit --no-osd --fullscreen -" ; open-in-browser-and-mark-read ; set browser "open -ga firefox %u"
+macro O set browser "youtube-dl --get-url --format best '%u' | vlc --play-and-exit --no-osd --fullscreen -" ; open-in-browser ; set browser "open -ga firefox %u"
+
+# Open videos with MPV media player
+macro m set browser "~/Applications/Utilities/mpv.app/Contents/MacOS/mpv-bundle '%u'" ; open-in-browser-and-mark-read ; set browser "open -ga firefox %u"

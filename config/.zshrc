@@ -146,5 +146,11 @@ alias gst='git status'
 alias vimdiff='nvim -d'
 
 alias nb='newsboat'
-alias yt='newsboat -u ~/.config/newsboat/youtube-urls -c ~/.config/newsboat/youtube-cache.db'
+alias yt='newsboat -u ~/.config/newsboat/urls-youtube -c ~/.config/newsboat/urls-youtube.db'
+alias nbdev='newsboat -u ~/.config/newsboat/urls-dev -c ~/.config/newsboat/urls-dev.db'
+alias nbfin='newsboat -u ~/.config/newsboat/urls-tr-fin -c ~/.config/newsboat/urls-tr-fin.db'
+alias nbgov='newsboat -u ~/.config/newsboat/urls-tr-gov -c ~/.config/newsboat/urls-tr-gov.db'
+alias nbtr='newsboat -u ~/.config/newsboat/urls-tr-news -c ~/.config/newsboat/urls-tr-news.db'
+alias nblit='newsboat -u ~/.config/newsboat/urls-tr-lit -c ~/.config/newsboat/urls-tr-lit.db'
+
 alias sp='ncspot -b ~/.config/ncspot/'
