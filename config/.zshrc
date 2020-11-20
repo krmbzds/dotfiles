@@ -140,9 +140,11 @@ alias journal="$JOURNAL_DIR/journal"
 # Aliases
 # - - - - - - - - - - - - - - - - - - - -
 
-alias c='clear'
 alias ls='exa -aF --git --color=always --color-scale -s=extension --group-directories-first'
 alias tree='exa -T'
+alias t1='tree --level 1'
+alias t2='tree --level 2'
+alias t3='tree --level 3'
 
 alias find='fd -HI -E=".git" --color=always'
 
@@ -150,6 +152,7 @@ alias vi='nvim'
 alias vim='nvim'
 
 alias gl='git log'
+alias glo='git log'
 alias gdh='git diff HEAD'
 alias gst='git status'
 alias vimdiff='nvim -d'
