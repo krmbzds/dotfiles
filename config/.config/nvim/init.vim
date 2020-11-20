@@ -71,3 +71,6 @@ set rtp+=~/.homebrew/opt/fzf
 
 " set color scheme
 colorscheme solarized
+
+" the breeze still follows its path
+command! Wq wq
