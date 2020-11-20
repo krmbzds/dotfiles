@@ -24,6 +24,7 @@ export VISUAL=subl
 # History
 # - - - - - - - - - - - - - - - - - - - -
 
+setopt HIST_IGNORE_SPACE
 HISTFILE=~/.zsh_history
 HISTSIZE=9999
 SAVEHIST=$HISTSIZE
