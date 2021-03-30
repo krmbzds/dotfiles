@@ -1,0 +1,9 @@
+{
+  "git_binary": "/Users/kerem/.homebrew/bin/git",
+  "font_face": "Source Code Pro",
+  "font_size": 13,
+  "side_bar_layout": "tabs",
+  "diff_style": "auto",
+  "image_diff_style": "side-by-side",
+  "theme": "Solarized (light).sublime-theme",
+}

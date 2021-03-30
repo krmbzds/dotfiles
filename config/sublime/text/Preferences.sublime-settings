@@ -58,7 +58,8 @@
     "*.class",
     "*.psd",
     "*.db",
-    "*.sublime-workspace"
+    "*.sublime-workspace",
+    "*.lock.hcl"
   ],
   "find_selected_text": true,
   "folder_exclude_patterns":
@@ -68,9 +69,10 @@
     ".hg",
     "CVS",
     "tmp",
-    "node_modules"
+    "node_modules",
+    ".terraform"
   ],
-  "font_face": "Source Code Pro",
+  "font_face": "Source Code Pro SemiBold",
   "font_size": 13,
   "ignored_packages":
   [
@@ -79,6 +81,7 @@
     "Vintageous"
   ],
   "index_files": true,
+  "line_numbers": true,
   "open_files_in_new_window": false,
   "overlay_scroll_bars": "enabled",
   "rulers":
