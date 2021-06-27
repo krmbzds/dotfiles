@@ -15,6 +15,17 @@ if dein#load_state('~/.config/nvim/bundles')
   call dein#add('~/.config/nvim/bundles/repos/github.com/Shougo/dein.vim')
   call dein#add('itchyny/lightline.vim')
 
+  call dein#add('nvim-lua/popup.nvim')
+  call dein#add('nvim-lua/plenary.nvim')
+  call dein#add('nvim-telescope/telescope.nvim')
+  
+  call dein#add('nvim-treesitter/nvim-treesitter', {'merged': 0})
+  call dein#add('nvim-treesitter/playground')
+
+  call dein#add('neovim/nvim-lspconfig')
+  call dein#add('kabouzeid/nvim-lspinstall')
+  call dein#add('glepnir/lspsaga.nvim')
+ 
   " Required:
   call dein#end()
   call dein#save_state()
@@ -64,12 +75,20 @@ vnoremap / /\v
 nnoremap j gj
 nnoremap 0 g0
 
+" telescope settings
+let mapleader = " "
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
 " the breeze still follows its path
 command! Wq wq
 
+{{ if .prefs.dracula_pro -}}
 " dracule pro theme
 packadd! dracula_pro
 let g:dracula_colorterm = 0
 let g:lightline = { 'colorscheme': 'dracula_pro' }
 colorscheme dracula_pro
-
+{{ end }}

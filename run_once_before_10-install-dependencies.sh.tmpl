@@ -6,11 +6,14 @@ sudo apt -y upgrade
 
 sudo apt install -y alacritty \
                     bat \
+                    exa \
+                    fd-find \
                     gnupg \
                     jq \
                     neovim \
                     pcscd \
                     python3-usb \
+                    ripgrep \
                     scdaemon \
                     tmux \
                     tree
@@ -22,5 +25,20 @@ sudo apt purge -y libsecret-1-dev
 
 # delta
 curl --silent https://api.github.com/repos/dandavison/delta/releases/latest | jq -r ".assets[].browser_download_url" | grep "amd64\.deb$" | grep -v "musl" | xargs curl --silent --location --output /tmp/delta.deb && sudo apt install /tmp/delta.deb && rm /tmp/delta.deb
+
+# update alternatives
+sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+sudo update-alternatives --config vi
+sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+sudo update-alternatives --config vim
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+sudo update-alternatives --config editor
+
+{{ if .prefs.rvm }}
+# ruby version manager
+curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer
+bash rvm-installer --branch stable --ignore-dotfiles
+rm rvm-installer
+{{ end }}
 
 {{ end }}

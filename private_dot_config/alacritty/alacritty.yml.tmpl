@@ -157,7 +157,7 @@ font:
 
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: false
-
+{{ if .prefs.dracula_pro }}
 # Colors
 colors:
   # Default colors
@@ -235,7 +235,7 @@ colors:
   #   `- { index: 16, color: '0xff00ff' }`
   #
   indexed_colors: []
-
+{{ end }}
 # Visual Bell
 #
 # Any time the BEL code is received, Alacritty "rings" the visual bell. Once

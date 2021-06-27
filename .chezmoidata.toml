@@ -10,4 +10,6 @@
   gpgsign = "true"
 [git.delta]
   syntax_theme = "Dracula Pro"
-
+[prefs]
+  rvm = true
+  dracula_pro = true

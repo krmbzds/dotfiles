@@ -52,7 +52,6 @@ z4h init || return
 # Export environment variables.
 export GPG_TTY=$TTY
 export FINGERPRINT='{{ .gpg.fingerprint }}'
-export XDG_CONFIG_HOME='~/.config'
 
 # Set editor for local and remote environments.
 if [[ -n "$SSH_CONNECTION" ]]; then
@@ -75,7 +74,10 @@ autoload -Uz archive lsarchive unarchive edit-command-line
 zle -N edit-command-line
 
 # Source additional local files if they exist.
+z4h source ~/.env.zsh
+{{ if .prefs.rvm -}}
 z4h source ~/.rvm/scripts/rvm
+{{- end }}
 
 # Define key bindings.
 z4h bindkey z4h-backward-kill-word  Ctrl+Backspace Ctrl+H
