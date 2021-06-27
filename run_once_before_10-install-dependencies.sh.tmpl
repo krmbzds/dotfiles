@@ -1,0 +1,26 @@
+{{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "Pop!_OS")) -}}
+#!/bin/sh
+
+sudo apt -y update
+sudo apt -y upgrade
+
+sudo apt install -y alacritty \
+                    bat \
+                    gnupg \
+                    jq \
+                    neovim \
+                    pcscd \
+                    python3-usb \
+                    scdaemon \
+                    tmux \
+                    tree
+
+# set up libsecret for git
+sudo apt install -y libsecret-1-dev
+sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret
+sudo apt purge -y libsecret-1-dev
+
+# delta
+curl --silent https://api.github.com/repos/dandavison/delta/releases/latest | jq -r ".assets[].browser_download_url" | grep "amd64\.deb$" | grep -v "musl" | xargs curl --silent --location --output /tmp/delta.deb && sudo apt install /tmp/delta.deb && rm /tmp/delta.deb
+
+{{ end }}

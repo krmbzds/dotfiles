@@ -1,0 +1,25 @@
+{{ if lookPath "git" }}
+alias glo='git log --decorate --oneline --graph'
+alias glg='git log --decorate --graph --abbrev-commit --date=relative'
+alias gdh='git diff HEAD'
+alias gst='git status'
+if [[ "$EDITOR" = 'nvim' ]]; then
+alias vimdiff='nvim -d'
+fi
+{{ end }}
+{{ if lookPath "exa" }}
+alias tree='exa -Ta'
+alias l='exa -F'
+alias ll='exa -lF'
+alias la='exa -laF'
+alias exa="${aliases[exa]:-exa} -I .git --git-ignore --git --color=always --color-scale -s=extension --group-directories-first"
+{{ else }}
+alias tree='tree -a -I .git'
+alias ls="${aliases[ls]:-ls} -A"
+{{ end }}
+{{ if lookPath "batcat" }}
+alias bat='batcat'
+{{ end }}
+{{ if lookPath "somafm" }}
+alias radio="somafm list | fzf | awk '{print $1}' | xargs somafm play --quality=highest"
+{{ end }}

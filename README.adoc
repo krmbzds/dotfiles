@@ -1,0 +1,20 @@
+= Dotfiles
+:author: Kerem Bozdas
+:experimental:
+:icons: font
+:autofit-option:
+:source-highlighter: rouge
+:rouge-style: github
+:revdate: 2021-06-27
+
+Set up Zsh for Humans:
+[source,sh]
+----
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
+----
+
+Apply dotfiles:
+[source,sh]
+----
+sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply krmbzds
+----

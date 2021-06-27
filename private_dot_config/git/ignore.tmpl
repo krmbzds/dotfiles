@@ -1,0 +1,7 @@
+{{ if (eq .chezmoi.os "linux") }}
+{{ template "gitignore_linux" . }}
+{{ else if (eq .chezmoi.os "darwin" ) }}
+{{ template "gitignore_macos" . }}
+{{ else if (eq .chezmoi.os "windows" ) }}
+{{ template "gitignore_windows" . }}
+{{ end }}

@@ -1,0 +1,15 @@
+{{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "Pop!_OS")) -}}
+#!/bin/sh
+
+git clone https://github.com/krmbzds/dracula-pro ~/.config/dracula-pro
+
+{{ if lookPath "batcat" }}
+batcat cache --build
+{{ end }}
+
+wget -P ~/.fonts/ "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
+wget -P ~/.fonts/ "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
+wget -P ~/.fonts/ "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
+wget -P ~/.fonts/ "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
+
+{{ end }}

@@ -1,0 +1,13 @@
+[gpg]
+  fingerprint = "1B01B3C4EEFBE1730136D89338FD2B3F677F9C34"
+[git.init]
+  default_branch = "master"
+[git.user]
+  name = "Kerem Bozdas"
+  email = "krmbzds.github@gmail.com"
+  signing_key = "38FD2B3F677F9C34"
+[git.commit]
+  gpgsign = "true"
+[git.delta]
+  syntax_theme = "Dracula Pro"
+
