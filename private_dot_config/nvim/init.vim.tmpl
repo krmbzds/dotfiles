@@ -15,17 +15,12 @@ if dein#load_state('~/.config/nvim/bundles')
   call dein#add('~/.config/nvim/bundles/repos/github.com/Shougo/dein.vim')
   call dein#add('itchyny/lightline.vim')
 
+  {{ if .prefs.nvim.telescope -}}
   call dein#add('nvim-lua/popup.nvim')
   call dein#add('nvim-lua/plenary.nvim')
   call dein#add('nvim-telescope/telescope.nvim')
-  
-  call dein#add('nvim-treesitter/nvim-treesitter', {'merged': 0})
-  call dein#add('nvim-treesitter/playground')
+  {{ end -}}
 
-  call dein#add('neovim/nvim-lspconfig')
-  call dein#add('kabouzeid/nvim-lspinstall')
-  call dein#add('glepnir/lspsaga.nvim')
- 
   " Required:
   call dein#end()
   call dein#save_state()
@@ -75,12 +70,14 @@ vnoremap / /\v
 nnoremap j gj
 nnoremap 0 g0
 
+{{ if .prefs.nvim.telescope -}}
 " telescope settings
 let mapleader = " "
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+{{ end }}
 
 " the breeze still follows its path
 command! Wq wq

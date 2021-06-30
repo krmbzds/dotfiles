@@ -13,3 +13,8 @@
 [prefs]
   rvm = true
   dracula_pro = true
+  sublime_text = true
+[prefs.nvim]
+  telescope = true
+[hardware]
+  logitech_g213 = true

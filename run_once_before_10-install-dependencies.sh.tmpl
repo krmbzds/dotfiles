@@ -12,19 +12,31 @@ sudo apt install -y alacritty \
                     jq \
                     neovim \
                     pcscd \
-                    python3-usb \
-                    ripgrep \
                     scdaemon \
                     tmux \
                     tree
 
 # set up libsecret for git
-sudo apt install -y libsecret-1-dev
-sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret
-sudo apt purge -y libsecret-1-dev
+LIBSECRET=/usr/share/doc/git/contrib/credential/libsecret
+if [ ! -f "$LIBSECRET/git-credential-libsecret" ]; then
+  sudo apt install -y libsecret-1-dev
+  sudo make --directory=$LIBSECRET
+  sudo apt purge -y libsecret-1-dev
+fi
 
-# delta
-curl --silent https://api.github.com/repos/dandavison/delta/releases/latest | jq -r ".assets[].browser_download_url" | grep "amd64\.deb$" | grep -v "musl" | xargs curl --silent --location --output /tmp/delta.deb && sudo apt install /tmp/delta.deb && rm /tmp/delta.deb
+# git-delta
+curl -s 'https://api.github.com/repos/dandavison/delta/releases/latest' | jq -r ".assets[].browser_download_url" | grep "amd64\.deb$" | grep -v "musl" | xargs curl -s -L --output /tmp/delta.deb && sudo apt install -y /tmp/delta.deb && rm /tmp/delta.deb
+
+{{ if .prefs.nvim.telescope }}
+sudo apt install -y ripgrep
+{{ end }}
+
+{{ if .prefs.sublime_text }}
+curl -s -L https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/sublimehq-archive-keyring.gpg
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/sublimehq-archive-keyring.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+sudo apt -y update
+sudo apt -y install sublime-text
+{{ end }}
 
 # update alternatives
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
@@ -36,9 +48,16 @@ sudo update-alternatives --config editor
 
 {{ if .prefs.rvm }}
 # ruby version manager
-curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer
+curl -s -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer
 bash rvm-installer --branch stable --ignore-dotfiles
 rm rvm-installer
+{{ end }}
+
+{{ if .hardware.logitech_g213 }}
+curl -s -L 'https://gist.githubusercontent.com/krmbzds/1f51e3a4b7779e81651e62e5d15bacdd/raw/62596eda311343129c28a1a67afa5160a3f095e9/g213colors' | sudo tee /usr/local/bin/g213colors
+sudo chmod +x /usr/local/bin/g213colors
+sudo apt install -y python3-usb
+curl -s -L 'https://gist.githubusercontent.com/krmbzds/3ec12198dc5cafe4efcd005122b81b7a/raw/1a9fa16c3ba9557f6812d18c68e40898c1ada339/50-LogitechGamingKeyboardG213.rules' | sudo tee /etc/udev/rules.d/50-LogitechGamingKeyboardG213.rules
 {{ end }}
 
 {{ end }}
