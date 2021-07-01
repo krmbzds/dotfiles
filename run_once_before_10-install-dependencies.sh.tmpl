@@ -51,18 +51,24 @@ sudo update-alternatives --config vim
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --config editor
 
-{{ if .prefs.rvm }}
 # ruby version manager
+{{ if .prefs.rvm }}
 curl -s -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer
 bash rvm-installer --branch stable --ignore-dotfiles
 rm rvm-installer
 {{ end }}
 
+# sets keyboard backlight automatically when plugged
+# muted distraction-free color choice compatible with dracula pro
 {{ if .hardware.logitech_g213 }}
 curl -s -L 'https://gist.githubusercontent.com/krmbzds/1f51e3a4b7779e81651e62e5d15bacdd/raw/62596eda311343129c28a1a67afa5160a3f095e9/g213colors' | sudo tee /usr/local/bin/g213colors
 sudo chmod +x /usr/local/bin/g213colors
 sudo apt install -y python3-usb
 curl -s -L 'https://gist.githubusercontent.com/krmbzds/3ec12198dc5cafe4efcd005122b81b7a/raw/1a9fa16c3ba9557f6812d18c68e40898c1ada339/50-LogitechGamingKeyboardG213.rules' | sudo tee /etc/udev/rules.d/50-LogitechGamingKeyboardG213.rules
+{{ end }}
+
+{{ if .gpg.pubkey_url }}
+curl -sSL "{{ .gpg.pubkey_url }}" | gpg --import -
 {{ end }}
 
 {{ end }}

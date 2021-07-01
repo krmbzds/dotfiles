@@ -1,4 +1,5 @@
 [gpg]
+  pubkey_url = "https://kerembozdas.com/pubkey.asc"
   fingerprint = "1B01B3C4EEFBE1730136D89338FD2B3F677F9C34"
 [git.init]
   default_branch = "master"
