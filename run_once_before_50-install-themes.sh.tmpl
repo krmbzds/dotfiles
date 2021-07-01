@@ -8,9 +8,25 @@ git clone https://github.com/krmbzds/dracula-pro ~/.config/dracula-pro
 batcat cache --build
 {{ end }}
 
-wget -nv -P ~/.fonts/ --no-clobber "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
-wget -nv -P ~/.fonts/ --no-clobber "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
-wget -nv -P ~/.fonts/ --no-clobber "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
-wget -nv -P ~/.fonts/ --no-clobber "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
+# MesloLGS NF
+wget -P ~/.fonts/ -nv -nc 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf'
+wget -P ~/.fonts/ -nv -nc 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf'
+wget -P ~/.fonts/ -nv -nc 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf'
+wget -P ~/.fonts/ -nv -nc 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf'
 
+# Source Code Pro
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-Black.ttf?raw=true'
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-BlackIt.ttf?raw=true'
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-Bold.ttf?raw=true'
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-BoldIt.ttf?raw=true'
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-ExtraLight.ttf?raw=true'
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-ExtraLightIt.ttf?raw=true'
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-It.ttf?raw=true'
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-Light.ttf?raw=true'
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-LightIt.ttf?raw=true'
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-Medium.ttf?raw=true'
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-MediumIt.ttf?raw=true'
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-Regular.ttf?raw=true'
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-Semibold.ttf?raw=true'
+wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-SemiboldIt.ttf?raw=true'
 {{ end }}
