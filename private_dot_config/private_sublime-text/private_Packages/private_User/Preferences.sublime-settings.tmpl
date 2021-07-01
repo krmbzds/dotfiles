@@ -1,7 +1,8 @@
+{{ if .prefs.sublime_text -}}
 {
   "auto_complete": false,
   "auto_complete_commit_on_tab": true,
-  "color_scheme": "Packages/Dracula Pro/Dracula Pro.tmTheme",
+  {{ if .prefs.dracula_pro }}"color_scheme": "Packages/Dracula Pro/Dracula Pro.tmTheme",{{ end }}
   "copy_with_empty_selection": true,
   "enable_tab_scrolling": false,
   "ensure_newline_at_eof_on_save": true,
@@ -57,6 +58,7 @@
   "vintageous_reset_mode_when_switching_tabs": false,
   "vintageous_use_ctrl_keys": null,
   "vintageous_use_super_keys": null,
+  "word_wrap": "false",
   "file_exclude_patterns": [
     "*.pyc",
     "*.pyo",
@@ -91,3 +93,4 @@
   ],
   "neovintageous_build_version": 11100,
 }
+{{ end -}}

@@ -1,0 +1,11 @@
+{{ if .prefs.sublime_text -}}
+{
+  "color_scheme": {{ if .prefs.dracula_pro }}"Packages/Dracula Pro/Dracula Pro.tmTheme"{{ else }}"Packages/BetterFindBuffer/FindResults.hidden-tmTheme"{{ end }},
+  "draw_indent_guides": false,
+  "gutter": false,
+  "margin": 8,
+  "rulers": [],
+  "spell_check": false,
+  "word_wrap": true
+}
+{{ end -}}

@@ -24,7 +24,9 @@ if [ ! -f "$LIBSECRET/git-credential-libsecret" ]; then
 fi
 
 # git-delta
+{{ if (not (lookPath "delta")) -}}
 curl -s 'https://api.github.com/repos/dandavison/delta/releases/latest' | jq -r ".assets[].browser_download_url" | grep "amd64\.deb$" | grep -v "musl" | xargs curl -s -L --output /tmp/delta.deb && sudo apt install -y /tmp/delta.deb && rm /tmp/delta.deb
+{{ end }}
 
 # sublime text
 {{ if (and (.prefs.sublime_text) (not (lookPath "subl"))) }}
@@ -42,7 +44,9 @@ sudo apt install -y ripgrep
 {{ end }}
 
 # install neovim
+{{ if (not (lookPath "neovim")) -}}
 sudo apt install -y neovim
+{{ end }}
 
 # update alternatives
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
@@ -54,26 +58,25 @@ sudo update-alternatives --config editor
 
 # ruby version manager
 {{ if .prefs.rvm }}
-if [ ! -d "~/.rvm" ]; then
-  curl -s -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer
-  bash rvm-installer --branch stable --ignore-dotfiles
-  rm rvm-installer
-fi
+{{ if (not (lookPath "rvm")) -}}
+curl -s -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer
+bash rvm-installer --branch stable --ignore-dotfiles
+rm rvm-installer
+{{ end }}
 {{ end }}
 
 # sets keyboard backlight automatically when plugged
 # muted distraction-free color choice compatible with dracula pro
 {{ if .hardware.logitech_g213 }}
-if [ ! -f "/usr/local/bin/g213colors" ]; then
-  curl -s -L 'https://gist.githubusercontent.com/krmbzds/1f51e3a4b7779e81651e62e5d15bacdd/raw/f172cf6ba20cd2a7b440fea5ffc9dbc926f74673/g213colors' | sudo tee /usr/local/bin/g213colors
-  sudo chmod +x /usr/local/bin/g213colors
-  sudo apt install -y python3-usb
-  curl -s -L 'https://gist.githubusercontent.com/krmbzds/3ec12198dc5cafe4efcd005122b81b7a/raw/1a9fa16c3ba9557f6812d18c68e40898c1ada339/50-LogitechGamingKeyboardG213.rules' | sudo tee /etc/udev/rules.d/50-LogitechGamingKeyboardG213.rules
-fi
+{{ if (not (lookPath "g213colors")) -}}
+curl -s -L 'https://gist.githubusercontent.com/krmbzds/1f51e3a4b7779e81651e62e5d15bacdd/raw/f172cf6ba20cd2a7b440fea5ffc9dbc926f74673/g213colors' | sudo tee /usr/local/bin/g213colors
+sudo chmod +x /usr/local/bin/g213colors
+sudo apt install -y python3-usb
+curl -s -L 'https://gist.githubusercontent.com/krmbzds/3ec12198dc5cafe4efcd005122b81b7a/raw/1a9fa16c3ba9557f6812d18c68e40898c1ada339/50-LogitechGamingKeyboardG213.rules' | sudo tee /etc/udev/rules.d/50-LogitechGamingKeyboardG213.rules
+{{ end }}
 {{ end }}
 
 {{ if .gpg.pubkey_url }}
 curl -sSL "{{ .gpg.pubkey_url }}" | gpg --import -
 {{ end }}
-
 {{ end }}
