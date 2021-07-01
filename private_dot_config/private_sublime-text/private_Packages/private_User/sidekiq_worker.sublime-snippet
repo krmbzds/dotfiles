@@ -1,0 +1,16 @@
+<snippet>
+  <content><![CDATA[
+class $1Worker
+  include Sidekiq::Worker
+  sidekiq_options :queue => :${2:default}, :retry => ${3:1}, :backtrace => ${4:false}
+
+  def perform($5)
+    $6
+  end
+
+end
+]]></content>
+  <tabTrigger>worker</tabTrigger>
+  <scope>source.ruby</scope>
+  <description>Sidekiq Worker</description>
+</snippet>
