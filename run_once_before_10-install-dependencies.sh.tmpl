@@ -4,7 +4,7 @@
 sudo apt -y update
 sudo apt -y upgrade
 
-sudo apt install -y alacritty \
+sudo apt -y install alacritty \
                     bat \
                     exa \
                     fd-find \
@@ -18,43 +18,40 @@ sudo apt install -y alacritty \
 # set up libsecret for git
 LIBSECRET=/usr/share/doc/git/contrib/credential/libsecret
 if [ ! -f "$LIBSECRET/git-credential-libsecret" ]; then
-  sudo apt install -y libsecret-1-dev
+  sudo apt -y install libsecret-1-dev
   sudo make --directory=$LIBSECRET
-  sudo apt purge -y libsecret-1-dev
+  sudo apt -y purge libsecret-1-dev
 fi
 
 # git-delta
 {{ if (not (lookPath "delta")) -}}
-curl -s 'https://api.github.com/repos/dandavison/delta/releases/latest' | jq -r ".assets[].browser_download_url" | grep "amd64\.deb$" | grep -v "musl" | xargs curl -s -L --output /tmp/delta.deb && sudo apt install -y /tmp/delta.deb && rm /tmp/delta.deb
+curl -s 'https://api.github.com/repos/dandavison/delta/releases/latest' | jq -r ".assets[].browser_download_url" | grep "amd64\.deb$" | grep -v "musl" | xargs curl -s -L --output /tmp/delta.deb && sudo apt -y install /tmp/delta.deb && rm /tmp/delta.deb
 {{ end }}
 
 # sublime text
 {{ if (and (.prefs.sublime_text) (not (lookPath "subl"))) }}
-curl -s -L https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/sublimehq-archive-keyring.gpg
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/sublimehq-archive-keyring.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+curl -s -L https://download.sublimetext.com/sublimehq-pub.gpg | sudo gpg --dearmor -o /usr/share/keyrings/sublimehq-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/sublimehq-archive-keyring.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null
 sudo apt -y update
 sudo apt -y install sublime-text
 {{ end }}
 
 # use neovim unstable and install ripgrep if telescope is used
-{{ if .prefs.nvim.telescope }}
+{{ if (and (.prefs.nvim.telescope) (not (lookPath "nvim"))) }}
 sudo add-apt-repository -y ppa:neovim-ppa/unstable
 sudo apt -y update
-sudo apt install -y ripgrep
+sudo apt -y install ripgrep
 {{ end }}
 
 # install neovim
-{{ if (not (lookPath "neovim")) -}}
-sudo apt install -y neovim
+{{ if (not (lookPath "nvim")) -}}
+sudo apt -y install neovim
 {{ end }}
 
 # update alternatives
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-sudo update-alternatives --config vi
 sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-sudo update-alternatives --config vim
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
-sudo update-alternatives --config editor
 
 # ruby version manager
 {{ if .prefs.rvm }}
@@ -71,12 +68,55 @@ rm rvm-installer
 {{ if (not (lookPath "g213colors")) -}}
 curl -s -L 'https://gist.githubusercontent.com/krmbzds/1f51e3a4b7779e81651e62e5d15bacdd/raw/f172cf6ba20cd2a7b440fea5ffc9dbc926f74673/g213colors' | sudo tee /usr/local/bin/g213colors
 sudo chmod +x /usr/local/bin/g213colors
-sudo apt install -y python3-usb
+sudo apt -y install python3-usb
 curl -s -L 'https://gist.githubusercontent.com/krmbzds/3ec12198dc5cafe4efcd005122b81b7a/raw/1a9fa16c3ba9557f6812d18c68e40898c1ada339/50-LogitechGamingKeyboardG213.rules' | sudo tee /etc/udev/rules.d/50-LogitechGamingKeyboardG213.rules
 {{ end }}
 {{ end }}
 
 {{ if .gpg.pubkey_url }}
 curl -sSL "{{ .gpg.pubkey_url }}" | gpg --import -
+{{ end }}
+
+# docker
+{{ if (and (.prefs.docker) (not (lookPath "docker"))) }}
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt -y update
+sudo apt -y install docker-ce docker-ce-cli containerd.io
+
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+sudo chmod g+rwx "$HOME/.docker" -R
+
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+{{ end }}
+
+{{ if .prefs.devops }}
+# terraform
+{{ if (not (lookPath "terraform")) -}}
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list > /dev/null
+sudo apt -y update
+sudo apt -y install terraform
+{{ end }}
+
+# kubernetes
+{{ if (not (lookPath "kubectl")) -}}
+sudo curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg -o /usr/share/keyrings/kubernetes-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
+sudo apt -y update
+sudo apt -y install kubectl
+{{ end }}
+
+# helm
+{{ if (not (lookPath "helm")) }}
+curl -fsSL https://baltocdn.com/helm/signing.asc | sudo gpg --dearmor -o /usr/share/keyrings/helm-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm-archive-keyring.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list > /dev/null
+sudo apt -y update
+sudo apt -y install helm
+{{ end }}
 {{ end }}
 {{ end }}

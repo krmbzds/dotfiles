@@ -59,7 +59,7 @@ if [[ -n "$SSH_CONNECTION" ]]; then
   export VISUAL='vi'
 else
   export EDITOR='nvim'
-  export VISUAL='nvim'
+  export VISUAL={{ if .prefs.sublime_text }}'subl'{{ else }}'nvim'{{ end }}
 fi
 
 # Extend PATH.

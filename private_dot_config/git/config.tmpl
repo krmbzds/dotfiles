@@ -5,7 +5,7 @@
   email = {{ .git.user.email }}
   signingKey = {{ .git.user.signing_key }}
 [core]
-  editor = nvim
+  editor = {{if .prefs.sublime_text }}subl -n -w{{ else }}nvim{{ end }}
   pager = delta
   excludesfile = ~/.config/git/ignore
   autocrlf = input
@@ -13,7 +13,6 @@
 [color]
   ui = true
 [commit]
-  cleanup = whitespace
   gpgsign = {{ .git.commit.gpgsign }}
 {{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "Pop!_OS")) }}
 [credential]

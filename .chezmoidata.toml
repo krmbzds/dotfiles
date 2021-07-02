@@ -13,8 +13,10 @@
   syntax_theme = "Dracula Pro"
 [prefs]
   rvm = true
+  docker = true
   dracula_pro = true
   sublime_text = true
+  devops = true
 [prefs.nvim]
   telescope = true
 [hardware]
