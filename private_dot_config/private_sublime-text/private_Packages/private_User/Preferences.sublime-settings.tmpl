@@ -1,6 +1,8 @@
 {{ if .prefs.sublime_text -}}
 {
+  "animation_enabled": false,
   "auto_complete": false,
+  "hardware_acceleration": "opengl",
   "auto_complete_commit_on_tab": true,
   {{ if .prefs.dracula_pro }}"color_scheme": "Packages/Dracula Pro/Dracula Pro.tmTheme",{{ end }}
   "copy_with_empty_selection": true,
@@ -39,10 +41,11 @@
   "find_selected_text": true,
   "font_face": "Source Code Pro Medium",
   "font_size": 14,
+  "spell_check": false,
   "ignored_packages": [
     "Six",
     "Vintage",
-    "Vintageous"
+    "Vintageous",
   ],
   "index_files": true,
   "line_numbers": true,
