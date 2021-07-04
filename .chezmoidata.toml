@@ -23,6 +23,8 @@
   ungoogled_chromium = true
   brave_browser = true
   signal_messenger = true
+[nvidia]
+  browser_hw_accel = true
 [pulseaudio]
   switch_on_connect = false
 [gnome]
