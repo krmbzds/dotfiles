@@ -31,6 +31,7 @@
   static_workspaces = true
   workspace_count = 4
   workspace_switcher_popup = false
+  workspace_indicator = true
 [logitech.g213]
   enabled = true
   custom_backlight = true

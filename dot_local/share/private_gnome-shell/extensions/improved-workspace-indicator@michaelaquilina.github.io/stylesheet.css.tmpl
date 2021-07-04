@@ -1,0 +1,35 @@
+{{- if .gnome.workspace_indicator -}}
+.panel-workspace-indicator {
+  padding: 0 6px;
+}
+
+.panel-workspace-indicator-box {
+  padding: 2px 0;
+}
+
+.panel-workspace-indicator-box .workspace {
+  width: 40px;
+}
+
+.panel-workspace-indicator,
+.panel-workspace-indicator-box .workspace {
+  border: 1px solid #393649;
+  /*background-color: rgba(200, 200, 200, 0.5);*/
+  background-color: rgba(33, 44, 42, 0.3);
+}
+
+.panel-workspace-indicator-box .workspace {
+  /*background-color: rgba(200, 200, 200, 0.3);*/
+  background-color: rgba(33, 44, 42, 0.3);
+  border-left-width: 0;
+}
+
+.panel-workspace-indicator-box .workspace:first-child {
+  border-left-width: 1px;
+}
+
+.active {
+  /*background-color: rgba(20, 200, 200, 0.5);*/
+  background-color: rgba(121, 112, 169, 1);
+}
+{{ end }}
