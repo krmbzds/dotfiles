@@ -1,0 +1,27 @@
+{{ if .dependencies.ungoogled_chromium -}}
+[Desktop Entry]
+Version=1.0
+Name=Chromium Web Browser
+GenericName=Web Browser
+Comment=Access the Internet
+Exec=/usr/bin/chromium --force-dark-mode --enable-features=WebUIDarkMode %U
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=chromium
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml_xml;application/x-mimearchive;x-scheme-handler/http;x-scheme-handler/https;
+StartupWMClass=chromium
+StartupNotify=true
+Keywords=browser
+
+Actions=new-window;new-private-window;
+
+[Desktop Action new-window]
+Name=New Window
+Exec=/usr/bin/chromium
+
+[Desktop Action new-private-window]
+Name=New Incognito Window
+Exec=/usr/bin/chromium --incognito
+{{ end -}}
