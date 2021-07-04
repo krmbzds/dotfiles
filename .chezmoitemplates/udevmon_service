@@ -1,0 +1,11 @@
+[Unit]
+Description=udevmon
+Wants=systemd-udev-settle.service
+After=systemd-udev-settle.service
+
+[Service]
+ExecStart={{- .chezmoi.homedir -}}/bin/udevmon -c {{ .chezmoi.homedir -}}/.config/interception-tools/udevmon.yaml
+Nice=-20
+
+[Install]
+WantedBy=multi-user.target

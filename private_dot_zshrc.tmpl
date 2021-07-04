@@ -59,7 +59,7 @@ if [[ -n "$SSH_CONNECTION" ]]; then
   export VISUAL='vi'
 else
   export EDITOR='nvim'
-  export VISUAL={{ if .prefs.sublime_text }}'subl'{{ else }}'nvim'{{ end }}
+  export VISUAL={{ if .dependencies.sublime_text }}'subl'{{ else }}'nvim'{{ end }}
 fi
 
 # Extend PATH.
@@ -75,7 +75,7 @@ zle -N edit-command-line
 
 # Source additional local files if they exist.
 z4h source ~/.env.zsh
-{{ if .prefs.rvm -}}
+{{ if .dependencies.rvm -}}
 z4h source ~/.rvm/scripts/rvm
 {{- end }}
 

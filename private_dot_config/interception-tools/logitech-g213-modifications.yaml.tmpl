@@ -1,0 +1,10 @@
+{{ if (and .logitech.g213.enabled .logitech.g213.remap_caps_lock) }}
+TIMING:
+  TAP_MILLISEC: 200
+  DOUBLE_TAP_MILLISEC: 150
+
+MAPPINGS:
+  - KEY: KEY_CAPSLOCK
+    TAP: KEY_ESC
+    HOLD: KEY_LEFTCTRL
+{{ end }}

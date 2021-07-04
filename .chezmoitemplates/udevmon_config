@@ -1,0 +1,5 @@
+- JOB: "{{ .chezmoi.homedir -}}/bin/intercept -g $DEVNODE | {{ .chezmoi.homedir -}}/bin/dual-function-keys -c {{.chezmoi.homedir -}}/.config/interception-tools/logitech-g213-modifications.yaml | {{ .chezmoi.homedir -}}/bin/uinput -d $DEVNODE"
+  DEVICE:
+    NAME: "{{- .logitech.g213.device_name -}}"
+    EVENTS:
+      EV_KEY: [KEY_CAPSLOCK]

@@ -1,120 +1,205 @@
 {{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "Pop!_OS")) -}}
-#!/bin/sh
+#!/bin/bash
 
-sudo apt -y update
-sudo apt -y upgrade
+function compile_libsecret() {
+  lib_path=/usr/share/doc/git/contrib/credential/libsecret
+  if [ ! -f "$lib_path/git-credential-libsecret" ]; then
+    sudo apt -y install libsecret-1-dev
+    sudo make --directory=$lib_path
+    sudo apt -y purge libsecret-1-dev
+  fi
+}
 
-sudo apt -y install alacritty \
-                    bat \
-                    exa \
-                    fd-find \
-                    gnupg \
-                    jq \
-                    pcscd \
-                    scdaemon \
-                    tmux \
-                    tree
+function install_delta() {
+  ! command -v delta &>/dev/null || return 0
+  local deb
+  deb = "$(mktemp)"
+  curl -fsSL 'https://api.github.com/repos/dandavison/delta/releases/latest' | jq -r ".assets[].browser_download_url" | grep "amd64\.deb$" | grep -v "musl" | xargs curl -s -L --output "$deb"
+  sudo apt -y install "$deb"
+  rm "$deb"
+}
 
-# set up libsecret for git
-LIBSECRET=/usr/share/doc/git/contrib/credential/libsecret
-if [ ! -f "$LIBSECRET/git-credential-libsecret" ]; then
-  sudo apt -y install libsecret-1-dev
-  sudo make --directory=$LIBSECRET
-  sudo apt -y purge libsecret-1-dev
-fi
+function add_ppa_sublime_text() {
+  {{ if .dependencies.sublime_text }}
+    ! command -v subl &>/dev/null || return 0
+    curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | sudo gpg --dearmor -o /usr/share/keyrings/sublimehq-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/sublimehq-archive-keyring.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null
+  {{ end }}
+}
 
-# git-delta
-{{ if (not (lookPath "delta")) -}}
-curl -s 'https://api.github.com/repos/dandavison/delta/releases/latest' | jq -r ".assets[].browser_download_url" | grep "amd64\.deb$" | grep -v "musl" | xargs curl -s -L --output /tmp/delta.deb && sudo apt -y install /tmp/delta.deb && rm /tmp/delta.deb
-{{ end }}
+function add_ppa_docker() {
+  {{ if .dependencies.docker }}
+    ! command -v docker &>/dev/null || return 0
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.Gdocker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  {{ end }}
+}
 
-# sublime text
-{{ if (and (.prefs.sublime_text) (not (lookPath "subl"))) }}
-curl -s -L https://download.sublimetext.com/sublimehq-pub.gpg | sudo gpg --dearmor -o /usr/share/keyrings/sublimehq-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/sublimehq-archive-keyring.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null
-sudo apt -y update
-sudo apt -y install sublime-text
-{{ end }}
+function add_docker_group() {
+  sudo groupadd docker
+  sudo usermod -aG docker $USER
+}
 
-# use neovim unstable and install ripgrep if telescope is used
-{{ if (and (.prefs.nvim.telescope) (not (lookPath "nvim"))) }}
-sudo add-apt-repository -y ppa:neovim-ppa/unstable
-sudo apt -y update
-sudo apt -y install ripgrep
-{{ end }}
+function enable_docker_and_containerd_services() {
+  sudo systemctl enable docker.service
+  sudo systemctl enable containerd.service
+}
 
-# install neovim
-{{ if (not (lookPath "nvim")) -}}
-sudo apt -y install neovim
-{{ end }}
+function add_ppa_neovim() {
+  {{ if .prefs.nvim.telescope }}
+    # remove this when neovim 0.5 is in stable channel
+    sudo add-apt-repository -y ppa:neovim-ppa/unstable
+  {{ end }}
+}
 
-# update alternatives
-sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+function add_ppa_terraform() {
+  {{ if .dependencies.devops }}
+    ! command -v terraform &>/dev/null || return 0
+    curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list > /dev/null
+  {{ end }}
+}
 
-# ruby version manager
-{{ if .prefs.rvm }}
-{{ if (not (lookPath "rvm")) -}}
-curl -s -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer
-bash rvm-installer --branch stable --ignore-dotfiles
-rm rvm-installer
-{{ end }}
-{{ end }}
+function add_ppa_kubectl() {
+  {{ if .dependencies.devops }}
+    ! command -v kubectl &>/dev/null || return 0
+    sudo curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg -o /usr/share/keyrings/kubernetes-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
+  {{ end }}
+}
 
-# sets keyboard backlight automatically when plugged
-# muted distraction-free color choice compatible with dracula pro
-{{ if .hardware.logitech_g213 }}
-{{ if (not (lookPath "g213colors")) -}}
-curl -s -L 'https://gist.githubusercontent.com/krmbzds/1f51e3a4b7779e81651e62e5d15bacdd/raw/f172cf6ba20cd2a7b440fea5ffc9dbc926f74673/g213colors' | sudo tee /usr/local/bin/g213colors
-sudo chmod +x /usr/local/bin/g213colors
-sudo apt -y install python3-usb
-curl -s -L 'https://gist.githubusercontent.com/krmbzds/3ec12198dc5cafe4efcd005122b81b7a/raw/1a9fa16c3ba9557f6812d18c68e40898c1ada339/50-LogitechGamingKeyboardG213.rules' | sudo tee /etc/udev/rules.d/50-LogitechGamingKeyboardG213.rules
-{{ end }}
-{{ end }}
+function add_ppa_helm() {
+  {{ if .dependencies.devops }}
+    ! command -v helm &>/dev/null || return 0
+    curl -fsSL https://baltocdn.com/helm/signing.asc | sudo gpg --dearmor -o /usr/share/keyrings/helm-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm-archive-keyring.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list > /dev/null
+  {{ end }}
+}
 
-{{ if .gpg.pubkey_url }}
-curl -sSL "{{ .gpg.pubkey_url }}" | gpg --import -
-{{ end }}
+function install_rvm() {
+  {{ if .dependencies.rvm }}
+    ! command -v rvm &>/dev/null || return 0
+    installer = "$(mktemp)"
+    curl -fsSL https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer --output "$installer"
+    bash "$installer" --branch stable --ignore-dotfiles
+    rm "$installer"
+  {{ else }}
+    return 0
+  {{ end }}
+}
 
-# docker
-{{ if (and (.prefs.docker) (not (lookPath "docker"))) }}
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+function update_alternatives() {
+  sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+  sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+  sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+}
 
-sudo apt -y update
-sudo apt -y install docker-ce docker-ce-cli containerd.io docker-compose
+function set_custom_backlight() {
+  {{ if (and .logitech.g213.enabled .logitech.g213.custom_backlight) }}
+    echo '{{- template "udev_rule_g213" . -}}' | sudo tee /etc/udev/rules.d/50-LogitechGamingKeyboardG213.rules > /dev/null
+  {{ end }}
+}
 
-sudo groupadd docker
-sudo usermod -aG docker $USER
+function remap_caps_lock() {
+  {{ if (and .logitech.g213.enabled .logitech.g213.remap_caps_lock) }}
+    echo '{{ template "udevmon_config" . }}' | sudo tee {{ .chezmoi.homedir -}}/.config/interception-tools/udevmon.yaml > /dev/null
+    echo '{{ template "udevmon_service" . }}' | sudo tee /etc/systemd/system/udevmon.service > /dev/null
+    sudo systemctl enable --now udevmon
+    sudo systemctl start udevmon
+  {{ end }}
+}
 
-sudo systemctl enable docker.service
-sudo systemctl enable containerd.service
-{{ end }}
+function configure_static_workspaces() {
+  {{ if .gnome.static_workspaces }}
+    gsettings set org.gnome.mutter dynamic-workspaces false
+    gsettings set org.gnome.desktop.wm.preferences num-workspaces $1
 
-{{ if .prefs.devops }}
-# terraform
-{{ if (not (lookPath "terraform")) -}}
-curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list > /dev/null
-sudo apt -y update
-sudo apt -y install terraform
-{{ end }}
+    for i in `seq $1`; do
+      gsettings set org.gnome.shell.keybindings switch-to-application-$i  "[]"
+      gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-$i  "['<Super>$i']"
+      gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i  "['<Super><Shift>$i']"
+    done
+  {{ end }}
+}
 
-# kubernetes
-{{ if (not (lookPath "kubectl")) -}}
-sudo curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg -o /usr/share/keyrings/kubernetes-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
-sudo apt -y update
-sudo apt -y install kubectl
-{{ end }}
+function disable_pulseaudio_switch_on_connect() {
+  {{ if .pulseaudio.switch_on_connect }}
+    return 0
+  {{ else }}
+    sudo sed -i 's/^load-module module-switch-on-connect$/# load-module module-switch-on-connect/g' /etc/pulse/default.pa
+  {{ end }}
+}
 
-# helm
-{{ if (not (lookPath "helm")) }}
-curl -fsSL https://baltocdn.com/helm/signing.asc | sudo gpg --dearmor -o /usr/share/keyrings/helm-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm-archive-keyring.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list > /dev/null
-sudo apt -y update
-sudo apt -y install helm
-{{ end }}
-{{ end }}
+function import_gpg_key_from_url() {
+  if [ $# -eq 0 ]; then
+    return 0
+  else
+    curl -sSL $1 | gpg --import -
+  fi
+}
+
+function install_packages() {
+  local packages=(
+    alacritty
+    bat
+    exa
+    fd-find
+    gnupg
+    jq
+    neovim
+    pcscd
+    scdaemon
+    tmux
+    tree
+
+    {{ if .logitech.g213.custom_backlight }}
+      python3-usb
+    {{ end }}
+
+    {{ if .dependencies.docker }}
+      docker-ce
+      docker-ce-cli
+      containerd.io
+      docker-compose
+    {{ end }}
+
+    {{ if .dependencies.devops }}
+      terraform
+      kubectl
+      helm
+    {{ end }}
+
+    {{ if .logitech.g213.remap_caps_lock }}
+      libevdev-dev
+      libudev-dev
+      libyaml-cpp-dev
+    {{ end }}
+  )
+
+  add_ppa_neovim
+  add_ppa_sublime_text
+  add_ppa_docker
+  add_ppa_terraform
+  add_ppa_kubectl
+  add_ppa_helm
+
+  sudo apt -y update
+  sudo apt -y upgrade
+  sudo apt -y install "${packages[@]}"
+  sudo apt -y autoremove
+  sudo apt -y autoclean
+
+  install_rvm
+  install_delta
+  compile_libsecret
+}
+
+install_packages
+update_alternatives
+import_gpg_key_from_url "{{ .gpg.pubkey_url }}"
+configure_static_workspaces "{{ .gnome.workspace_count }}"
+disable_pulseaudio_switch_on_connect
+set_custom_backlight
+remap_caps_lock
+
 {{ end }}

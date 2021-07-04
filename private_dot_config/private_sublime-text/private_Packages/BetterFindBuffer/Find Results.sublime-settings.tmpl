@@ -1,4 +1,4 @@
-{{ if .prefs.sublime_text -}}
+{{ if .dependencies.sublime_text -}}
 {
   "color_scheme": {{ if .prefs.dracula_pro }}"Packages/Dracula Pro/Dracula Pro.tmTheme"{{ else }}"Packages/BetterFindBuffer/FindResults.hidden-tmTheme"{{ end }},
   "draw_indent_guides": false,
