@@ -52,6 +52,7 @@ z4h init || return
 # Export environment variables.
 export GPG_TTY=$TTY
 export FINGERPRINT='{{ .gpg.fingerprint }}'
+export DO_NOT_TRACK=1
 
 # Set editor for local and remote environments.
 if [[ -n "$SSH_CONNECTION" ]]; then
