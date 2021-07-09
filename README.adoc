@@ -15,6 +15,10 @@
 :caution-caption: :fire:
 :warning-caption: :warning:
 
+[WARNING]
+This guide is deprecated and will receive no further updates. +
+The author put away his shiny toy and decided to use a real computer.
+
 == Operating System
 
 === macOS
