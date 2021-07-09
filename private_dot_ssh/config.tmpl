@@ -1,0 +1,15 @@
+{{ if (eq .gpg.fingerprint "1B01B3C4EEFBE1730136D89338FD2B3F677F9C34") -}}
+Host *
+  Protocol 2
+  HashKnownHosts yes
+  IdentitiesOnly yes
+  VisualHostKey yes
+  PasswordAuthentication no
+  ChallengeResponseAuthentication no
+  StrictHostKeyChecking ask
+  ControlMaster auto
+  ControlPath ~/.ssh/master-%r@%h:%p
+  ControlPersist 2m
+  UseRoaming no
+  IdentityFile ~/.ssh/id_rsa_yubikey.pub
+{{ end }}

@@ -105,3 +105,10 @@ z4h source ~/.config/zsh/aliases.zsh
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
+# Use gpg-agent instead of ssh-agent
+if ! [[ -n "$SSH_CONNECTION" ]]; then
+  gpg-connect-agent updatestartuptty /bye >/dev/null
+  if [ -z "$SSH_AUTH_SOCK" ]; then
+    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+  fi
+fi

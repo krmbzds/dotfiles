@@ -193,41 +193,44 @@ function install_packages() {
     scdaemon
     tmux
     tree
+    {{ if .logitech.g213.custom_backlight -}}
+    python3-usb
+    {{ end -}}
 
-    {{ if .logitech.g213.custom_backlight }}
-      python3-usb
-    {{ end }}
+    {{ if .dependencies.meld -}}
+    meld
+    {{ end -}}
 
-    {{ if .dependencies.docker }}
-      docker-ce
-      docker-ce-cli
-      containerd.io
-      docker-compose
-    {{ end }}
+    {{ if .dependencies.docker -}}
+    docker-ce
+    docker-ce-cli
+    containerd.io
+    docker-compose
+    {{ end -}}
 
-    {{ if .dependencies.devops }}
-      terraform
-      kubectl
-      helm
-    {{ end }}
+    {{ if .dependencies.devops -}}
+    terraform
+    kubectl
+    helm
+    {{ end -}}
 
-    {{ if .logitech.g213.remap_caps_lock }}
-      libevdev-dev
-      libudev-dev
-      libyaml-cpp-dev
-    {{ end }}
+    {{ if .logitech.g213.remap_caps_lock -}}
+    libevdev-dev
+    libudev-dev
+    libyaml-cpp-dev
+    {{ end -}}
 
-    {{ if .dependencies.ungoogled_chromium }}
-      ungoogled-chromium
-    {{ end }}
+    {{ if .dependencies.ungoogled_chromium -}}
+    ungoogled-chromium
+    {{ end -}}
 
-    {{ if .dependencies.brave_browser }}
-      brave-browser
-    {{ end }}
+    {{ if .dependencies.brave_browser -}}
+    brave-browser
+    {{ end -}}
 
-    {{ if .dependencies.signal_messenger }}
-      signal-desktop
-    {{ end }}
+    {{ if .dependencies.signal_messenger -}}
+    signal-desktop
+    {{- end }}
   )
 
   add_ppa_neovim

@@ -1,6 +1,6 @@
 [gpg]
-  fingerprint = "1B01B3C4EEFBE1730136D89338FD2B3F677F9C34"
   pubkey_url = "https://kerembozdas.com/pubkey.asc"
+  fingerprint = "1B01B3C4EEFBE1730136D89338FD2B3F677F9C34"
 [git.init]
   default_branch = "master"
 [git.user]
@@ -12,29 +12,32 @@
 [git.delta]
   syntax_theme = "Dracula Pro"
 [prefs]
+  somafm = true
   dracula_pro = true
 [prefs.nvim]
   telescope = true
 [dependencies]
   rvm = true
+  meld = true
   docker = true
   devops = true
   sublime_text = true
-  ungoogled_chromium = true
   brave_browser = true
   signal_messenger = true
+  ungoogled_chromium = true
 [nvidia]
   browser_hw_accel = true
 [pulseaudio]
   switch_on_connect = false
 [gnome]
-  static_workspaces = true
+  dracula = true
   workspace_count = 4
-  workspace_switcher_popup = false
+  static_workspaces = true
   workspace_indicator = true
+  workspace_switcher_popup = false
 [logitech.g213]
   enabled = true
+  remap_caps_lock = true
   custom_backlight = true
   backlight_color = "22212C"
-  remap_caps_lock = true
   device_name = "Logitech Gaming Keyboard G213"

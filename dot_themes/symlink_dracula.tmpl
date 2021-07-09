@@ -1,0 +1,3 @@
+{{- if (and (eq .chezmoi.os "linux") (.gnome.dracula)) -}}
+{{- .chezmoi.homedir -}}/.config/dracula/themes/gtk/
+{{ end }}

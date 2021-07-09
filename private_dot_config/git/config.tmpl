@@ -1,30 +1,46 @@
 [init]
-  defaultBranch = master
+	defaultBranch = master
 [user]
-  name = {{ .git.user.name }}
-  email = {{ .git.user.email }}
-  signingKey = {{ .git.user.signing_key }}
+	name = {{ .git.user.name }}
+	email = {{ .git.user.email }}
+	signingKey = {{ .git.user.signing_key }}
 [core]
-  editor = {{if .dependencies.sublime_text }}subl -n -w{{ else }}nvim{{ end }}
-  pager = delta
-  excludesfile = ~/.config/git/ignore
-  autocrlf = input
-  commentChar = ";"
+	editor = {{if .dependencies.sublime_text }}subl -n -w{{ else }}nvim{{ end }}
+	pager = delta
+	excludesfile = ~/.config/git/ignore
+	autocrlf = input
+	commentChar = ";"
 [color]
-  ui = true
+	ui = true
 [commit]
-  gpgsign = {{ .git.commit.gpgsign }}
-{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "Pop!_OS")) }}
-[credential]
-  helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
-{{ end }}
+	gpgsign = {{ .git.commit.gpgsign }}
 [delta]
-  line-numbers = true
-  syntax-theme = {{ .git.delta.syntax_theme }}
-  side-by-side = true
+	line-numbers = true
+	syntax-theme = {{ .git.delta.syntax_theme }}
+	side-by-side = true
 [interactive]
-  diffFilter = delta --color-only
+	diffFilter = delta --color-only
 [alias]
-  lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-  lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-  lg = !"git lg1"
+	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+	lg = !"git lg1"
+[rerere]
+	enabled = true
+	autoupdate = true
+{{ if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "Pop!_OS")) }}
+{{ if .dependencies.meld }}
+[diff]
+	tool = meld
+[difftool]
+	prompt = false
+[merge]
+	tool = meld
+[mergetool]
+	prompt = false
+[mergetool "meld"]
+	# cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+	cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
+{{ end }}
+[credential]
+	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+{{ end }}
