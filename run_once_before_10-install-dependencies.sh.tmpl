@@ -30,8 +30,6 @@ function install_rvm() {
     curl -fsSL https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer --output "$installer"
     bash "$installer" --branch stable --ignore-dotfiles
     rm "$installer"
-  {{ else }}
-    return 0
   {{ end }}
 }
 
