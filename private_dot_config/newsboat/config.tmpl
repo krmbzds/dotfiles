@@ -1,0 +1,62 @@
+{{ if .dependencies.newsboat -}}
+player mpv
+browser "xdg-open %u"
+external-url-viewer urlview
+
+reload-threads        4
+ssl-verifyhost        yes
+ssl-verifypeer        no
+show-read-articles    yes
+show-read-feeds       yes
+mark-as-read-on-hover no
+
+# Key bindings
+bind-key j down
+bind-key k up
+bind-key j next articlelist
+bind-key k prev articlelist
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key G end
+bind-key g home
+bind-key d pagedown
+bind-key u pageup
+bind-key l open
+bind-key h quit
+bind-key a toggle-article-read
+bind-key n next-unread
+bind-key N prev-unread
+bind-key D pb-download
+bind-key U show-urls
+bind-key x pb-delete
+
+# Color scheme
+color background          white   black
+color listnormal          white   black
+color listnormal_unread   magenta black
+color listfocus_unread    magenta blue  bold
+color info                black   white bold
+color article             white   black
+
+# Highlights
+highlight all "---.*---" yellow
+highlight feedlist ".*(0/0))" black
+highlight article "(^Feed:.*|^Title:.*|^Author:.*)" cyan default bold
+highlight article "(^Link:.*|^Date:.*)" default default
+highlight article "https?://[^ ]+" green default
+highlight article "^(Title):.*$" blue default
+highlight article "\\[[0-9][0-9]*\\]" magenta default bold
+highlight article "\\[image\\ [0-9]+\\]" green default bold
+highlight article "\\[embedded flash: [0-9][0-9]*\\]" green default bold
+highlight article ":.*\\(link\\)$" cyan default
+highlight article ":.*\\(image\\)$" blue default
+highlight article ":.*\\(embedded flash\\)$" magenta default
+
+# Macros: (o)utline, (a)dd to library, queue (p)odcast, (m)pv, no (v)ideo, watch (n)ext
+macro o set browser "xdg-open https://outline.com/%u"; open-in-browser-and-mark-read ; set browser "xdg-open %u"
+macro a set browser "tsp youtube-dl --add-metadata --extract-audio -xic -f bestaudio/best --output '$HOME/Videos/Newsboat/%(title)s.%(ext)s'; open-in-browser-and-mark-read ; set browser "xdg-open %u"
+macro p set browser "tsp mpv --no-video %u"; open-in-browser-and-mark-read ; set browser "xdg-open %u"
+macro m set browser "tsp mpv %u"; open-in-browser-and-mark-read ; set browser "xdg-open %u"
+macro v set browser "setsid mpv --no-video"; open-in-browser-and-mark-read ; set browser "xdg-open %u"
+macro n set browser "tsp mpv --ytdl --ontop --no-border --force-window --autofit=960x540 --geometry=-20-50 %u > /dev/null &"; open-in-browser-and-mark-read ; set browser "xdg-open %u"
+{{ end }}

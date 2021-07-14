@@ -212,6 +212,13 @@ function install_packages() {
     helm
     {{ end -}}
 
+    {{ if .dependencies.newsboat -}}
+    mpv
+    newsboat
+    task-spooler
+    urlview
+    {{ end -}}
+
     {{ if .logitech.g213.remap_caps_lock -}}
     libevdev-dev
     libudev-dev

@@ -21,6 +21,7 @@
   meld = true
   docker = true
   devops = true
+  newsboat = true
   sublime_text = true
   brave_browser = true
   signal_messenger = true
