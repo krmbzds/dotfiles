@@ -17,7 +17,7 @@ function compile_libsecret() {
 function install_delta() {
   ! command -v delta &>/dev/null || return 0
   local deb
-  deb = "$(mktemp)"
+  deb="$(mktemp)"
   curl -fsSL 'https://api.github.com/repos/dandavison/delta/releases/latest' | jq -r ".assets[].browser_download_url" | grep "amd64\.deb$" | grep -v "musl" | xargs curl -s -L --output "$deb"
   sudo apt -y install "$deb"
   rm "$deb"
@@ -26,10 +26,27 @@ function install_delta() {
 function install_rvm() {
   {{ if .dependencies.rvm }}
     ! command -v rvm &>/dev/null || return 0
-    installer = "$(mktemp)"
+    installer="$(mktemp)"
     curl -fsSL https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer --output "$installer"
     bash "$installer" --branch stable --ignore-dotfiles
     rm "$installer"
+  {{ end }}
+}
+
+function install_anki() {
+  {{ if .dependencies.anki }}
+    ! command -v anki &>/dev/null || return 0
+    local archive
+    local tempdir
+    archive="$(mktemp)"
+    tempdir="$(mktemp -d)"
+    curl -fsSL 'https://api.github.com/repos/ankitects/anki/releases/latest' | jq -r ".assets[].browser_download_url" | grep "linux" | xargs curl -s -L --output "$archive"
+    tar -xf "$archive" -C "$tempdir" --strip-components=1
+    cd "$tempdir"
+    PREFIX="{{- .chezmoi.homedir -}}/.local" ./install.sh
+    rm "$archive"
+    rm -rf "$tempdir"
+    cd -
   {{ end }}
 }
 
@@ -256,6 +273,7 @@ function install_packages() {
 
   compile_libsecret
   install_delta
+  install_anki
   install_rvm
 }
 

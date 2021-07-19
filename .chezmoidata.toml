@@ -18,6 +18,7 @@
   telescope = true
 [dependencies]
   rvm = true
+  anki = true
   meld = true
   docker = true
   devops = true
