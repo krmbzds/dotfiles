@@ -32,11 +32,15 @@ alias bat='batcat'
 alias radio="somafm list | fzf | awk '{print $1}' | xargs somafm play --quality=highest"
 {{ end -}}
 
-{{ if lookPath "newsboat" }}
+{{ if lookPath "newsboat" -}}
 for i in y t f g d l; do
   filepath="{{ .chezmoi.homedir }}/.config/newsboat/urls-$i"
   if test -f "$filepath"; then
     eval "alias nb$i='newsboat -u $filepath -c $filepath.db'"
   fi
 done
-{{ end }}
+{{ end -}}
+
+{{ if (and (lookPath "faas-cli") (eq .chezmoi.hostname "workstation")) -}}
+  alias faas="OPENFAAS_TEMPLATE_STORE_URL='https://git.io/J8174' faas-cli"
+{{ end -}}

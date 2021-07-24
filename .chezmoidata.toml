@@ -19,6 +19,7 @@
 [dependencies]
   rvm = true
   anki = true
+  faas = true
   meld = true
   docker = true
   devops = true

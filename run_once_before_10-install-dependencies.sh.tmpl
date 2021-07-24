@@ -50,6 +50,13 @@ function install_anki() {
   {{ end }}
 }
 
+function install_faas() {
+  {{ if .dependencies.faas }}
+    ! command -v faas-cli &>/dev/null || return 0
+    curl -fsSL https://cli.openfaas.com | sed 's|/usr/local/bin|{{- .chezmoi.homedir -}}/bin|' | sed 's/export ALIAS_NAME="faas"//' | sh
+  {{ end }}
+}
+
 # ****************************************************************************
 # *                                   PPAs                                   *
 # ****************************************************************************
@@ -274,6 +281,7 @@ function install_packages() {
   compile_libsecret
   install_delta
   install_anki
+  install_faas
   install_rvm
 }
 
