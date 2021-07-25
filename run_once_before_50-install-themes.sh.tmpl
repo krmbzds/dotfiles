@@ -4,12 +4,14 @@
 {{ if .prefs.dracula_pro }}
 git clone https://github.com/krmbzds/dracula-pro ~/.config/dracula-pro
 {{ end }}
+
 {{ if .gnome.dracula }}
-git clone https://github.com/krmbzds/dracula-theme ~/.config/dracula
+git clone https://github.com/dracula/dracula-theme ~/.config/dracula
 git -C ~/.config/dracula submodule update --init themes/gtk
 gsettings set org.gnome.desktop.interface gtk-theme "dracula"
 gsettings set org.gnome.desktop.wm.preferences theme "dracula"
 {{ end }}
+
 {{ if lookPath "batcat" }}
 batcat cache --build
 {{ end }}
