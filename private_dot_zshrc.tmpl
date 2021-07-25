@@ -12,7 +12,11 @@ zstyle ':z4h:' auto-update-days '28'
 
 # Automaticaly wrap TTY with a transparent tmux ('integrated'), or start a
 # full-fledged tmux ('system'), or disable features that require tmux ('no').
-zstyle ':z4h:' start-tmux       'system'
+if [[ -n "$SSH_CONNECTION" ]]; then
+  zstyle ':z4h:' start-tmux       'no'
+else
+  zstyle ':z4h:' start-tmux       'system'
+fi
 # Move prompt to the bottom when zsh starts up so that it's always in the
 # same position. Has no effect if start-tmux is 'no'.
 zstyle ':z4h:' prompt-at-bottom 'yes'
@@ -29,7 +33,7 @@ zstyle ':z4h:fzf-complete' recurse-dirs 'yes'
 
 # Enable ('yes') or disable ('no') automatic teleportation of z4h over
 # ssh when connecting to these hosts.
-zstyle ':z4h:ssh:raspberrypi'         enable 'yes'
+zstyle ':z4h:ssh:raspberrypi.local'   enable 'yes'
 # The default value if none of the overrides above match the hostname.
 zstyle ':z4h:ssh:*'                   enable 'no'
 
