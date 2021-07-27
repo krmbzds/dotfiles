@@ -57,6 +57,13 @@ function install_faas() {
   {{ end }}
 }
 
+function install_doctl() {
+  {{ if .dependencies.devops }}
+    ! command -v doctl &>/dev/null || return 0
+    curl -fsSL 'https://api.github.com/repos/digitalocean/doctl/releases/latest' | jq -r ".assets[].browser_download_url" | grep "linux-amd64\.tar\.gz$" | xargs curl -s -L | tar -xzC "{{ .chezmoi.homedir }}/bin" doctl
+  {{ end }}
+}
+
 # ****************************************************************************
 # *                                   PPAs                                   *
 # ****************************************************************************
@@ -279,6 +286,7 @@ function install_packages() {
   sudo apt -y autoclean
 
   compile_libsecret
+  install_doctl
   install_delta
   install_anki
   install_faas
