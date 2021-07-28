@@ -44,3 +44,13 @@ done
 {{ if (and (lookPath "faas-cli") (eq .chezmoi.hostname "workstation")) -}}
   alias faas="OPENFAAS_TEMPLATE_STORE_URL='https://git.io/J8174' faas-cli"
 {{ end -}}
+
+{{ if (and (lookPath "docker") (lookPath "mobynuker")) -}}
+function docker() {
+  if [[ "$1" == "nuke" ]]; then
+    command mobynuker
+  else
+    command docker "$@"
+  fi
+}
+{{ end -}}
