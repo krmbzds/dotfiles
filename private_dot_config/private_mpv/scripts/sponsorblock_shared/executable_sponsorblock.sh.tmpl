@@ -1,0 +1,21 @@
+{{- if .dependencies.newsboat -}}
+#!/bin/bash
+
+TSFILE="{{ .chezmoi.homedir }}/.local/share/sponsorblock/timestamps.csv"
+
+function update_timestamps() {
+  mkdir -p "$(dirname $1)"
+  # update timestamps if not updated in the last hour
+  if [ $(expr $(date +"%s") - $(date -r "$TSFILE" +"%s")) -ge 3600 ]; then
+    # continue from last downloded bit
+    curl -fsSLC - "https://sponsor.ajay.app/database/sponsorTimes.csv" -o "$1"
+  fi
+}
+
+function return_segments() {
+  rg "^$1" "$2" | awk -F',' '{print "{\"category\":\""$11"\",\"segment\":["$2","$3"],\"UUID\":\""$7"\"},"""}' | tr -d '\n' | sed 's/^/[/;s/,$/]/'
+}
+
+update_timestamps $TSFILE
+return_segments $1 $TSFILE
+{{- end }}
