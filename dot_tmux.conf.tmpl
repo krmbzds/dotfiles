@@ -1,3 +1,38 @@
+# Disable mouse
+setw -g mouse off
+
+# Set prefix to C-a
+set -g prefix C-a
+bind C-a send-prefix
+unbind C-b
+
+# Start window and pane numbers from 1
+set -g base-index 1
+setw -g pane-base-index 1
+
+# Easy to remember split bindings
+bind | split-window -h
+bind - split-window -v
+
+# Reload config with shortcut
+bind r source-file ~/.tmux.conf
+
+# Use vim-style movement keys
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Use vim-style resize keys
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
+
+# Use vim-style shortcut to cycle windows
+bind -r C-h select-window -t :-
+bind -r C-l select-window -t :+
+
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
