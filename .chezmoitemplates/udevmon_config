@@ -1,4 +1,4 @@
-- JOB: "{{ .chezmoi.homedir -}}/bin/intercept -g $DEVNODE | {{ .chezmoi.homedir -}}/bin/dual-function-keys -c {{.chezmoi.homedir -}}/.config/interception-tools/logitech-g213-modifications.yaml | {{ .chezmoi.homedir -}}/bin/uinput -d $DEVNODE"
+- JOB: "{{ .chezmoi.homeDir -}}/bin/intercept -g $DEVNODE | {{ .chezmoi.homeDir -}}/bin/dual-function-keys -c {{.chezmoi.homeDir -}}/.config/interception-tools/logitech-g213-modifications.yaml | {{ .chezmoi.homeDir -}}/bin/uinput -d $DEVNODE"
   DEVICE:
     NAME: "{{- .logitech.g213.device_name -}}"
     EVENTS:

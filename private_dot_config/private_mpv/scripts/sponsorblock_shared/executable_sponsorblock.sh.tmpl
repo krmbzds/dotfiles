@@ -2,7 +2,7 @@
 #!/bin/bash
 
 url='https://sponsor.ajay.app/database/sponsorTimes.csv'
-csv='{{ .chezmoi.homedir }}/.local/share/sponsorblock/timestamps.csv'
+csv='{{ .chezmoi.homeDir }}/.local/share/sponsorblock/timestamps.csv'
 
 base_dir=$(dirname "$csv")
 time_now=$(date +'%s')

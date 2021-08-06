@@ -5,7 +5,7 @@
 -- using data from https://github.com/ajayyy/SponsorBlock
 
 function getranges()
-  local args = {'/bin/bash', '{{ .chezmoi.homedir }}/.config/mpv/scripts/sponsorblock_shared/sponsorblock.sh', youtube_id}
+  local args = {'/bin/bash', '{{ .chezmoi.homeDir }}/.config/mpv/scripts/sponsorblock_shared/sponsorblock.sh', youtube_id}
   local sponsors = mp.command_native({name = "subprocess", capture_stdout = true, playback_only = false, args = args})
 
   if string.match(sponsors.stdout,"%[(.-)%]") then

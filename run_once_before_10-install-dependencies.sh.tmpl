@@ -43,7 +43,7 @@ function install_anki() {
     curl -fsSL 'https://api.github.com/repos/ankitects/anki/releases/latest' | jq -r ".assets[].browser_download_url" | grep "linux" | xargs curl -s -L --output "$archive"
     tar -xf "$archive" -C "$tempdir" --strip-components=1
     cd "$tempdir"
-    PREFIX="{{- .chezmoi.homedir -}}/.local" ./install.sh
+    PREFIX="{{- .chezmoi.homeDir -}}/.local" ./install.sh
     rm "$archive"
     rm -rf "$tempdir"
     cd -
@@ -53,14 +53,14 @@ function install_anki() {
 function install_faas() {
   {{ if .dependencies.faas }}
     ! command -v faas-cli &>/dev/null || return 0
-    curl -fsSL https://cli.openfaas.com | sed 's|/usr/local/bin|{{- .chezmoi.homedir -}}/bin|' | sed 's/export ALIAS_NAME="faas"//' | sh
+    curl -fsSL https://cli.openfaas.com | sed 's|/usr/local/bin|{{- .chezmoi.homeDir -}}/bin|' | sed 's/export ALIAS_NAME="faas"//' | sh
   {{ end }}
 }
 
 function install_doctl() {
   {{ if .dependencies.devops }}
     ! command -v doctl &>/dev/null || return 0
-    curl -fsSL 'https://api.github.com/repos/digitalocean/doctl/releases/latest' | jq -r ".assets[].browser_download_url" | grep "linux-amd64\.tar\.gz$" | xargs curl -s -L | tar -xzC "{{ .chezmoi.homedir }}/bin" doctl
+    curl -fsSL 'https://api.github.com/repos/digitalocean/doctl/releases/latest' | jq -r ".assets[].browser_download_url" | grep "linux-amd64\.tar\.gz$" | xargs curl -s -L | tar -xzC "{{ .chezmoi.homeDir }}/bin" doctl
   {{ end }}
 }
 
@@ -169,7 +169,7 @@ function configure_static_workspaces() {
 
 function configure_workspace_indicator() {
   {{ if .gnome.workspace_indicator }}
-    glib-compile-schemas {{ .chezmoi.homedir }}/.local/share/gnome-shell/extensions/improved-workspace-indicator@michaelaquilina.github.io/schemas
+    glib-compile-schemas {{ .chezmoi.homeDir }}/.local/share/gnome-shell/extensions/improved-workspace-indicator@michaelaquilina.github.io/schemas
   {{ end }}
 }
 
@@ -187,7 +187,7 @@ function logitech_g213_set_custom_backlight() {
 
 function logitech_g213_remap_caps_lock() {
   {{ if (and .logitech.g213.enabled .logitech.g213.remap_caps_lock) }}
-    echo '{{ template "udevmon_config" . }}' | sudo tee {{ .chezmoi.homedir -}}/.config/interception-tools/udevmon.yaml > /dev/null
+    echo '{{ template "udevmon_config" . }}' | sudo tee {{ .chezmoi.homeDir -}}/.config/interception-tools/udevmon.yaml > /dev/null
     echo '{{ template "udevmon_service" . }}' | sudo tee /etc/systemd/system/udevmon.service > /dev/null
     sudo systemctl enable --now udevmon
     sudo systemctl start udevmon

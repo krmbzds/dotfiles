@@ -4,7 +4,7 @@ Wants=systemd-udev-settle.service
 After=systemd-udev-settle.service
 
 [Service]
-ExecStart={{- .chezmoi.homedir -}}/bin/udevmon -c {{ .chezmoi.homedir -}}/.config/interception-tools/udevmon.yaml
+ExecStart={{- .chezmoi.homeDir -}}/bin/udevmon -c {{ .chezmoi.homeDir -}}/.config/interception-tools/udevmon.yaml
 Nice=-20
 
 [Install]
