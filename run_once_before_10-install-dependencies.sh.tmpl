@@ -27,7 +27,7 @@ function install_rvm() {
   {{ if .dependencies.rvm }}
     ! command -v rvm &>/dev/null || return 0
     installer="$(mktemp)"
-    curl -fsSL https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer --output "$installer"
+    curl -fsSL 'https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer' --output "$installer"
     bash "$installer" --branch stable --ignore-dotfiles
     rm "$installer"
   {{ end }}
@@ -42,18 +42,18 @@ function install_anki() {
     tempdir="$(mktemp -d)"
     curl -fsSL 'https://api.github.com/repos/ankitects/anki/releases/latest' | jq -r ".assets[].browser_download_url" | grep "linux" | xargs curl -s -L --output "$archive"
     tar -xf "$archive" -C "$tempdir" --strip-components=1
-    cd "$tempdir"
+    cd "$tempdir" || return
     PREFIX="{{- .chezmoi.homeDir -}}/.local" ./install.sh
     rm "$archive"
     rm -rf "$tempdir"
-    cd -
+    cd - || return
   {{ end }}
 }
 
 function install_faas() {
   {{ if .dependencies.faas }}
     ! command -v faas-cli &>/dev/null || return 0
-    curl -fsSL https://cli.openfaas.com | sed 's|/usr/local/bin|{{- .chezmoi.homeDir -}}/bin|' | sed 's/export ALIAS_NAME="faas"//' | sh
+    curl -fsSL 'https://cli.openfaas.com' | sed 's|/usr/local/bin|{{- .chezmoi.homeDir -}}/bin|' | sed 's/export ALIAS_NAME="faas"//' | sh
   {{ end }}
 }
 
@@ -71,7 +71,7 @@ function install_doctl() {
 function add_ppa_sublime_text() {
   {{ if .dependencies.sublime_text }}
     ! command -v subl &>/dev/null || return 0
-    curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | sudo gpg --dearmor -o /usr/share/keyrings/sublimehq-archive-keyring.gpg
+    curl -fsSL 'https://download.sublimetext.com/sublimehq-pub.gpg' | sudo gpg --dearmor -o /usr/share/keyrings/sublimehq-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/sublimehq-archive-keyring.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null
   {{ end }}
 }
@@ -79,7 +79,7 @@ function add_ppa_sublime_text() {
 function add_ppa_docker() {
   {{ if .dependencies.docker }}
     ! command -v docker &>/dev/null || return 0
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    curl -fsSL 'https://download.docker.com/linux/ubuntu/gpg' | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
   {{ end }}
 }
@@ -87,7 +87,8 @@ function add_ppa_docker() {
 function add_ppa_ungoogled_chromium() {
   {{ if .dependencies.ungoogled_chromium }}
     ! command -v chromium &>/dev/null || return 0
-    local relname=$(lsb_release -cs | sed 's/^\(.\)/\U\1/')
+    local relname
+    relname=$(lsb_release -cs | sed 's/^\(.\)/\U\1/')
     curl -fsSL "https://download.opensuse.org/repositories/home:/ungoogled_chromium/Ubuntu_$relname/Release.key" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home-ungoogled_chromium.gpg > /dev/null
     echo "deb http://download.opensuse.org/repositories/home:/ungoogled_chromium/Ubuntu_$relname/ /" | sudo tee /etc/apt/sources.list.d/home-ungoogled_chromium.list > /dev/null
   {{ end }}
@@ -96,7 +97,7 @@ function add_ppa_ungoogled_chromium() {
 function add_ppa_brave_browser() {
   {{ if .dependencies.brave_browser }}
     ! command -v brave-browser &>/dev/null || return 0
-    curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+    curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg 'https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg'
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
   {{ end }}
 }
@@ -111,7 +112,7 @@ function add_ppa_neovim() {
 function add_ppa_terraform() {
   {{ if .dependencies.devops }}
     ! command -v terraform &>/dev/null || return 0
-    curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    curl -fsSL 'https://apt.releases.hashicorp.com/gpg' | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list > /dev/null
   {{ end }}
 }
@@ -119,7 +120,7 @@ function add_ppa_terraform() {
 function add_ppa_kubectl() {
   {{ if .dependencies.devops }}
     ! command -v kubectl &>/dev/null || return 0
-    sudo curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg -o /usr/share/keyrings/kubernetes-archive-keyring.gpg
+    sudo curl -fsSL 'https://packages.cloud.google.com/apt/doc/apt-key.gpg' -o /usr/share/keyrings/kubernetes-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
   {{ end }}
 }
@@ -127,7 +128,7 @@ function add_ppa_kubectl() {
 function add_ppa_helm() {
   {{ if .dependencies.devops }}
     ! command -v helm &>/dev/null || return 0
-    curl -fsSL https://baltocdn.com/helm/signing.asc | sudo gpg --dearmor -o /usr/share/keyrings/helm-archive-keyring.gpg
+    curl -fsSL 'https://baltocdn.com/helm/signing.asc' | sudo gpg --dearmor -o /usr/share/keyrings/helm-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm-archive-keyring.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list > /dev/null
   {{ end }}
 }
@@ -135,7 +136,7 @@ function add_ppa_helm() {
 function add_ppa_signal_messenger() {
   {{ if .dependencies.signal_messenger }}
     ! command -v signal-desktop &>/dev/null || return 0
-    curl -fsSL https://updates.signal.org/desktop/apt/keys.asc | sudo gpg --dearmor -o /usr/share/keyrings/signal-desktop-keyring.gpg
+    curl -fsSL 'https://updates.signal.org/desktop/apt/keys.asc' | sudo gpg --dearmor -o /usr/share/keyrings/signal-desktop-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
   {{ end }}
 }
@@ -145,7 +146,7 @@ function add_ppa_signal_messenger() {
 # ****************************************************************************
 
 function import_gpg_key_from_url() {
-  curl -sSL $1 | gpg --import -
+  curl -sSL "$1" | gpg --import -
 }
 
 function update_alternatives() {
@@ -157,12 +158,12 @@ function update_alternatives() {
 function configure_static_workspaces() {
   {{ if .gnome.static_workspaces }}
     gsettings set org.gnome.mutter dynamic-workspaces false
-    gsettings set org.gnome.desktop.wm.preferences num-workspaces $1
+    gsettings set org.gnome.desktop.wm.preferences num-workspaces "$1"
 
-    for i in `seq $1`; do
-      gsettings set org.gnome.shell.keybindings switch-to-application-$i  "[]"
-      gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-$i  "['<Super>$i']"
-      gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i  "['<Super><Shift>$i']"
+    for i in $(seq "$1"); do
+      gsettings set org.gnome.shell.keybindings switch-to-application-"$i"  "[]"
+      gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-"$i"  "['<Super>$i']"
+      gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-"$i"  "['<Super><Shift>$i']"
     done
   {{ end }}
 }
@@ -196,9 +197,9 @@ function logitech_g213_remap_caps_lock() {
 
 function configure_docker_postinstall() {
   {{ if .dependencies.docker }}
-    if ! [ $(getent group docker) ]; then
+    if ! [ "$(getent group docker)" ]; then
       sudo groupadd docker
-      sudo usermod -aG docker $USER
+      sudo usermod -aG docker "$USER"
     fi
     systemctl is-active docker && sudo systemctl enable docker.service
     systemctl is-active containerd && sudo systemctl enable containerd.service
