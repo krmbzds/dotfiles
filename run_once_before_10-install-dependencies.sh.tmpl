@@ -170,12 +170,6 @@ function configure_static_workspaces() {
   {{ end }}
 }
 
-function configure_workspace_indicator() {
-  {{ if .gnome.workspace_indicator }}
-    glib-compile-schemas {{ .chezmoi.homeDir }}/.local/share/gnome-shell/extensions/improved-workspace-indicator@michaelaquilina.github.io/schemas
-  {{ end }}
-}
-
 function disable_pulseaudio_switch_on_connect() {
   {{ if not .pulseaudio.switch_on_connect }}
     sudo sed -i 's/^load-module module-switch-on-connect$/# load-module module-switch-on-connect/g' /etc/pulse/default.pa
@@ -306,7 +300,6 @@ update_alternatives
 configure_docker_postinstall
 import_gpg_key_from_url "{{ .gpg.pubkey_url }}"
 configure_static_workspaces "{{ .gnome.workspace_count }}"
-configure_workspace_indicator
 disable_pulseaudio_switch_on_connect
 logitech_g213_set_custom_backlight
 logitech_g213_remap_caps_lock
