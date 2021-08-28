@@ -1,6 +1,8 @@
 {{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "Pop!_OS")) -}}
 #!/bin/bash
 
+set -e
+
 {{ if .prefs.dracula_pro }}
 git clone https://github.com/krmbzds/dracula-pro ~/.config/dracula-pro
 {{ end }}

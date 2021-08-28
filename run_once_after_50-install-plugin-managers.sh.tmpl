@@ -1,6 +1,8 @@
 {{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "Pop!_OS")) -}}
 #!/bin/sh
 
+set -e
+
 # tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ~/.tmux/plugins/tpm/scripts/install_plugins.sh
