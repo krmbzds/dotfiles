@@ -184,6 +184,7 @@ function logitech_g213_set_custom_backlight() {
 
 function logitech_g213_remap_caps_lock() {
   {{ if (and .logitech.g213.enabled .logitech.g213.remap_caps_lock) }}
+    mkdir -p '{{ .chezmoi.homeDir -}}/.config/interception-tools'
     echo '{{ template "udevmon_config" . }}' | sudo tee {{ .chezmoi.homeDir -}}/.config/interception-tools/udevmon.yaml > /dev/null
     echo '{{ template "udevmon_service" . }}' | sudo tee /etc/systemd/system/udevmon.service > /dev/null
     sudo systemctl enable --now udevmon
