@@ -16,11 +16,11 @@ function compile_libsecret() {
 
 function install_delta() {
   ! command -v delta &>/dev/null || return 0
-  local deb
-  deb="$(mktemp)"
-  curl -fsSL 'https://api.github.com/repos/dandavison/delta/releases/latest' | jq -r ".assets[].browser_download_url" | grep "amd64\.deb$" | grep -v "musl" | xargs curl -s -L --output "$deb"
-  sudo apt -y install "$deb"
-  rm "$deb"
+  local tempdir
+  tempdir="$(mktemp -d)"
+  curl -fsSL 'https://api.github.com/repos/dandavison/delta/releases/latest' | jq -r ".assets[].browser_download_url" | grep "amd64\.deb$" | grep -v "musl" | xargs curl -s -L --output "$tempdir/delta.deb"
+  sudo apt -y install "$tempdir/delta.deb"
+  rm -rf "$tempdir"
 }
 
 function install_rvm() {
