@@ -4,7 +4,7 @@ Version=1.0
 Name=Brave Web Browser
 GenericName=Web Browser
 Comment=Access the Internet
-Exec=/usr/bin/brave-browser-stable {{ if .nvidia.browser_hw_accel }}--use-gl=desktop --enable-features=VaapiVideoDecoder --enable-accelerated-video-decode --enable-gpu-rasterization --enable-vulkan --enable-webassembly-simd --enable-webassembly-threads --enable-zero-copy --extension-mime-request-handling --ignore-gpu-blocklist{{ end }} %U
+Exec=/usr/bin/brave-browser-stable {{ if .prefs.browser_hw_accel }}--use-gl=desktop --enable-features=VaapiVideoDecoder --enable-accelerated-video-decode --enable-gpu-rasterization --enable-vulkan --enable-webassembly-simd --enable-webassembly-threads --enable-zero-copy --extension-mime-request-handling --ignore-gpu-blocklist{{ end }} %U
 StartupNotify=true
 Terminal=false
 Icon=brave-browser

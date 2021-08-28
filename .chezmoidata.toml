@@ -12,24 +12,23 @@
 [git.delta]
   syntax_theme = "Dracula Pro"
 [prefs]
-  somafm = true
+  somafm = false
   dracula_pro = true
+  browser_hw_accel = true
 [prefs.nvim]
   telescope = true
 [dependencies]
   rvm = true
-  anki = true
+  anki = false
   faas = true
   meld = true
   docker = true
   devops = true
   newsboat = true
   sublime_text = true
-  brave_browser = true
+  brave_browser = false
   signal_messenger = true
-  ungoogled_chromium = true
-[nvidia]
-  browser_hw_accel = true
+  ungoogled_chromium = false
 [pulseaudio]
   switch_on_connect = false
 [gnome]

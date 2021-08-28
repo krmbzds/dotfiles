@@ -4,7 +4,7 @@ Version=1.0
 Name=Chromium Web Browser
 GenericName=Web Browser
 Comment=Access the Internet
-Exec=/usr/bin/chromium {{ if .prefs.dracula_pro }}--force-dark-mode --enable-features=WebUIDarkMode{{ end }}{{ if .nvidia.browser_hw_accel }} --enable-accelerated-video-decode --enable-gpu-rasterization --enable-vulkan --enable-webassembly-simd --enable-webassembly-threads --enable-zero-copy --extension-mime-request-handling --ignore-gpu-blocklist{{ end }} %U
+Exec=/usr/bin/chromium {{ if .prefs.dracula_pro }}--force-dark-mode --enable-features=WebUIDarkMode{{ end }}{{ if .prefs.browser_hw_accel }} --enable-accelerated-video-decode --enable-gpu-rasterization --enable-vulkan --enable-webassembly-simd --enable-webassembly-threads --enable-zero-copy --extension-mime-request-handling --ignore-gpu-blocklist{{ end }} %U
 Terminal=false
 X-MultipleArgs=false
 Type=Application
