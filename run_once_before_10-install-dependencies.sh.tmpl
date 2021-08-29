@@ -229,6 +229,10 @@ function install_packages() {
     meld
     {{ end -}}
 
+    {{ if .prefs.dracula_pro }}
+    gnome-tweaks
+    {{ end }}
+
     {{ if .dependencies.docker -}}
     docker-ce
     docker-ce-cli
