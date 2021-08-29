@@ -37,6 +37,7 @@
   static_workspaces = true
   workspace_indicator = true
   workspace_switcher_popup = false
+  logout_prompt = false
 [logitech.g213]
   enabled = true
   remap_caps_lock = true

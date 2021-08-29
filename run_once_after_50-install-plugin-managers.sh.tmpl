@@ -23,3 +23,7 @@ glib-compile-schemas {{ .chezmoi.homeDir }}/.local/share/gnome-shell/extensions/
 {{ if .prefs.dracula_pro }}
 glib-compile-schemas {{ .chezmoi.homeDir }}/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas
 {{ end }}
+
+# disable logout prompt
+gsettings set org.gnome.SessionManager logout-prompt {{ .gnome.logout_prompt }}
+{{ end }}
