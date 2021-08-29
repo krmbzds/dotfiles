@@ -22,7 +22,12 @@ glib-compile-schemas {{ .chezmoi.homeDir }}/.local/share/gnome-shell/extensions/
 # user-themes
 {{ if .prefs.dracula_pro }}
 glib-compile-schemas {{ .chezmoi.homeDir }}/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas
+gsettings set org.gnome.desktop.interface gtk-theme "dracula"
+gsettings set org.gnome.desktop.wm.preferences theme "dracula"
+settings --schemadir ~/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas set org.gnome.shell.extensions.user-theme name "dracula"
 {{ end }}
+
+
 
 # disable logout prompt
 gsettings set org.gnome.SessionManager logout-prompt {{ .gnome.logout_prompt }}
