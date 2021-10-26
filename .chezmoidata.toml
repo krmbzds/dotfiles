@@ -26,7 +26,6 @@
   devops = true
   newsboat = true
   sublime_text = true
-  brave_browser = true
   signal_messenger = true
 [pulseaudio]
   switch_on_connect = false

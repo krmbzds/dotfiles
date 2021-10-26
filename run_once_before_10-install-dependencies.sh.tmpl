@@ -86,14 +86,6 @@ function add_ppa_docker() {
   {{ end }}
 }
 
-function add_ppa_brave_browser() {
-  {{ if .dependencies.brave_browser }}
-    ! command -v brave-browser &>/dev/null || return 0
-    sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg 'https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg'
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-  {{ end }}
-}
-
 function add_ppa_neovim() {
   {{ if .prefs.nvim.telescope }}
     # remove this when neovim 0.5 is in stable channel
@@ -250,10 +242,6 @@ function install_packages() {
     libyaml-cpp-dev
     {{ end -}}
 
-    {{ if .dependencies.brave_browser -}}
-    brave-browser
-    {{ end -}}
-
     {{ if .dependencies.signal_messenger -}}
     signal-desktop
     {{- end }}
@@ -265,7 +253,6 @@ function install_packages() {
   add_ppa_terraform
   add_ppa_kubectl
   add_ppa_helm
-  add_ppa_brave_browser
   add_ppa_signal_messenger
 
   sudo apt -y update
