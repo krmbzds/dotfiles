@@ -86,16 +86,6 @@ function add_ppa_docker() {
   {{ end }}
 }
 
-function add_ppa_ungoogled_chromium() {
-  {{ if .dependencies.ungoogled_chromium }}
-    ! command -v chromium &>/dev/null || return 0
-    local relname
-    relname=$(lsb_release -cs | sed 's/^\(.\)/\U\1/')
-    curl -fsSL "https://download.opensuse.org/repositories/home:/ungoogled_chromium/Ubuntu_$relname/Release.key" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home-ungoogled_chromium.gpg > /dev/null
-    echo "deb http://download.opensuse.org/repositories/home:/ungoogled_chromium/Ubuntu_$relname/ /" | sudo tee /etc/apt/sources.list.d/home-ungoogled_chromium.list > /dev/null
-  {{ end }}
-}
-
 function add_ppa_brave_browser() {
   {{ if .dependencies.brave_browser }}
     ! command -v brave-browser &>/dev/null || return 0
@@ -260,10 +250,6 @@ function install_packages() {
     libyaml-cpp-dev
     {{ end -}}
 
-    {{ if .dependencies.ungoogled_chromium -}}
-    ungoogled-chromium
-    {{ end -}}
-
     {{ if .dependencies.brave_browser -}}
     brave-browser
     {{ end -}}
@@ -279,7 +265,6 @@ function install_packages() {
   add_ppa_terraform
   add_ppa_kubectl
   add_ppa_helm
-  add_ppa_ungoogled_chromium
   add_ppa_brave_browser
   add_ppa_signal_messenger
 
