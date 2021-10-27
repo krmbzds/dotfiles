@@ -16,14 +16,9 @@ nvim +'call dein#update()' +qall
 
 # gnome shell extenstions
 
-# improved-workspace-indicator
-{{ if .gnome.workspace_indicator }}
-glib-compile-schemas {{ .chezmoi.homeDir }}/.local/share/gnome-shell/extensions/improved-workspace-indicator@michaelaquilina.github.io/schemas
-{{ end }}
-
 # user-themes
 {{ if .prefs.dracula_pro }}
-glib-compile-schemas {{ .chezmoi.homeDir }}/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas
+gnome-shell-extension-installer --yes 19
 gsettings set org.gnome.desktop.interface gtk-theme "dracula"
 gsettings set org.gnome.desktop.wm.preferences theme "dracula"
 gsettings --schemadir ~/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas set org.gnome.shell.extensions.user-theme name "dracula"

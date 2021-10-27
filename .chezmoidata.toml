@@ -33,8 +33,6 @@
   dracula = true
   workspace_count = 4
   static_workspaces = true
-  workspace_indicator = true
-  workspace_switcher_popup = false
   logout_prompt = false
 [logitech.g213]
   enabled = true
