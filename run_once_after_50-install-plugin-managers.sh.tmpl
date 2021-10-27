@@ -5,8 +5,10 @@ set -e
 declare -x TMUX_PLUGIN_MANAGER_PATH="{{ .chezmoi.homeDir }}/.tmux/plugins/"
 
 # tmux plugin manager
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-~/.tmux/plugins/tpm/scripts/install_plugins.sh
+if [ ! -d "$TMUX_PLUGIN_MANAGER_PATH/tpm" ]; then
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+fi
 
 # dein vim/neovim plugin manager
 curl -s -L https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s -- ~/.config/nvim/bundles
