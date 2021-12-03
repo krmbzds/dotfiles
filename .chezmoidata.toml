@@ -40,3 +40,7 @@
   custom_backlight = true
   backlight_color = "22212C"
   device_name = "Logitech Gaming Keyboard G213"
+[logitech.mx_anywhere_2s]
+  enabled = true
+  dpi = 400
+  device_name = "Logitech MX Anywhere 2S"

@@ -1,0 +1,2 @@
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{online}=="0" , ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c52b", RUN+="/usr/bin/sudo killall ratbagd"
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{online}=="1" , ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c52b", RUN+="/usr/bin/ratbagctl '{{ .logitech.mx_anywhere_2s.device_name }}' dpi set {{ .logitech.mx_anywhere_2s.dpi }}"
