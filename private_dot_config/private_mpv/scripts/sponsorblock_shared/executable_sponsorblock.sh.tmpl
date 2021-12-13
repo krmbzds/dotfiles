@@ -1,7 +1,7 @@
 {{- if .dependencies.newsboat -}}
 #!/bin/bash
 
-url='https://sponsor.ajay.app/database/sponsorTimes.csv'
+url='https://sb.ltn.fi/database/sponsorTimes.csv'
 csv='{{ .chezmoi.homeDir }}/.local/share/sponsorblock/timestamps.csv'
 
 base_dir=$(dirname "$csv")
