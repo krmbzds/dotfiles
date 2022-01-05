@@ -32,6 +32,8 @@ function install_rvm() {
     curl -fsSL 'https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer' --output "$installer"
     bash "$installer" --branch stable --ignore-dotfiles
     rm "$installer"
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -49,6 +51,8 @@ function install_anki() {
     rm "$archive"
     rm -rf "$tempdir"
     cd - || return
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -56,6 +60,8 @@ function install_faas() {
   {{ if .dependencies.faas }}
     ! command -v faas-cli &>/dev/null || return 0
     curl -fsSL 'https://cli.openfaas.com' | sed 's|/usr/local/bin|{{- .chezmoi.homeDir -}}/bin|' | sed 's/export ALIAS_NAME="faas"//' | sh
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -63,6 +69,8 @@ function install_doctl() {
   {{ if .dependencies.devops }}
     ! command -v doctl &>/dev/null || return 0
     curl -fsSL 'https://api.github.com/repos/digitalocean/doctl/releases/latest' | jq -r ".assets[].browser_download_url" | grep "linux-amd64\.tar\.gz$" | xargs curl -s -L | tar -xzC "{{ .chezmoi.homeDir }}/bin" doctl
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -75,6 +83,8 @@ function add_ppa_sublime_text() {
     ! command -v subl &>/dev/null || return 0
     curl -fsSL 'https://download.sublimetext.com/sublimehq-pub.gpg' | sudo gpg --dearmor -o /usr/share/keyrings/sublimehq-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/sublimehq-archive-keyring.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -83,6 +93,8 @@ function add_ppa_docker() {
     ! command -v docker &>/dev/null || return 0
     curl -fsSL 'https://download.docker.com/linux/ubuntu/gpg' | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -90,6 +102,8 @@ function add_ppa_neovim() {
   {{ if .prefs.nvim.telescope }}
     # remove this when neovim 0.5 is in apt repository
     sudo add-apt-repository -y ppa:neovim-ppa/stable
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -98,6 +112,8 @@ function add_ppa_terraform() {
     ! command -v terraform &>/dev/null || return 0
     curl -fsSL 'https://apt.releases.hashicorp.com/gpg' | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list > /dev/null
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -106,6 +122,8 @@ function add_ppa_kubectl() {
     ! command -v kubectl &>/dev/null || return 0
     sudo curl -fsSL 'https://packages.cloud.google.com/apt/doc/apt-key.gpg' -o /usr/share/keyrings/kubernetes-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -114,6 +132,8 @@ function add_ppa_helm() {
     ! command -v helm &>/dev/null || return 0
     curl -fsSL 'https://baltocdn.com/helm/signing.asc' | sudo gpg --dearmor -o /usr/share/keyrings/helm-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm-archive-keyring.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list > /dev/null
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -122,6 +142,8 @@ function add_ppa_signal_messenger() {
     ! command -v signal-desktop &>/dev/null || return 0
     curl -fsSL 'https://updates.signal.org/desktop/apt/keys.asc' | sudo gpg --dearmor -o /usr/share/keyrings/signal-desktop-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -149,24 +171,34 @@ function configure_static_workspaces() {
       gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-"$i"  "['<Super>$i']"
       gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-"$i"  "['<Super><Shift>$i']"
     done
+  {{ else }}
+    true
   {{ end }}
 }
 
 function disable_pulseaudio_switch_on_connect() {
   {{ if not .pulseaudio.switch_on_connect }}
     sudo sed -i 's/^load-module module-switch-on-connect$/# load-module module-switch-on-connect/g' /etc/pulse/default.pa
+  {{ else }}
+    true
   {{ end }}
 }
 
 function logitech_mx_anywhere_2s_set_dpi() {
   {{ if (and .logitech.mx_anywhere_2s.enabled .logitech.mx_anywhere_2s.dpi ) }}
     echo '{{- template "udev_rule_2s" . -}}' | sudo tee /etc/udev/rules.d/50-LogitechMXAnywhere2S.rules > /dev/null
+    handle_services udevmon ratbagd
+  {{ else }}
+    true
   {{ end }}
 }
 
 function logitech_g213_set_custom_backlight() {
   {{ if (and .logitech.g213.enabled .logitech.g213.custom_backlight) }}
     echo '{{- template "udev_rule_g213" . -}}' | sudo tee /etc/udev/rules.d/50-LogitechGamingKeyboardG213.rules > /dev/null
+    handle_services udevmon
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -175,8 +207,20 @@ function logitech_g213_remap_caps_lock() {
     mkdir -p '{{ .chezmoi.homeDir -}}/.config/interception-tools'
     echo '{{ template "udevmon_config" . }}' | sudo tee {{ .chezmoi.homeDir -}}/.config/interception-tools/udevmon.yaml > /dev/null
     echo '{{ template "udevmon_service" . }}' | sudo tee /etc/systemd/system/udevmon.service > /dev/null
-    sudo systemctl enable --now udevmon
-    sudo systemctl start udevmon
+    handle_services udevmon
+  {{ else }}
+    true
+  {{ end }}
+}
+
+function skyloong_gk61x_remap_caps_lock() {
+  {{ if (and .skyloong.gk61x.enabled .skyloong.gk61x.remap_caps_lock) }}
+    mkdir -p '{{ .chezmoi.homeDir -}}/.config/interception-tools'
+    echo '{{ template "udevmon_config" . }}' | sudo tee {{ .chezmoi.homeDir -}}/.config/interception-tools/udevmon.yaml > /dev/null
+    echo '{{ template "udevmon_service" . }}' | sudo tee /etc/systemd/system/udevmon.service > /dev/null
+    handle_services udevmon
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -186,8 +230,10 @@ function configure_docker_postinstall() {
       sudo groupadd docker
       sudo usermod -aG docker "$USER"
     fi
-    systemctl is-active docker && sudo systemctl enable docker.service
-    systemctl is-active containerd && sudo systemctl enable containerd.service
+    sudo systemctl enable docker.service
+    sudo systemctl enable containerd.service
+  {{ else }}
+    true
   {{ end }}
 }
 
@@ -245,7 +291,7 @@ function install_packages() {
     urlview
     {{ end -}}
 
-    {{ if .logitech.g213.remap_caps_lock -}}
+    {{ if (or (and .logitech.g213.enabled .logitech.g213.remap_caps_lock) (and .skyloong.gk61x.enabled .skyloong.gk61x.remap_caps_lock)) -}}
     libevdev-dev
     libudev-dev
     libyaml-cpp-dev
@@ -279,6 +325,17 @@ function install_packages() {
 }
 
 # ****************************************************************************
+# *                            Service Management                            *
+# ****************************************************************************
+
+function handle_services() {
+  for service; do
+    sudo systemctl enable --now "$service"
+    sudo systemctl try-restart "$service" || sudo systemctl start "$service"
+  done
+}
+
+# ****************************************************************************
 # *                                Main Script                               *
 # ****************************************************************************
 
@@ -291,5 +348,6 @@ disable_pulseaudio_switch_on_connect
 logitech_g213_set_custom_backlight
 logitech_g213_remap_caps_lock
 logitech_mx_anywhere_2s_set_dpi
+skyloong_gk61x_remap_caps_lock
 
 {{ end }}

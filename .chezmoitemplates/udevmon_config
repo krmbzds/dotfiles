@@ -1,5 +1,14 @@
+{{- if (and .logitech.g213.enabled .logitech.g213.remap_caps_lock) -}}
 - JOB: "{{ .chezmoi.homeDir -}}/bin/intercept -g $DEVNODE | {{ .chezmoi.homeDir -}}/bin/dual-function-keys -c {{.chezmoi.homeDir -}}/.config/interception-tools/logitech-g213-modifications.yaml | {{ .chezmoi.homeDir -}}/bin/uinput -d $DEVNODE"
   DEVICE:
     NAME: "{{- .logitech.g213.device_name -}}"
     EVENTS:
       EV_KEY: [KEY_CAPSLOCK]
+{{ end -}}
+{{ if (and .skyloong.gk61x.enabled .skyloong.gk61x.remap_caps_lock) -}}
+- JOB: "{{ .chezmoi.homeDir -}}/bin/intercept -g $DEVNODE | {{ .chezmoi.homeDir -}}/bin/dual-function-keys -c {{.chezmoi.homeDir -}}/.config/interception-tools/skyloong-gk61x-modifications.yaml | {{ .chezmoi.homeDir -}}/bin/uinput -d $DEVNODE"
+  DEVICE:
+    LINK: {{ .skyloong.gk61x.device_link }}
+    EVENTS:
+      EV_KEY: [KEY_CAPSLOCK]
+{{ end -}}

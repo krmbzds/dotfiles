@@ -4,12 +4,24 @@
 set -e
 
 {{ if .prefs.dracula_pro }}
-git clone https://github.com/krmbzds/dracula-pro ~/.config/dracula-pro
+DRACULA_PRO_FOLDER="{{ .chezmoi.homeDir -}}/.config/dracula-pro"
+DRACULA_PRO_URL="https://github.com/krmbzds/dracula-pro"
+if [ ! -d "$DRACULA_PRO_FOLDER" ] ; then
+    git clone $DRACULA_PRO_URL $DRACULA_PRO_FOLDER
+else
+    git -C $DRACULA_PRO_FOLDER pull
+fi
 {{ end }}
 
 {{ if .gnome.dracula }}
-git clone https://github.com/dracula/dracula-theme ~/.config/dracula
-git -C ~/.config/dracula submodule update --init themes/gtk
+DRACULA_FOLDER="{{ .chezmoi.homeDir -}}/.config/dracula"
+DRACULA_URL="https://github.com/dracula/dracula-theme"
+if [ ! -d "$DRACULA_FOLDER" ] ; then
+    git clone $DRACULA_URL $DRACULA_FOLDER
+else
+    git -C $DRACULA_FOLDER pull
+fi
+git -C $DRACULA_FOLDER submodule update --init themes/gtk
 {{ end }}
 
 {{ if lookPath "batcat" }}

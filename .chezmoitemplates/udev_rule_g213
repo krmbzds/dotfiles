@@ -1,1 +1,3 @@
+{{- if (and .logitech.g213.enabled .logitech.g213.custom_backlight) -}}
 ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c336", RUN+="{{ .chezmoi.homeDir }}/bin/g213colors -c {{ .logitech.g213.backlight_color }}"
+{{- end -}}

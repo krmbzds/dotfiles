@@ -35,12 +35,16 @@
   static_workspaces = true
   logout_prompt = false
 [logitech.g213]
-  enabled = true
+  enabled = false
   remap_caps_lock = true
   custom_backlight = true
   backlight_color = "22212C"
-  device_name = "Logitech Gaming Keyboard G213"
+  device_name = "G213"
 [logitech.mx_anywhere_2s]
   enabled = true
   dpi = 400
-  device_name = "Logitech MX Anywhere 2S"
+  device_name = "Anywhere 2S"
+[skyloong.gk61x]
+  enabled = true
+  remap_caps_lock = true
+  device_link = "/dev/input/by-id/usb-SEMITEK_USB-HID_Gaming_Keyboard_SN0000000001-event-kbd"
