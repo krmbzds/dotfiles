@@ -18,10 +18,21 @@ nvim +'call dein#update()' +qall
 
 # user-themes
 {{ if .prefs.dracula_pro }}
-gnome-shell-extension-installer --yes --gnome-version 40 --restart-shell 19
+function install_user_themes() {
+  gnome-shell-extension-installer 19 --yes --gnome-version 40
+  gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com
+}
+
+function restart_gnome_shell() {
+  dbus-send --session --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:"global.reexec_self();"
+}
+
+install_user_themes
 gsettings set org.gnome.desktop.interface gtk-theme "dracula"
 gsettings set org.gnome.desktop.wm.preferences theme "dracula"
 gsettings --schemadir ~/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas set org.gnome.shell.extensions.user-theme name "dracula"
+restart_gnome_shell
+echo "You might want to change active hint color to #9580FF"
 {{ end }}
 
 # disable logout prompt
