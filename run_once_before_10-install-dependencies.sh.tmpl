@@ -100,8 +100,8 @@ function add_ppa_docker() {
 
 function add_ppa_neovim() {
   {{ if .prefs.nvim.telescope }}
-    # remove this when neovim 0.5 is in apt repository
-    sudo add-apt-repository -y ppa:neovim-ppa/stable
+    # remove this when neovim 0.6 is in apt repository
+    sudo add-apt-repository -y ppa:neovim-ppa/unstable
   {{ else }}
     true
   {{ end }}
