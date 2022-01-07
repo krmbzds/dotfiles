@@ -147,6 +147,14 @@ function add_ppa_signal_messenger() {
   {{ end }}
 }
 
+function add_ppa_libratbag() {
+  {{ if .logitech.mx_anywhere_2s.enabled }}
+    sudo add-apt-repository -y ppa:libratbag-piper/piper-libratbag-git
+  {{ else }}
+    true
+  {{ end }}
+}
+
 # ****************************************************************************
 # *                               Configuration                              *
 # ****************************************************************************
@@ -306,6 +314,7 @@ function install_packages() {
   add_ppa_kubectl
   add_ppa_helm
   add_ppa_signal_messenger
+  add_ppa_libratbag
 
   sudo apt -y update
   sudo apt -y upgrade
