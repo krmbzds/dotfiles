@@ -37,6 +37,7 @@
 [logitech.g213]
   enabled = false
   remap_caps_lock = true
+  remap_shift = true
   custom_backlight = true
   backlight_color = "22212C"
   device_name = "G213"
@@ -47,4 +48,5 @@
 [skyloong.gk61x]
   enabled = true
   remap_caps_lock = true
+  remap_shift = true
   device_link = "/dev/input/by-id/usb-SEMITEK_USB-HID_Gaming_Keyboard_SN0000000001-event-kbd"

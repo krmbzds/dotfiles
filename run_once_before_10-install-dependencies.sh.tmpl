@@ -212,7 +212,7 @@ function logitech_g213_set_custom_backlight() {
   {{ end }}
 }
 
-function logitech_g213_remap_caps_lock() {
+function logitech_g213_remap_keys() {
   {{ if (and .logitech.g213.enabled .logitech.g213.remap_caps_lock) }}
     create_udevmon_service
     enable_service udevmon
@@ -221,7 +221,7 @@ function logitech_g213_remap_caps_lock() {
   {{ end }}
 }
 
-function skyloong_gk61x_remap_caps_lock() {
+function skyloong_gk61x_remap_keys() {
   {{ if (and .skyloong.gk61x.enabled .skyloong.gk61x.remap_caps_lock) }}
     create_udevmon_service
     enable_service udevmon
@@ -361,9 +361,9 @@ configure_docker_postinstall
 import_gpg_key_from_url "{{ .gpg.pubkey_url }}"
 configure_static_workspaces "{{ .gnome.workspace_count }}"
 disable_pulseaudio_switch_on_connect
-logitech_g213_set_custom_backlight
-logitech_g213_remap_caps_lock
 logitech_mx_anywhere_2s_set_dpi
-skyloong_gk61x_remap_caps_lock
+logitech_g213_set_custom_backlight
+logitech_g213_remap_keys
+skyloong_gk61x_remap_keys
 
 {{ end }}

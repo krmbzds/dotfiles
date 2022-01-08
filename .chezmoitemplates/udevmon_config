@@ -3,12 +3,24 @@
   DEVICE:
     NAME: "{{- .logitech.g213.device_name -}}"
     EVENTS:
-      EV_KEY: [KEY_CAPSLOCK]
+      EV_KEY: {{ if (and .logitech.g213.remap_caps_lock .logitech.g213.remap_shift) -}}
+                [KEY_LEFTSHIFT, KEY_RIGHTSHIFT, KEY_CAPSLOCK]
+              {{- else if .logitech.g213.remap_caps_lock -}}
+                [KEY_CAPSLOCK]
+              {{- else if .logitech.g213.remap_shift -}}
+                [KEY_LEFTSHIFT, KEY_RIGHTSHIFT]
+              {{- end }}
 {{ end -}}
-{{ if (and .skyloong.gk61x.enabled .skyloong.gk61x.remap_caps_lock) -}}
+{{ if (and .skyloong.gk61x.enabled (or .skyloong.gk61x.remap_caps_lock .skyloong.gk61x.remap_shift)) -}}
 - JOB: "{{ .chezmoi.homeDir -}}/bin/intercept -g $DEVNODE | {{ .chezmoi.homeDir -}}/bin/dual-function-keys -c {{.chezmoi.homeDir -}}/.config/interception-tools/skyloong-gk61x-modifications.yaml | {{ .chezmoi.homeDir -}}/bin/uinput -d $DEVNODE"
   DEVICE:
     LINK: {{ .skyloong.gk61x.device_link }}
     EVENTS:
-      EV_KEY: [KEY_CAPSLOCK]
+      EV_KEY: {{ if (and .skyloong.gk61x.remap_caps_lock .skyloong.gk61x.remap_shift) -}}
+                [KEY_LEFTSHIFT, KEY_RIGHTSHIFT, KEY_CAPSLOCK]
+              {{- else if .skyloong.gk61x.remap_caps_lock -}}
+                [KEY_CAPSLOCK]
+              {{- else if .skyloong.gk61x.remap_shift -}}
+                [KEY_LEFTSHIFT, KEY_RIGHTSHIFT]
+              {{- end }}
 {{ end -}}

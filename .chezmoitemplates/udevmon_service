@@ -1,3 +1,5 @@
+{{- if (or .logitech.g213.enabled .logitech.mx_anywhere_2s.enabled .skyloong.gk61x.enabled) -}}
+{{- if (or .logitech.g213.remap_caps_lock .logitech.g213.remap_shift .logitech.mx_anywhere_2s.enabled .skyloong.gk61x.remap_caps_lock .skyloong.gk61x.remap_shift) -}}
 [Unit]
 Description=udevmon
 Wants=systemd-udev-settle.service
@@ -9,3 +11,5 @@ Nice=-20
 
 [Install]
 WantedBy=multi-user.target
+{{- end -}}
+{{- end -}}
