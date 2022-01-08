@@ -1,4 +1,3 @@
-{{ if .prefs.somafm -}}
 #!/usr/bin/env bash
 
 
@@ -85,4 +84,3 @@ case "${cmd}" in
   listen|play) listen; exit "$?" ;;
   *) help; exit 1 ;;
 esac
-{{ end }}

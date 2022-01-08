@@ -12,9 +12,7 @@
 [git.delta]
   syntax_theme = "Dracula Pro"
 [prefs]
-  somafm = true
   dracula_pro = true
-  browser_hw_accel = true
 [prefs.nvim]
   telescope = true
 [dependencies]
