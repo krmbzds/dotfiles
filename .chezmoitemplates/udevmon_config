@@ -1,7 +1,7 @@
-{{- if (and .logitech.g213.enabled .logitech.g213.remap_caps_lock) -}}
+{{- if (and .logitech.g213.enabled (or .logitech.g213.remap_caps_lock .logitech.g213.remap_shift)) -}}
 - JOB: "{{ .chezmoi.homeDir -}}/bin/intercept -g $DEVNODE | {{ .chezmoi.homeDir -}}/bin/dual-function-keys -c {{.chezmoi.homeDir -}}/.config/interception-tools/logitech-g213-modifications.yaml | {{ .chezmoi.homeDir -}}/bin/uinput -d $DEVNODE"
   DEVICE:
-    NAME: "{{- .logitech.g213.device_name -}}"
+    LINK: "{{- .logitech.g213.device_link -}}"
     EVENTS:
       EV_KEY: {{ if (and .logitech.g213.remap_caps_lock .logitech.g213.remap_shift) -}}
                 [KEY_LEFTSHIFT, KEY_RIGHTSHIFT, KEY_CAPSLOCK]

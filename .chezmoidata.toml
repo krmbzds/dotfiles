@@ -38,7 +38,7 @@
   remap_shift = true
   custom_backlight = true
   backlight_color = "22212C"
-  device_name = "G213"
+  device_link = "/dev/input/by-id/usb-Logitech_Gaming_Keyboard_G213_1675395E3037-event-kbd"
 [logitech.mx_anywhere_2s]
   enabled = true
   dpi = 400
