@@ -4,12 +4,12 @@ TIMING:
   DOUBLE_TAP_MILLISEC: 150
 
 MAPPINGS:
-  {{ if .skyloong.gk61x.remap_shift -}}
+  {{ if .skyloong.gk61x.remap_caps_lock -}}
   - KEY: KEY_CAPSLOCK
     TAP: KEY_ESC
     HOLD: KEY_LEFTCTRL
   {{ end -}}
-  {{ if .skyloong.gk61x.remap_caps_lock -}}
+  {{ if .skyloong.gk61x.remap_shift -}}
   - KEY: KEY_LEFTSHIFT
     TAP: [KEY_LEFTSHIFT, KEY_9]
     HOLD: KEY_LEFTSHIFT

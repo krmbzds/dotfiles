@@ -4,12 +4,12 @@ TIMING:
   DOUBLE_TAP_MILLISEC: 150
 
 MAPPINGS:
-  {{ if .logitech.g213.remap_shift -}}
+  {{ if .logitech.g213.remap_caps_lock -}}
   - KEY: KEY_CAPSLOCK
     TAP: KEY_ESC
     HOLD: KEY_LEFTCTRL
   {{ end -}}
-  {{ if .logitech.g213.remap_caps_lock -}}
+  {{ if .logitech.g213.remap_shift -}}
   - KEY: KEY_LEFTSHIFT
     TAP: [KEY_LEFTSHIFT, KEY_9]
     HOLD: KEY_LEFTSHIFT
