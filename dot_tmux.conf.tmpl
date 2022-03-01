@@ -23,6 +23,12 @@ bind - split-window -v
 # Reload config with shortcut
 bind r source-file ~/.tmux.conf
 
+# Use vim-style keybindings in copy mode
+setw -g mode-keys vi
+bind-key -T copy-mode-vi v send -X begin-selection
+bind-key -T copy-mode-vi V send -X select-line
+bind-key -T copy-mode-vi y send -X copy-pipe-and-cancel 'pbcopy'
+
 # Use vim-style movement keys
 bind h select-pane -L
 bind j select-pane -D
@@ -42,6 +48,9 @@ bind -r C-l select-window -t :+
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'tmux-plugins/tmux-open'
 set -g @plugin 'ofirgall/tmux-window-name'
 set -g @plugin 'laktak/extrakto'
 set -g @plugin 'dracula/tmux'
