@@ -26,6 +26,8 @@ git -C $DRACULA_FOLDER submodule update --init themes/gtk
 
 {{ if lookPath "batcat" }}
 batcat cache --build
+{{ else if lookPath "bat" }}
+bat cache --build
 {{ end }}
 
 # MesloLGS NF

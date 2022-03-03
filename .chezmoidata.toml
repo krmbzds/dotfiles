@@ -15,12 +15,11 @@
 [prefs.nvim]
   telescope = true
 [dependencies]
-  rvm = true
+  asdf = true
   anki = true
   faas = true
   meld = true
   docker = true
-  devops = true
   newsboat = true
   sublime_text = true
   signal_messenger = true

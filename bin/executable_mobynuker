@@ -1,4 +1,3 @@
-{{ if .dependencies.devops -}}
 #!/bin/sh
 
 printf "Press enter to continue.."; read _
@@ -60,4 +59,3 @@ docker volume ls
 
 echo "This should only show the default networks:"
 docker network ls
-{{ end }}

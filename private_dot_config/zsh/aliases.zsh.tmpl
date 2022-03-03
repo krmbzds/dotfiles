@@ -24,10 +24,6 @@ alias ls="${aliases[ls]:-ls} -A"
 alias fd='fdfind'
 {{ end -}}
 
-{{ if lookPath "batcat" -}}
-alias bat='batcat'
-{{ end -}}
-
 {{ if lookPath "somafm" -}}
 alias radio="somafm list | fzf | awk '{print $1}' | xargs somafm play --quality=highest"
 {{ end -}}

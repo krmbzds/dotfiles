@@ -16,22 +16,10 @@ function compile_libsecret() {
   fi
 }
 
-function install_delta() {
-  ! command -v delta &>/dev/null || return 0
-  local tempdir
-  tempdir="$(mktemp -d)"
-  curl -fsSL 'https://api.github.com/repos/dandavison/delta/releases/latest' | jq -r ".assets[].browser_download_url" | grep "amd64\.deb$" | grep -v "musl" | xargs curl -s -L --output "$tempdir/delta.deb"
-  sudo apt -y install "$tempdir/delta.deb"
-  rm -rf "$tempdir"
-}
-
-function install_rvm() {
-  {{ if .dependencies.rvm }}
-    ! command -v rvm &>/dev/null || return 0
-    installer="$(mktemp)"
-    curl -fsSL 'https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer' --output "$installer"
-    bash "$installer" --branch stable --ignore-dotfiles
-    rm "$installer"
+function install_asdf() {
+  {{ if .dependencies.asdf }}
+    ! command -v asdf &>/dev/null || return 0
+    git clone https://github.com/asdf-vm/asdf.git {{ .chezmoi.homeDir -}}/.asdf --branch master
   {{ else }}
     true
   {{ end }}
@@ -65,15 +53,6 @@ function install_faas() {
   {{ end }}
 }
 
-function install_doctl() {
-  {{ if .dependencies.devops }}
-    ! command -v doctl &>/dev/null || return 0
-    curl -fsSL 'https://api.github.com/repos/digitalocean/doctl/releases/latest' | jq -r ".assets[].browser_download_url" | grep "linux-amd64\.tar\.gz$" | xargs curl -s -L | tar -xzC "{{ .chezmoi.homeDir }}/bin" doctl
-  {{ else }}
-    true
-  {{ end }}
-}
-
 # ****************************************************************************
 # *                                   PPAs                                   *
 # ****************************************************************************
@@ -93,45 +72,6 @@ function add_ppa_docker() {
     ! command -v docker &>/dev/null || return 0
     curl -fsSL 'https://download.docker.com/linux/ubuntu/gpg' | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-  {{ else }}
-    true
-  {{ end }}
-}
-
-function add_ppa_neovim() {
-  {{ if .prefs.nvim.telescope }}
-    # remove this when neovim 0.6 is in apt repository
-    sudo add-apt-repository -y ppa:neovim-ppa/unstable
-  {{ else }}
-    true
-  {{ end }}
-}
-
-function add_ppa_terraform() {
-  {{ if .dependencies.devops }}
-    ! command -v terraform &>/dev/null || return 0
-    curl -fsSL 'https://apt.releases.hashicorp.com/gpg' | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list > /dev/null
-  {{ else }}
-    true
-  {{ end }}
-}
-
-function add_ppa_kubectl() {
-  {{ if .dependencies.devops }}
-    ! command -v kubectl &>/dev/null || return 0
-    sudo curl -fsSL 'https://packages.cloud.google.com/apt/doc/apt-key.gpg' -o /usr/share/keyrings/kubernetes-archive-keyring.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
-  {{ else }}
-    true
-  {{ end }}
-}
-
-function add_ppa_helm() {
-  {{ if .dependencies.devops }}
-    ! command -v helm &>/dev/null || return 0
-    curl -fsSL 'https://baltocdn.com/helm/signing.asc' | sudo gpg --dearmor -o /usr/share/keyrings/helm-archive-keyring.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm-archive-keyring.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list > /dev/null
   {{ else }}
     true
   {{ end }}
@@ -249,16 +189,10 @@ function configure_docker_postinstall() {
 function install_packages() {
   local packages=(
     alacritty
-    bat
-    exa
-    fd-find
     gnupg
     htop
-    jq
-    neovim
     pcscd
     scdaemon
-    tmux
     tree
     {{ if .logitech.mx_anywhere_2s.enabled -}}
     ratbagd
@@ -282,12 +216,6 @@ function install_packages() {
     docker-compose
     {{ end -}}
 
-    {{ if .dependencies.devops -}}
-    terraform
-    kubectl
-    helm
-    {{ end -}}
-
     {{ if .dependencies.newsboat -}}
     mpv
     newsboat
@@ -307,12 +235,8 @@ function install_packages() {
     {{- end }}
   )
 
-  add_ppa_neovim
   add_ppa_sublime_text
   add_ppa_docker
-  add_ppa_terraform
-  add_ppa_kubectl
-  add_ppa_helm
   add_ppa_signal_messenger
   add_ppa_libratbag
 
@@ -323,11 +247,9 @@ function install_packages() {
   sudo apt -y autoclean
 
   compile_libsecret
-  install_doctl
-  install_delta
   install_anki
   install_faas
-  install_rvm
+  install_asdf
 }
 
 # ****************************************************************************
