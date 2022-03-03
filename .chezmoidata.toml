@@ -12,8 +12,7 @@
 
 [prefs]
   dracula_pro = true
-[prefs.nvim]
-  telescope = true
+
 [dependencies]
   asdf = true
   anki = true

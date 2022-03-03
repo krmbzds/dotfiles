@@ -6,13 +6,9 @@ declare -x TMUX_PLUGIN_MANAGER_PATH="{{ .chezmoi.homeDir }}/.tmux/plugins/"
 
 # tmux plugin manager
 if [ ! -d "$TMUX_PLUGIN_MANAGER_PATH/tpm" ]; then
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-  ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+  git clone https://github.com/tmux-plugins/tpm {{ .chezmoi.homeDir -}}/.tmux/plugins/tpm
+  {{ .chezmoi.homeDir -}}/.tmux/plugins/tpm/scripts/install_plugins.sh
 fi
-
-# dein vim/neovim plugin manager
-curl -s -L https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s -- ~/.config/nvim/bundles
-nvim +'call dein#update()' +qall
 
 # gnome shell extenstions
 
@@ -30,7 +26,7 @@ function restart_gnome_shell() {
 install_user_themes
 gsettings set org.gnome.desktop.interface gtk-theme "dracula"
 gsettings set org.gnome.desktop.wm.preferences theme "dracula"
-gsettings --schemadir ~/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas set org.gnome.shell.extensions.user-theme name "dracula"
+gsettings --schemadir {{ .chezmoi.homeDir -}}/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas set org.gnome.shell.extensions.user-theme name "dracula"
 restart_gnome_shell
 echo "You might want to change active hint color to #9580FF"
 {{ end }}
