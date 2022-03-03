@@ -9,8 +9,7 @@
   signing_key = "38FD2B3F677F9C34"
 [git.commit]
   gpgsign = "true"
-[git.delta]
-  syntax_theme = "Dracula Pro"
+
 [prefs]
   dracula_pro = true
 [prefs.nvim]
