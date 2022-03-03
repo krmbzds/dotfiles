@@ -1,47 +1,55 @@
 [gpg]
-  pubkey_url = "https://kerembozdas.com/pubkey.asc"
-  fingerprint = "1B01B3C4EEFBE1730136D89338FD2B3F677F9C34"
+pubkey_url = "https://kerembozdas.com/pubkey.asc"
+fingerprint = "1B01B3C4EEFBE1730136D89338FD2B3F677F9C34"
+
 [git.init]
-  default_branch = "master"
+default_branch = "master"
+
 [git.user]
-  name = "Kerem Bozdas"
-  email = "krmbzds.github@gmail.com"
-  signing_key = "38FD2B3F677F9C34"
+name = "Kerem Bozdas"
+email = "krmbzds.github@gmail.com"
+signing_key = "38FD2B3F677F9C34"
+
 [git.commit]
-  gpgsign = "true"
+gpgsign = "true"
 
 [prefs]
-  dracula_pro = true
+dracula_pro = true
 
 [dependencies]
-  asdf = true
-  anki = true
-  faas = true
-  meld = true
-  docker = true
-  newsboat = true
-  sublime_text = true
-  signal_messenger = true
+asdf = true
+anki = true
+faas = true
+meld = true
+docker = true
+newsboat = true
+sublime_text = true
+signal_messenger = true
+
 [pulseaudio]
-  switch_on_connect = false
+switch_on_connect = false
+
 [gnome]
-  dracula = true
-  workspace_count = 4
-  static_workspaces = true
-  logout_prompt = false
+dracula = true
+workspace_count = 4
+static_workspaces = true
+logout_prompt = false
+
 [logitech.g213]
-  enabled = false
-  remap_caps_lock = true
-  remap_shift = false
-  custom_backlight = true
-  backlight_color = "22212C"
-  device_link = "/dev/input/by-id/usb-Logitech_Gaming_Keyboard_G213_1675395E3037-event-kbd"
+enabled = false
+remap_caps_lock = true
+remap_shift = false
+custom_backlight = true
+backlight_color = "22212C"
+device_link = "/dev/input/by-id/usb-Logitech_Gaming_Keyboard_G213_1675395E3037-event-kbd"
+
 [logitech.mx_anywhere_2s]
-  enabled = true
-  dpi = 400
-  device_name = "Anywhere 2S"
+enabled = true
+dpi = 400
+device_name = "Anywhere 2S"
+
 [skyloong.gk61x]
-  enabled = true
-  remap_caps_lock = true
-  remap_shift = false
-  device_link = "/dev/input/by-id/usb-SEMITEK_USB-HID_Gaming_Keyboard_SN0000000001-event-kbd"
+enabled = true
+remap_caps_lock = true
+remap_shift = false
+device_link = "/dev/input/by-id/usb-SEMITEK_USB-HID_Gaming_Keyboard_SN0000000001-event-kbd"
