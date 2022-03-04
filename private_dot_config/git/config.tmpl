@@ -5,7 +5,7 @@
 	email = {{ .git.user.email }}
 	signingKey = {{ .git.user.signing_key }}
 [core]
-	editor = {{if .dependencies.sublime_text }}subl -n -w{{ else }}nvim{{ end }}
+	editor = {{ if (eq .prefs.editor "subl") }}subl -n -w{{ else }}{{ .prefs.editor }}{{ end }}
 	pager = delta
 	excludesfile = ~/.config/git/ignore
 	autocrlf = input

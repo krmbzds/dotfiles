@@ -82,6 +82,16 @@ function install_faas() {
   {{ end }}
 }
 
+function install_lunarvim() {
+  {{ if .prefs.lunarvim }}
+    ! command -v lvim &>/dev/null || return 0
+    bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) --install-dependencies
+    lvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+  {{ else }}
+    true
+  {{ end }}
+}
+
 # ****************************************************************************
 # *                                   PPAs                                   *
 # ****************************************************************************
@@ -305,6 +315,7 @@ function install_packages() {
   install_anki
   install_faas
   install_asdf
+  install_lunarvim
 }
 
 # ****************************************************************************

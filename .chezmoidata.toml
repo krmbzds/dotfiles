@@ -14,6 +14,9 @@ signing_key = "38FD2B3F677F9C34"
 gpgsign = "true"
 
 [prefs]
+editor = "lvim"
+visual = "lvim"
+lunarvim = true
 dracula_pro = true
 
 [dependencies]
