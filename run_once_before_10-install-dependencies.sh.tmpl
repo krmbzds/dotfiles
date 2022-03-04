@@ -48,6 +48,7 @@ function install_asdf() {
     asdf plugin add viddy "https://github.com/ryodocx/asdf-viddy.git"
     asdf plugin add xh "https://github.com/NeoHsu/asdf-xh"
     asdf plugin add yarn "https://github.com/twuni/asdf-yarn.git"
+    echo '{{ template "tool_versions" }}' | tee {{ .chezmoi.homeDir }}/.tool-versions > /dev/null
     asdf install
   {{ else }}
     true
@@ -311,11 +312,12 @@ function install_packages() {
   sudo apt -y autoremove
   sudo apt -y autoclean
 
+  install_asdf
   compile_libsecret
   install_anki
   install_faas
-  install_asdf
   install_lunarvim
+
 }
 
 # ****************************************************************************
