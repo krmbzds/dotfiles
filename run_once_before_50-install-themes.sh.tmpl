@@ -31,24 +31,15 @@ bat cache --build
 {{ end }}
 
 # MesloLGS NF
-wget -P ~/.fonts/ -nv -nc 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf'
-wget -P ~/.fonts/ -nv -nc 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf'
-wget -P ~/.fonts/ -nv -nc 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf'
-wget -P ~/.fonts/ -nv -nc 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf'
+meslo=(Regular Bold Italic "Bold%20Italic")
+for i in "${meslo[@]}"; do
+    wget -P ~/.fonts/ -nv -nc  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20$i.ttf"
+done
 
 # Source Code Pro
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-Black.ttf?raw=true'
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-BlackIt.ttf?raw=true'
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-Bold.ttf?raw=true'
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-BoldIt.ttf?raw=true'
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-ExtraLight.ttf?raw=true'
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-ExtraLightIt.ttf?raw=true'
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-It.ttf?raw=true'
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-Light.ttf?raw=true'
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-LightIt.ttf?raw=true'
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-Medium.ttf?raw=true'
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-MediumIt.ttf?raw=true'
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-Regular.ttf?raw=true'
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-Semibold.ttf?raw=true'
-wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 'https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-SemiboldIt.ttf?raw=true'
+sourcecodepro=(Black BlackIt Bold BoldIt ExtraLight ExtraLightIt It Light LightIt Medium MediumIt Regular Semibold SemiboldIt)
+for i in "${sourcecodepro[@]}"; do
+    wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 "https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-$i.ttf?raw=true"
+done
+
 {{ end }}
