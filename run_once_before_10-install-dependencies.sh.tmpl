@@ -20,6 +20,35 @@ function install_asdf() {
   {{ if .dependencies.asdf }}
     ! command -v asdf &>/dev/null || return 0
     git clone https://github.com/asdf-vm/asdf.git {{ .chezmoi.homeDir -}}/.asdf --branch master
+    . {{ .chezmoi.homeDir -}}/.asdf/asdf.sh
+    asdf plugin add bat "https://gitlab.com/wt0f/asdf-bat.git"
+    asdf plugin add cheat "https://github.com/jmoratilla/asdf-cheat-plugin.git"
+    asdf plugin add delta "https://github.com/andweeb/asdf-delta.git"
+    asdf plugin add doctl "https://github.com/maristgeek/asdf-doctl.git"
+    asdf plugin add duf "https://github.com/NeoHsu/asdf-duf.git"
+    asdf plugin add dust "https://github.com/looztra/asdf-dust.git"
+    asdf plugin add exa "https://github.com/nyrst/asdf-exa.git"
+    asdf plugin add fd "https://gitlab.com/wt0f/asdf-fd.git"
+    asdf plugin add golang "https://github.com/kennyp/asdf-golang.git"
+    asdf plugin add helm "https://github.com/Antiarchitect/asdf-helm.git"
+    asdf plugin add jq "https://github.com/azmcode/asdf-jq.git"
+    asdf plugin add kubectl "https://github.com/Banno/asdf-kubectl.git"
+    asdf plugin add lazydocker "https://github.com/comdotlinux/asdf-lazydocker.git"
+    asdf plugin add lazygit "https://github.com/nklmilojevic/asdf-lazygit.git"
+    asdf plugin add lua "https://github.com/Stratus3D/asdf-lua.git"
+    asdf plugin add neovim "https://github.com/richin13/asdf-neovim.git"
+    asdf plugin add nodejs "https://github.com/asdf-vm/asdf-nodejs.git"
+    asdf plugin add python "https://github.com/danhper/asdf-python.git"
+    asdf plugin add ripgrep "https://gitlab.com/wt0f/asdf-ripgrep.git"
+    asdf plugin add ruby "https://github.com/asdf-vm/asdf-ruby.git"
+    asdf plugin add rust "https://github.com/asdf-community/asdf-rust.git"
+    asdf plugin add shellcheck "https://github.com/luizm/asdf-shellcheck.git"
+    asdf plugin add terraform "https://github.com/Banno/asdf-hashicorp.git"
+    asdf plugin add tmux "https://github.com/aphecetche/asdf-tmux.git"
+    asdf plugin add viddy "https://github.com/ryodocx/asdf-viddy.git"
+    asdf plugin add xh "https://github.com/NeoHsu/asdf-xh"
+    asdf plugin add yarn "https://github.com/twuni/asdf-yarn.git"
+    asdf install
   {{ else }}
     true
   {{ end }}
@@ -188,6 +217,32 @@ function configure_docker_postinstall() {
 
 function install_packages() {
   local packages=(
+    {{ if .dependencies.asdf -}}
+    autoconf
+    bison
+    build-essential
+    coreutils
+    libbz2-dev
+    libdb-dev
+    libffi-dev
+    libgdbm-dev
+    libgdbm6
+    liblzma-dev
+    libncurses-dev
+    libreadline-dev
+    libreadline-dev
+    libsqlite3-dev
+    libssl-dev
+    libxml2-dev
+    libxmlsec1-dev
+    libyaml-dev
+    llvm
+    make
+    tk-dev
+    xz-utils
+    zlib1g-dev
+    {{ end -}}
+
     alacritty
     gnupg
     htop
