@@ -77,7 +77,7 @@ zle -N edit-command-line
 
 # Source additional local files if they exist.
 z4h source ~/.env.zsh
-{{ if .dependencies.asdf -}}
+{{ if .asdf.enabled -}}
 z4h source ~/.asdf/asdf.sh
 {{- end }}
 

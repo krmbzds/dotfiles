@@ -1,0 +1,77 @@
+{{- if .asdf.python -}}
+"""
+Configuration example for ``ptpython``.
+
+Copy this file to $XDG_CONFIG_HOME/ptpython/config.py
+On Linux, this is: ~/.config/ptpython/config.py
+"""
+from prompt_toolkit.filters import ViInsertMode
+from prompt_toolkit.key_binding.key_processor import KeyPress
+from prompt_toolkit.keys import Keys
+from prompt_toolkit.styles import Style
+
+from ptpython.layout import CompletionVisualisation
+
+__all__ = ["configure"]
+
+
+def configure(repl):
+    """
+    Configuration method. This is called during the start-up of ptpython.
+
+    :param repl: `PythonRepl` instance.
+    """
+    # Highlight matching parethesis.
+    repl.highlight_matching_parenthesis = True
+
+    # Line wrapping. (Instead of horizontal scrolling.)
+    repl.wrap_lines = False
+
+    # Mouse support.
+    repl.enable_mouse_support = True
+
+    # Complete while typing. (Don't require tab before the
+    # completion menu is shown.)
+    repl.complete_while_typing = True
+
+    # Fuzzy and dictionary completion.
+    repl.enable_fuzzy_completion = True
+    repl.enable_dictionary_completion = True
+
+    # Vi mode.
+    repl.vi_mode = True
+
+    # Use the classic prompt. (Display '>>>' instead of 'In [1]'.)
+    repl.prompt_style = "ipython"  # 'classic' or 'ipython'
+
+    # Enable input validation. (Don't try to execute when the input contains
+    # syntax errors.)
+    repl.enable_input_validation = True
+
+    {{ if (or .prefs.dracula_pro .gnome.dracula) -}}
+    # Use this colorscheme for the code.
+    # Ptpython uses Pygments for code styling, so you can choose from Pygments'
+    # color schemes. See:
+    # https://pygments.org/docs/styles/
+    # https://pygments.org/demo/
+    repl.use_code_colorscheme("dracula")
+    # A colorscheme that looks good on dark backgrounds is 'native':
+    # repl.use_code_colorscheme("native")
+    {{ end }}
+    # Set color depth (keep in mind that not all terminals support true color).
+
+    # repl.color_depth = "DEPTH_1_BIT"  # Monochrome.
+    # repl.color_depth = "DEPTH_4_BIT"  # ANSI colors only.
+    # repl.color_depth = "DEPTH_8_BIT"  # The default, 256 colors.
+    repl.color_depth = "DEPTH_24_BIT"  # True color.
+
+    # Syntax.
+    repl.enable_syntax_highlighting = True
+
+    # Get into Vi navigation mode at startup
+    repl.vi_start_in_navigation_mode = False
+
+    # Preserve last used Vi input mode between main loop iterations
+    repl.vi_keep_last_used_mode = False
+
+{{ end -}}

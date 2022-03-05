@@ -18,9 +18,9 @@ editor = "lvim"
 visual = "lvim"
 lunarvim = true
 dracula_pro = true
+dracula_pro_url = "https://github.com/krmbzds/dracula-pro"
 
 [dependencies]
-asdf = true
 anki = true
 faas = true
 meld = true
@@ -37,6 +37,36 @@ dracula = true
 workspace_count = 4
 static_workspaces = true
 logout_prompt = false
+
+[asdf]
+enabled = true
+lua = true
+ruby = true
+rust = true
+yarn = true
+golang = true
+nodejs = true
+python = true
+fd = true
+jq = true
+xh = true
+bat = true
+duf = true
+exa = true
+dust = true
+helm = true
+tmux = true
+cheat = true
+delta = true
+doctl = true
+viddy = true
+neovim = true
+kubectl = true
+lazygit = true
+ripgrep = true
+terraform = true
+lazydocker = true
+shellcheck = true
 
 [logitech.g213]
 enabled = false

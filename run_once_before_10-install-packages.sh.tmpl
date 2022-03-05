@@ -1,0 +1,199 @@
+{{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "Pop!_OS")) -}}
+#!/bin/bash
+
+set -e
+
+# ****************************************************************************
+# *                           Manual Installations                           *
+# ****************************************************************************
+
+function install_anki() {
+  {{ if .dependencies.anki }}
+    ! command -v anki &>/dev/null || return 0
+    local archive
+    local tempdir
+    archive="$(mktemp)"
+    tempdir="$(mktemp -d)"
+    curl -fsSL 'https://api.github.com/repos/ankitects/anki/releases/latest' | grep 'browser_' | cut -d\" -f4 | grep "linux" | xargs curl -s -L --output "$archive"
+    tar -xf "$archive" -C "$tempdir" --strip-components=1
+    cd "$tempdir" || return
+    PREFIX="{{- .chezmoi.homeDir -}}/.local" ./install.sh
+    rm "$archive"
+    rm -rf "$tempdir"
+    cd - || return
+  {{ else }}
+    true
+  {{ end }}
+}
+
+function install_faas() {
+  {{ if .dependencies.faas }}
+    ! command -v faas-cli &>/dev/null || return 0
+    curl -fsSL 'https://cli.openfaas.com' | sed 's|/usr/local/bin|{{- .chezmoi.homeDir -}}/bin|' | sed 's/export ALIAS_NAME="faas"//' | sh
+  {{ else }}
+    true
+  {{ end }}
+}
+
+function install_asdf() {
+  {{ if .asdf.enabled }}
+    ! command -v asdf &>/dev/null || return 0
+    git clone https://github.com/asdf-vm/asdf.git {{ .chezmoi.homeDir -}}/.asdf --branch master
+  {{ else }}
+    true
+  {{ end }}
+}
+
+# ****************************************************************************
+# *                                   PPAs                                   *
+# ****************************************************************************
+
+function add_ppa_sublime_text() {
+  {{ if .dependencies.sublime_text }}
+    ! command -v subl &>/dev/null || return 0
+    curl -fsSL 'https://download.sublimetext.com/sublimehq-pub.gpg' | sudo gpg --dearmor -o /usr/share/keyrings/sublimehq-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/sublimehq-archive-keyring.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null
+  {{ else }}
+    true
+  {{ end }}
+}
+
+function add_ppa_docker() {
+  {{ if .dependencies.docker }}
+    ! command -v docker &>/dev/null || return 0
+    curl -fsSL 'https://download.docker.com/linux/ubuntu/gpg' | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  {{ else }}
+    true
+  {{ end }}
+}
+
+function add_ppa_signal_messenger() {
+  {{ if .dependencies.signal_messenger }}
+    ! command -v signal-desktop &>/dev/null || return 0
+    curl -fsSL 'https://updates.signal.org/desktop/apt/keys.asc' | sudo gpg --dearmor -o /usr/share/keyrings/signal-desktop-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+  {{ else }}
+    true
+  {{ end }}
+}
+
+function add_ppa_libratbag() {
+  {{ if .logitech.mx_anywhere_2s.enabled }}
+    sudo add-apt-repository -y ppa:libratbag-piper/piper-libratbag-git
+  {{ else }}
+    true
+  {{ end }}
+}
+
+# ****************************************************************************
+# *                     APT Package Manager Installations                    *
+# ****************************************************************************
+
+function install_packages() {
+  local packages=(
+
+    alacritty
+    gnupg
+    htop
+    pcscd
+    scdaemon
+    tmux
+    tree
+
+    {{ if .asdf.enabled }}
+    {{ if .asdf.golang }}
+    coreutils
+    {{ end }}
+    {{ if (and .asdf.python .asdf.ruby) }}
+    build-essential
+    libffi-dev
+    libncurses-dev
+    libreadline-dev
+    libssl-dev
+    zlib1g-dev
+    {{ else if .asdf.python }}
+    libbz2-dev
+    liblzma-dev
+    libsqlite3-dev
+    libxml2-dev
+    libxmlsec1-dev
+    llvm
+    make
+    tk-dev
+    xz-utils
+    {{ else if .asdf.ruby }}
+    autoconf
+    bison
+    libdb-dev
+    libgdbm-dev
+    libgdbm6
+    libyaml-dev
+    {{ end }}
+    {{ end }}
+
+    {{ if .logitech.mx_anywhere_2s.enabled }}
+    ratbagd
+    {{ end }}
+
+    {{ if .logitech.g213.custom_backlight }}
+    python3-usb
+    {{ end }}
+
+    {{ if .dependencies.meld }}
+    meld
+    {{ end }}
+
+    {{ if .prefs.dracula_pro }}
+    gnome-tweaks
+    {{ end }}
+
+    {{ if .dependencies.docker }}
+    docker-ce
+    docker-ce-cli
+    containerd.io
+    docker-compose
+    {{ end }}
+
+    {{ if .dependencies.newsboat }}
+    mpv
+    newsboat
+    playerctl
+    task-spooler
+    urlview
+    {{ end }}
+
+    {{ if (or (and .logitech.g213.enabled .logitech.g213.remap_caps_lock) (and .skyloong.gk61x.enabled .skyloong.gk61x.remap_caps_lock)) }}
+    libevdev-dev
+    libudev-dev
+    libyaml-cpp-dev
+    {{ end }}
+
+    {{ if .dependencies.signal_messenger }}
+    signal-desktop
+    {{- end }}
+  )
+
+  add_ppa_sublime_text
+  add_ppa_docker
+  add_ppa_signal_messenger
+  add_ppa_libratbag
+
+  sudo apt -y update
+  sudo apt -y upgrade
+  sudo apt -y install "${packages[@]}"
+  sudo apt -y autoremove
+  sudo apt -y autoclean
+
+  install_anki
+  install_faas
+  install_asdf
+}
+
+# ****************************************************************************
+# *                                Main Script                               *
+# ****************************************************************************
+
+install_packages
+
+{{ end }}

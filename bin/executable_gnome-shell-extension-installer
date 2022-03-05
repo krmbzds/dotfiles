@@ -11,25 +11,23 @@
    #                                                               #
    #################################################################
 
-CFG_FILE=$HOME/.local/share/gnome-shell/gnome-shell-extension-installer.selected_versions
-
 usage_guide() {
   cat << EOF
 Usage: $SCRIPT_NAME EXTENSION_ID [EXTENSION_ID...] [GNOME_VERSION] [OPTIONS]
 
 Options:
-  -s or --search [STRING]	Interactive search.
-  --yes 			Skip all prompts.
-  --no-install 			Saves the extension(s) in the current directory.
-  --update 			Check for new versions.
-  --restart-shell 		Restart Shell after installing all extensions.
-  -h or --help 			Print this message.
+  -s or --search [STRING] Interactive search.
+  --yes       Skip all prompts.
+  --no-install      Saves the extension(s) in the current directory.
+  --update      Check for new versions.
+  --restart-shell     Restart Shell after installing all extensions.
+  -h or --help      Print this message.
 
 Usage examples:
-  $SCRIPT_NAME 307			# Install "Dash to Dock"
-  $SCRIPT_NAME 307 3.8		# Install for Shell 3.8
-  $SCRIPT_NAME 53 --no-install	# Download "Pomodoro"
-  $SCRIPT_NAME -s "User Themes"	# Search "User Themes"
+  $SCRIPT_NAME 307      # Install "Dash to Dock"
+  $SCRIPT_NAME 307 3.8    # Install for Shell 3.8
+  $SCRIPT_NAME 53 --no-install  # Download "Pomodoro"
+  $SCRIPT_NAME -s "User Themes" # Search "User Themes"
 
 Installation directory:
   Extensions will be installed at '/usr/local/share/gnome-shell/extensions' if
@@ -124,18 +122,6 @@ check_version_availability() {
 
 select_version() {
   if [[ "${EXTENSION_VERSIONS[0]}" ]]; then
-
-    [[ ! -s $CFG_FILE ]] && echo "{}" >$CFG_FILE
-    PREV_SELECTED=$( jq -r ".[\"$EXTENSION_UUID\"].selected" < $CFG_FILE )
-    PREV_EXTENSION_VERSIONS=$( jq -r ".[\"$EXTENSION_UUID\"].available" < $CFG_FILE )
-    PREV_GNOME_VERSION=$( jq -r ".[\"$EXTENSION_UUID\"].gnome_version" < $CFG_FILE )
-
-    if [[ $PREV_EXTENSION_VERSIONS = ${EXTENSION_VERSIONS[*]} && $PREV_GNOME_VERSION = $GNOME_VERSION ]]; then
-      SELECTED_VERSION=$PREV_SELECTED
-      echo "Auto-selected: $SELECTED_VERSION"
-      return
-    fi
-
     while [[ ! $SELECTED_VERSION ]]; do
       echo -n $1"Type a version to $INSTALL: "
       if [[ ! $SKIP_PROMPTS ]]; then
@@ -149,12 +135,6 @@ select_version() {
         SELECTED_VERSION="${EXTENSION_VERSIONS[0]}"
       fi
     done
-
-    cat $CFG_FILE | \
-    jq ".[\"$EXTENSION_UUID\"] += {\"selected\": \"$SELECTED_VERSION\"}" | \
-    jq ".[\"$EXTENSION_UUID\"] += {\"available\": \"${EXTENSION_VERSIONS[*]}\"}" | \
-    jq ".[\"$EXTENSION_UUID\"] += {\"gnome_version\": \"$GNOME_VERSION\"}" | \
-    sponge $CFG_FILE
   else
     echo $1"No version available"
   fi
@@ -267,20 +247,20 @@ download_comments() {
 
 search_help() {
   cat << EOF
-<number(s)>	${INSTALL^} extension(s)
-c<number>	Display comments
-d<number(s)>	Get description(s)
-l<number(s)>	Get link(s) on extensions.gnome.org
-p<number>	Go to page
-r		Print the search content again
-sn		Sort by name
-sr		Sort by recent
-sd		Sort by downloads
-sp		Sort by popularity (default)
-/<string>	Perform another search
-home		Load extensions.gnome.org homepage
-h or help	Show this message
-q or quit	Exit search shell
+<number(s)> ${INSTALL^} extension(s)
+c<number> Display comments
+d<number(s)>  Get description(s)
+l<number(s)>  Get link(s) on extensions.gnome.org
+p<number> Go to page
+r   Print the search content again
+sn    Sort by name
+sr    Sort by recent
+sd    Sort by downloads
+sp    Sort by popularity (default)
+/<string> Perform another search
+home    Load extensions.gnome.org homepage
+h or help Show this message
+q or quit Exit search shell
 EOF
 }
 
@@ -446,7 +426,7 @@ interactive_search() {
 }
 
 get_info_from_id() {
-  echo "[$1] Obtaining extension info"¨
+  echo "[$1] Obtaining extension info"
   download_info "/extension-info/?pk=$1" \
                 "Blank file" \
                 "The extension $1" \
@@ -474,6 +454,9 @@ done
 
 GNOME_VERSION=$( gnome-shell --version 2> /dev/null |
                  sed -n "s/^.* \([0-9]\+\.[0-9]\+\).*$/\1/p" )
+if [[ "${GNOME_VERSION%%"."*}" -ge 40 ]]; then
+  GNOME_VERSION="${GNOME_VERSION%%"."*}"
+fi
 DOWNLOAD_PARAMETERS="-Lfs"
 EXTENSIONS_SITE="https://extensions.gnome.org"
 SORT="popularity"
@@ -612,8 +595,8 @@ else
   usage_guide
 fi
 
-[[ ${#INSTALLED[@]} -gt 0 ]] && echo "${#INSTALLED[@]} new extension(s) installed: ${INSTALLED[*]}"
-[[ ${#UPDATED[@]} -gt 0 ]] && echo "${#UPDATED[@]} extension(s) updated: ${UPDATED[*]}"
+[[ ${#INSTALLED[@]} -gt 0 ]] && echo -n "${#INSTALLED[@]} new extension(s) installed. "
+[[ ${#UPDATED[@]} -gt 0 ]] && echo -n "${#UPDATED[@]} extension(s) updated. "
 if [[ ${#INSTALLED[@]} -gt 0 ]] || [[ ${#UPDATED[@]} -gt 0 ]]; then
   if [[ $RESTART == 1 ]]; then
     restart_shell

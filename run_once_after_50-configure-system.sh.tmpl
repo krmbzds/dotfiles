@@ -1,0 +1,159 @@
+{{- if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.name "Pop!_OS")) -}}
+#!/bin/bash
+
+set -e
+
+# ****************************************************************************
+# *                             Config Functions                             *
+# ****************************************************************************
+
+function intall_and_configure_tpm() {
+  . {{ .chezmoi.homeDir }}/.asdf/asdf.sh && asdf reshim
+  export TMUX_PLUGIN_MANAGER_PATH="{{ .chezmoi.homeDir }}/.tmux/plugins/"
+
+  if [ ! -d "$TMUX_PLUGIN_MANAGER_PATH/tpm" ]; then
+    git clone https://github.com/tmux-plugins/tpm {{ .chezmoi.homeDir -}}/.tmux/plugins/tpm
+    {{ .chezmoi.homeDir -}}/.tmux/plugins/tpm/scripts/install_plugins.sh
+  fi
+}
+
+function rebuild_bat_cache() {
+  {{ if lookPath "batcat" }}
+  batcat cache --build
+  {{ else if lookPath "bat" }}
+  bat cache --build
+  {{ else }}
+  true
+  {{ end }}
+}
+
+# ****************************************************************************
+# *                                    UI                                    *
+# ****************************************************************************
+
+function download_dracula_theme() {
+  {{ if .gnome.dracula }}
+  local dracula_folder="{{ .chezmoi.homeDir -}}/.config/dracula"
+  local dracula_url="https://github.com/dracula/dracula-theme"
+  if [ ! -d "$dracula_folder" ] ; then
+      git clone $dracula_url $dracula_folder
+  else
+      git -C $dracula_folder pull
+  fi
+  git -C $dracula_folder submodule update --init themes/gtk
+  {{ else }}
+  true
+  {{ end }}
+}
+
+function download_dracula_pro_theme() {
+  {{ if .prefs.dracula_pro }}
+  local dracula_pro_folder="{{ .chezmoi.homeDir -}}/.config/dracula-pro"
+  local dracula_pro_url="{{ .prefs.dracula_pro_url }}"
+  if [ ! -d "$dracula_pro_folder" ] ; then
+      git clone $dracula_pro_url $dracula_pro_folder
+  else
+      git -C $dracula_pro_folder pull
+  fi
+  {{ else }}
+  true
+  {{ end }}
+}
+
+function install_gnome_user_themes_extension() {
+  {{ if .gnome.dracula }}
+  gnome-shell-extension-installer 19 --yes --gnome-version 40
+  gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com
+  {{ else }}
+  true
+  {{ end }}
+}
+
+function set_user_theme_to_dracula() {
+  {{ if .gnome.dracula }}
+  gsettings set org.gnome.desktop.interface gtk-theme "dracula"
+  gsettings set org.gnome.desktop.wm.preferences theme "dracula"
+  gsettings --schemadir {{ .chezmoi.homeDir -}}/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas set org.gnome.shell.extensions.user-theme name "dracula"
+  gsettings set org.gnome.shell.extensions.pop-shell hint-color-rgba "#9580FF"
+  {{ else }}
+  true
+  {{ end }}
+}
+
+function restart_gnome_shell() {
+  {{ if .gnome.dracula }}
+  dbus-send --session --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:"global.reexec_self();"
+  echo "(sleep 3) Restarting GNOME Shell ..."
+  sleep 3
+  {{ else }}
+  true
+  {{ end }}
+}
+
+function configure_static_workspaces() {
+  {{ if .gnome.static_workspaces }}
+    gsettings set org.gnome.mutter dynamic-workspaces false
+    gsettings set org.gnome.desktop.wm.preferences num-workspaces "$1"
+
+    for i in $(seq "$1"); do
+      gsettings set org.gnome.shell.keybindings switch-to-application-"$i"  "[]"
+      gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-"$i"  "['<Super>$i']"
+      gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-"$i"  "['<Super><Shift>$i']"
+    done
+  {{ else }}
+    true
+  {{ end }}
+}
+
+function set_logout_confirmation_prompt() {
+  gsettings set org.gnome.SessionManager logout-prompt $1
+}
+
+# ****************************************************************************
+# *                                Text Editor                               *
+# ****************************************************************************
+
+
+function install_lunarvim() {
+  {{ if .prefs.lunarvim }}
+    ! command -v lvim &>/dev/null || return 0
+    . {{ .chezmoi.homeDir }}/.asdf/asdf.sh && asdf reshim
+    LV_BRANCH=rolling bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/rolling/utils/installer/install.sh | sed '3i\. {{ .chezmoi.homeDir }}/.asdf/asdf.sh\')
+  {{ else }}
+    true
+  {{ end }}
+}
+
+function update_alternatives() {
+  {{ if (and .asdf.enabled .asdf.neovim) }}
+    {{ if .prefs.lunarvim }}
+      local default="{{ .chezmoi.homeDir }}/.local/bin/lvim"
+    {{ else }}
+      local default="{{ .chezmoi.homeDir }}/.asdf/shims/nvim"
+    {{ end }}
+  {{ end }}
+  sudo update-alternatives --install /usr/bin/vi vi $default 60
+  sudo update-alternatives --install /usr/bin/vim vim $default 60
+  sudo update-alternatives --install /usr/bin/editor editor $default 60
+}
+
+
+# ****************************************************************************
+# *                                Main Script                               *
+# ****************************************************************************
+
+download_dracula_theme
+download_dracula_pro_theme
+install_gnome_user_themes_extension || true
+set_user_theme_to_dracula
+configure_static_workspaces {{ .gnome.workspace_count }}
+set_logout_confirmation_prompt {{ .gnome.logout_prompt }}
+restart_gnome_shell
+
+rebuild_bat_cache
+
+intall_and_configure_tpm
+install_lunarvim
+update_alternatives
+
+{{ end }}
