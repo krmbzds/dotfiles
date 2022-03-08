@@ -1,4 +1,14 @@
 {{ if lookPath "git" -}}
+alias gd='git diff'
+{{ if lookPath "gs" -}}
+function gs() {
+  if [[ $# -ne 0 ]]; then
+    command gs "$@"
+  else
+    git show
+  fi
+}
+{{ end -}}
 alias glo='git log --decorate --oneline --graph'
 alias glg='git log --decorate --graph --abbrev-commit --date=relative'
 alias gdh='git diff HEAD'
