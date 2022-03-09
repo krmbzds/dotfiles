@@ -71,9 +71,9 @@ function install_gnome_user_themes_extension() {
 
 function set_user_theme_to_dracula() {
   {{ if .gnome.dracula }}
-  gsettings set org.gnome.desktop.interface gtk-theme "dracula"
-  gsettings set org.gnome.desktop.wm.preferences theme "dracula"
-  gsettings --schemadir {{ .chezmoi.homeDir -}}/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas set org.gnome.shell.extensions.user-theme name "dracula"
+  gsettings set org.gnome.desktop.interface gtk-theme "Dracula-dark"
+  gsettings set org.gnome.desktop.wm.preferences theme "Dracula-dark"
+  gsettings --schemadir {{ .chezmoi.homeDir -}}/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas set org.gnome.shell.extensions.user-theme name "Dracula-dark"
   gsettings set org.gnome.shell.extensions.pop-shell hint-color-rgba "#9580FF"
   {{ else }}
   true
