@@ -140,6 +140,10 @@ function install_packages() {
     python3-usb
     {{ end }}
 
+    {{ if .dependencies.zeal }}
+    zeal
+    {{ end }}
+
     {{ if .dependencies.meld }}
     meld
     {{ end }}

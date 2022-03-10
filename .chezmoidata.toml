@@ -22,6 +22,7 @@ dracula_pro_url = "https://github.com/krmbzds/dracula-pro"
 
 [dependencies]
 anki = true
+zeal = true
 faas = true
 meld = true
 docker = true

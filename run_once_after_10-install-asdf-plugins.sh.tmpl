@@ -55,11 +55,36 @@ function install_python_packages() {
   {{ end }}
 }
 
+function install_zeal_cli() {
+  {{ if .dependencies.zeal }}
+  local url='https://api.github.com/repos/Morpheus636/zeal-cli/releases/latest'
+  local executable={{ .chezmoi.homeDir }}/bin/zeal-cli
+  curl -fsSL $url | grep 'browser_' | cut -d\" -f4 | xargs curl -s -L --output "$executable"
+  chmod +x "$executable"
+  {{ end }}
+}
+
+function install_zeal_docsets() {
+  {{ if lookPath "zeal-cli" }}
+    {{ if .asdf.lua }}
+      zeal-cli install Lua_5.4 || true
+    {{ end }}
+    {{ if .asdf.ruby }}
+      zeal-cli install Ruby_3 || true
+      zeal-cli install Ruby_on_Rails_7 || true
+    {{ end }}
+    true
+  {{ else }}
+    true
+  {{ end }}
+}
+
 # ****************************************************************************
 # *                                Main Script                               *
 # ****************************************************************************
 
 install_asdf_plugins
 install_python_packages
+install_zeal_cli && install_zeal_docsets
 
 {{ end }}
