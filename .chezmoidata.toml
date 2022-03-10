@@ -61,6 +61,7 @@ delta = true
 doctl = true
 viddy = true
 neovim = true
+stylua = true
 kubectl = true
 lazygit = true
 ripgrep = true
