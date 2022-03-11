@@ -8,12 +8,10 @@ set -e
 # ****************************************************************************
 
 function intall_and_configure_tpm() {
-  . {{ .chezmoi.homeDir }}/.asdf/asdf.sh && asdf reshim
-  export TMUX_PLUGIN_MANAGER_PATH="{{ .chezmoi.homeDir }}/.tmux/plugins/"
-
-  if [ ! -d "$TMUX_PLUGIN_MANAGER_PATH/tpm" ]; then
+  . {{ .chezmoi.homeDir }}/.asdf/asdf.sh && asdf reshim tmux
+  if [ ! -d "{{ .chezmoi.homeDir }}/.tmux/plugins/tpm" ]; then
     git clone https://github.com/tmux-plugins/tpm {{ .chezmoi.homeDir -}}/.tmux/plugins/tpm
-    {{ .chezmoi.homeDir -}}/.tmux/plugins/tpm/scripts/install_plugins.sh
+    TMUX_PLUGIN_MANAGER_PATH="{{ .chezmoi.homeDir -}}/.tmux/plugins/tpm" {{ .chezmoi.homeDir -}}/.tmux/plugins/tpm/scripts/install_plugins.sh
   fi
 }
 
@@ -113,30 +111,16 @@ function set_logout_confirmation_prompt() {
 # *                                Text Editor                               *
 # ****************************************************************************
 
-
-function install_lunarvim() {
-  {{ if .prefs.lunarvim }}
-    ! command -v lvim &>/dev/null || return 0
-    . {{ .chezmoi.homeDir }}/.asdf/asdf.sh && asdf reshim
-    LV_BRANCH=rolling bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/rolling/utils/installer/install.sh | sed '3i\. {{ .chezmoi.homeDir }}/.asdf/asdf.sh\')
-  {{ else }}
-    true
-  {{ end }}
-}
-
 function update_alternatives() {
-  {{ if (and .asdf.enabled .asdf.neovim) }}
-    {{ if .prefs.lunarvim }}
-      local default="{{ .chezmoi.homeDir }}/.local/bin/lvim"
-    {{ else }}
-      local default="{{ .chezmoi.homeDir }}/.asdf/shims/nvim"
-    {{ end }}
+  {{ if (and .asdf.enabled .asdf.neovim (eq .prefs.editor "nvim")) }}
+  local default="{{ .chezmoi.homeDir }}/.asdf/shims/nvim"
+  sudo update-alternatives --install /usr/bin/vi vi "$default" 60
+  sudo update-alternatives --install /usr/bin/vim vim "$default" 60
+  sudo update-alternatives --install /usr/bin/editor editor "$default" 60
+  {{ else }}
+  true
   {{ end }}
-  sudo update-alternatives --install /usr/bin/vi vi $default 60
-  sudo update-alternatives --install /usr/bin/vim vim $default 60
-  sudo update-alternatives --install /usr/bin/editor editor $default 60
 }
-
 
 # ****************************************************************************
 # *                                Main Script                               *
@@ -153,7 +137,6 @@ restart_gnome_shell
 rebuild_bat_cache
 
 intall_and_configure_tpm
-install_lunarvim
 update_alternatives
 
 {{ end }}

@@ -14,9 +14,8 @@ signing_key = "38FD2B3F677F9C34"
 gpgsign = "true"
 
 [prefs]
-editor = "lvim"
-visual = "lvim"
-lunarvim = true
+editor = "nvim"
+visual = "nvim"
 dracula_pro = true
 dracula_pro_url = "https://github.com/krmbzds/dracula-pro"
 
