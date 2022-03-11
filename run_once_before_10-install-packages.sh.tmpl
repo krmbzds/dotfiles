@@ -102,34 +102,44 @@ function install_packages() {
     tree
 
     {{ if .asdf.enabled }}
+
     {{ if .asdf.golang }}
     coreutils
     {{ end }}
-    {{ if (and .asdf.python .asdf.ruby) }}
+
+    {{ if .asdf.python }}
     build-essential
+    libbz2-dev
     libffi-dev
+    liblzma-dev
     libncurses-dev
     libreadline-dev
-    libssl-dev
-    zlib1g-dev
-    {{ else if .asdf.python }}
-    libbz2-dev
-    liblzma-dev
     libsqlite3-dev
+    libssl-dev
     libxml2-dev
     libxmlsec1-dev
     llvm
     make
     tk-dev
     xz-utils
-    {{ else if .asdf.ruby }}
+    zlib1g-dev
+    {{ end }}
+
+    {{ if .asdf.ruby }}
     autoconf
     bison
+    build-essential
     libdb-dev
+    libffi-dev
     libgdbm-dev
     libgdbm6
+    libncurses-dev
+    libreadline-dev
+    libssl-dev
     libyaml-dev
+    zlib1g-dev
     {{ end }}
+
     {{ end }}
 
     {{ if .logitech.mx_anywhere_2s.enabled }}
