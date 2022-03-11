@@ -46,12 +46,15 @@ function install_asdf_plugins() {
   {{ if .asdf.terraform }}  install_asdf_global_plugin  terraform  latest "https://github.com/Banno/asdf-hashicorp.git"         {{ end }}
   {{ if .asdf.lazydocker }} install_asdf_global_plugin  lazydocker "0.12" "https://github.com/comdotlinux/asdf-lazydocker.git"  {{ end }}
   {{ if .asdf.shellcheck }} install_asdf_global_plugin  shellcheck latest "https://github.com/luizm/asdf-shellcheck.git"        {{ end }}
+  true
 }
 
 function install_python_packages() {
   {{ if .asdf.python }}
   pip install --user "ptpython"
   asdf reshim python latest
+  {{ else }}
+  true
   {{ end }}
 }
 
@@ -61,11 +64,14 @@ function install_zeal_cli() {
   local executable={{ .chezmoi.homeDir }}/bin/zeal-cli
   curl -fsSL $url | grep 'browser_' | cut -d\" -f4 | xargs curl -s -L --output "$executable"
   chmod +x "$executable"
+  {{ else }}
+  true
   {{ end }}
 }
 
 function install_zeal_docsets() {
   {{ if lookPath "zeal-cli" }}
+    mkdir -p "{{ .chezmoi.homeDir }}/.local/share/Zeal/Zeal/docsets"
     {{ if .asdf.lua }}
       zeal-cli install Lua_5.4 || true
     {{ end }}
