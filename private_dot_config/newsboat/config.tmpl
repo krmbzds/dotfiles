@@ -53,7 +53,7 @@ highlight article ":.*\\(image\\)$" blue default
 highlight article ":.*\\(embedded flash\\)$" magenta default
 
 # Macros: (o)utline, (a)dd to library, queue (p)odcast, (m)pv, no (v)ideo, watch (n)ext
-macro o set browser "xdg-open https://outline.com/%u"; open-in-browser-and-mark-read ; set browser "xdg-open %u"
+macro o set browser "xdg-open https://txtify.it/%u"; open-in-browser-and-mark-read ; set browser "xdg-open %u"
 macro a set browser "tsp yt-dlp --add-metadata --extract-audio -xic -f bestaudio/best --output '$HOME/Videos/Newsboat/%(title)s.%(ext)s'; open-in-browser-and-mark-read ; set browser "xdg-open %u"
 macro p set browser "tsp mpv --no-video %u"; open-in-browser-and-mark-read ; set browser "xdg-open %u"
 macro m set browser "tsp mpv {{ if eq .chezmoi.hostname "workstation" }}--profile=DESKTOP{{ end }} --ytdl %u"; open-in-browser-and-mark-read ; set browser "xdg-open %u"
