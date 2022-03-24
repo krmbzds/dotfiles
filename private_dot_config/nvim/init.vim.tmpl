@@ -1,3 +1,4 @@
+{{ if not (eq .prefs.editor "nvim") }}
 set relativenumber
 set nowrap
 set linebreak                   " break lines by words
@@ -34,3 +35,4 @@ nnoremap 0 g0
 
 " the breeze still follows its path
 command! Wq wq
+{{ end }}
