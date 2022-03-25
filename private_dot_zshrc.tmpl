@@ -80,6 +80,9 @@ z4h source ~/.env.zsh
 {{ if .asdf.enabled -}}
 z4h source ~/.asdf/asdf.sh
 {{- end }}
+{{ if .prefs.dracula_pro -}}
+z4h source ~/.config/zsh/syntax-theme.sh
+{{- end }}
 
 # Define key bindings.
 z4h bindkey z4h-backward-kill-word  Ctrl+Backspace Ctrl+H
