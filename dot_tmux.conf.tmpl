@@ -52,14 +52,36 @@ set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-copycat'
 set -g @plugin 'tmux-plugins/tmux-open'
 set -g @plugin 'laktak/extrakto'
-set -g @plugin 'dracula/tmux'
+set -g @plugin 'o0th/tmux-nova'
 
-# Dracula theme options
-set -g @dracula-plugins "time"
-set -g @dracula-day-month true
-set -g @dracula-military-time true
-set -g @dracula-show-timezone false
-set -g @dracula-show-left-icon session
+# Configure tmux-nova
+set -g @nova-rows 0
+set -g @nova-pane "#I#{?pane_in_mode, #{pane_mode},} #W"
+set -g @nova-pane-justify "left"
+
+{{ if .prefs.dracula_pro -}}
+set -g "@nova-pane-active-border-style" "#22212C"
+set -g "@nova-pane-border-style" "#22212C"
+set -g "@nova-status-style-bg" "#2E2B3B"
+set -g "@nova-status-style-fg" "#7971A9"
+set -g "@nova-status-style-active-bg" "#393649"
+set -g "@nova-status-style-active-fg" "#F8F8F2"
+{{ end -}}
+
+set -g @nova-segments-0-left "mode"
+set -g @nova-segment-mode "#{?client_prefix,#[fg=white]λ,#S}"
+{{ if .prefs.dracula_pro -}}
+set -g @nova-segment-mode-colors "#7971A9 #2E2B3B"
+{{ end -}}
+
+set -g status-right-length 200
+{{ if .asdf.golang -}}
+set -g @nova-segments-0-right "pomodoro"
+set -g @nova-segment-pomodoro "#({{ .chezmoi.homeDir }}/.asdf/shims/pomodoro status --format ' %%d    %%R   %%c/%%g ') #(TZ="UTC" date +%%H:%%M)"
+{{ end -}}
+{{ if .prefs.dracula_pro -}}
+set -g @nova-segment-pomodoro-colors "#2E2B3B #7971A9"
+{{ end -}}
 
 # Other examples:
 # set -g @plugin 'github_username/plugin_name'
