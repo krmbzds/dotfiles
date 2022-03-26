@@ -46,6 +46,7 @@ return packer.startup(function(use)
   use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins
   use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
   use("numToStr/Comment.nvim") -- Easily comment stuff
+  use("rcarriga/nvim-notify")
   use("kyazdani42/nvim-web-devicons")
   use("kyazdani42/nvim-tree.lua")
   use("akinsho/bufferline.nvim")
@@ -57,6 +58,8 @@ return packer.startup(function(use)
   use("goolord/alpha-nvim")
   use("antoinemadec/FixCursorHold.nvim") -- This is needed to fix lsp doc highlight
   use("folke/which-key.nvim")
+
+  -- DAP
   use("mfussenegger/nvim-dap")
   use("suketa/nvim-dap-ruby")
   use("rcarriga/nvim-dap-ui")
@@ -101,6 +104,13 @@ return packer.startup(function(use)
 
   -- Git
   use("lewis6991/gitsigns.nvim")
+  use("f-person/git-blame.nvim")
+
+  -- Other
+  use("sQVe/sort.nvim")
+  use("karb94/neoscroll.nvim")
+  use("Pocco81/TrueZen.nvim")
+  use("monaqa/dial.nvim")
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

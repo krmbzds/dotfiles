@@ -93,6 +93,7 @@ local mappings = {
   ["f"] = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_" .. find_file_theme .. ")<cr>", "Find files" },
   ["F"] = { "<cmd>lua require('telescope.builtin').live_grep(require('telescope.themes').get_" .. find_text_theme .. "{})<cr>", "Find text" },
   ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
+  ["z"] = { "<cmd>TZAtaraxis<cr>", "Zen Mode"},
 
   b = {
     name = "Buffers",
@@ -136,18 +137,21 @@ local mappings = {
   g = {
     name = "Git",
     g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
-    j = { "<cmd>lua require('gitsigns').next_hunk()<cr>", "Next Hunk" },
-    k = { "<cmd>lua require('gitsigns').prev_hunk()<cr>", "Prev Hunk" },
-    l = { "<cmd>lua require('gitsigns').blame_line()<cr>", "Blame" },
-    p = { "<cmd>lua require('gitsigns').preview_hunk()<cr>", "Preview Hunk" },
-    R = { "<cmd>lua require('gitsigns').reset_buffer()<cr>", "Reset Buffer" },
-    r = { "<cmd>lua require('gitsigns').reset_hunk()<cr>", "Reset Hunk" },
-    s = { "<cmd>lua require('gitsigns').stage_hunk()<cr>", "Stage Hunk" },
-    u = { "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>", "Undo Stage Hunk" },
+    j = { "<cmd>lua require('gitsigns').next_hunk()<cr>", "Next hunk" },
+    k = { "<cmd>lua require('gitsigns').prev_hunk()<cr>", "Prev hunk" },
+    l = { "<cmd>lua require('gitsigns').blame_line()<cr>", "Blame line" },
+    p = { "<cmd>lua require('gitsigns').preview_hunk()<cr>", "Preview hunk" },
+    R = { "<cmd>lua require('gitsigns').reset_buffer()<cr>", "Reset buffer" },
+    r = { "<cmd>lua require('gitsigns').reset_hunk()<cr>", "Reset hunk" },
+    s = { "<cmd>lua require('gitsigns').stage_hunk()<cr>", "Stage hunk" },
+    u = { "<cmd>lua require('gitsigns').undo_stage_hunk()<cr>", "Undo stage hunk" },
     o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
     c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
     d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
+    L = { "<cmd>lua vim.g.gitblame_display_virtual_text=1-vim.g.gitblame_display_virtual_text<cr>", "Toggle blame"},
+    O = { "<cmd>GitBlameOpenCommitURL<cr>", "Open in browser"},
+    h = { "<cmd>GitBlameCopySHA<cr>", "Copy hash"},
   },
 
   l = {
