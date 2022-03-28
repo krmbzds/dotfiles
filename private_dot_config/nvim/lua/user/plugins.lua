@@ -26,6 +26,7 @@ vim.cmd([[
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
+  require("notify").notify("Error loading packer", "error")
   return
 end
 
@@ -98,6 +99,7 @@ return packer.startup(function(use)
     run = ":TSUpdate",
   })
   use("JoosepAlviste/nvim-ts-context-commentstring")
+  use("RRethy/nvim-treesitter-endwise")
   use("abecodes/tabout.nvim")
   use("SmiteshP/nvim-gps")
   use("ggandor/leap.nvim")
@@ -105,6 +107,7 @@ return packer.startup(function(use)
   -- Git
   use("lewis6991/gitsigns.nvim")
   use("f-person/git-blame.nvim")
+  use("ruifm/gitlinker.nvim")
 
   -- Other
   use("sQVe/sort.nvim")

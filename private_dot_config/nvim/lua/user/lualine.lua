@@ -1,10 +1,12 @@
 local status_ok, lualine = pcall(require, "lualine")
 if not status_ok then
+  require("notify").notify("Error loading lualine", "error")
   return
 end
 
 local status_gps_ok, gps = pcall(require, "nvim-gps")
 if not status_gps_ok then
+  require("notify").notify("Error loading gps", "error")
   return
 end
 

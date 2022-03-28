@@ -1,10 +1,12 @@
 local symbols_outline_status_ok, _ = pcall(require, "symbols-outline")
 if not symbols_outline_status_ok then
+  require("notify").notify("Error loading symbols-outline", "error")
   return
 end
 
 local icons_status_ok, icons = pcall(require, "user.icons")
 if not icons_status_ok then
+  require("notify").notify("Error loading icons", "error")
   return
 end
 

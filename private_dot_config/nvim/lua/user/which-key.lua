@@ -1,5 +1,6 @@
 local status_ok, which_key = pcall(require, "which-key")
 if not status_ok then
+  require("notify").notify("Error loading which-key", "error")
   return
 end
 
@@ -194,5 +195,25 @@ local mappings = {
   },
 }
 
+local vopts = {
+  mode = "v", -- VISUAL mode
+  prefix = "<leader>",
+  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+  silent = true, -- use `silent` when creating keymaps
+  noremap = true, -- use `noremap` when creating keymaps
+  nowait = true, -- use `nowait` when creating keymaps
+}
+
+-- stylua: ignore
+local vmappings = {
+  ["/"] = { "<ESC><CMD>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>", "Comment" },
+  g = {
+    name = "Git",
+    o = { "<cmd>lua require('gitlinker').get_buf_range_url('v', { action_callback = require('gitlinker.actions').open_in_browser })<CR>", "Open in browser" },
+    c = { "<cmd>lua require('gitlinker').get_buf_range_url('v', { action_callback = require('gitlinker.actions').copy_to_clipboard })<CR>", "Copy to clipboard" },
+  },
+}
+
 which_key.setup(setup)
 which_key.register(mappings, opts)
+which_key.register(vmappings, vopts)

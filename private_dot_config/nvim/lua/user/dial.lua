@@ -1,10 +1,12 @@
 local status_ok, dial_config = pcall(require, "dial.config")
 if not status_ok then
+  require("notify").notify("Error loading dial config", "error")
   return
 end
 
 local augend_status_ok, augend = pcall(require, "dial.augend")
 if not augend_status_ok then
+  require("notify").notify("Error loading augend", "error")
   return
 end
 

@@ -1,5 +1,6 @@
 local status_ok, telescope = pcall(require, "telescope")
 if not status_ok then
+  require("notify").notify("Error loading telescope", "error")
   return
 end
 

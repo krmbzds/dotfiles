@@ -1,5 +1,6 @@
 local status_ok, toggleterm = pcall(require, "toggleterm")
 if not status_ok then
+  require("notify").notify("Error loading toggleterm", "error")
   return
 end
 

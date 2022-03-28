@@ -1,20 +1,24 @@
 local dap_status_ok, dap = pcall(require, "dap")
 if not dap_status_ok then
+  require("notify").notify("Error loading dap", "error")
   return
 end
 
 local dap_ui_status_ok, dap_ui = pcall(require, "dapui")
 if not dap_ui_status_ok then
+  require("notify").notify("Error loading dap_ui", "error")
   return
 end
 
 local dap_ruby_status_ok, dap_ruby = pcall(require, "dap-ruby")
 if not dap_ruby_status_ok then
+  require("notify").notify("Error loading dap_ruby", "error")
   return
 end
 
-local icons_status_ok, icons = pcall(require, "icons")
+local icons_status_ok, icons = pcall(require, "user.icons")
 if not icons_status_ok then
+  require("notify").notify("Error loading icons", "error")
   return
 end
 

@@ -1,5 +1,6 @@
 local status_ok, configs = pcall(require, "nvim-treesitter.configs")
 if not status_ok then
+  require("notify").notify("Error loading configs", "error")
   return
 end
 
@@ -8,6 +9,9 @@ configs.setup({
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
   ignore_install = { "" }, -- List of parsers to ignore installing
   autopairs = {
+    enable = true,
+  },
+  endwise = {
     enable = true,
   },
   highlight = {

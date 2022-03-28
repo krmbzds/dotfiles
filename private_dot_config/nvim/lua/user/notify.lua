@@ -1,5 +1,6 @@
 local status_ok, notify = pcall(require, "notify")
 if not status_ok then
+  require("notify").notify("Error loading notify", "error")
   return
 end
 
