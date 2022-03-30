@@ -43,6 +43,7 @@ packer.init({
 return packer.startup(function(use)
   -- My plugins here
   use("wbthomason/packer.nvim") -- Have packer manage itself
+  use({ "abzcoding/filetype.nvim", branch = "fix/qf-syntax" })
   use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
   use("nvim-lua/plenary.nvim") -- Useful lua functions used by lots of plugins
   use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
@@ -92,6 +93,7 @@ return packer.startup(function(use)
 
   -- Telescope
   use("nvim-telescope/telescope.nvim")
+  use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 
   -- Treesitter
   use({
@@ -100,6 +102,7 @@ return packer.startup(function(use)
   })
   use("JoosepAlviste/nvim-ts-context-commentstring")
   use("RRethy/nvim-treesitter-endwise")
+  use("RRethy/nvim-treesitter-textsubjects")
   use("abecodes/tabout.nvim")
   use("SmiteshP/nvim-gps")
   use("ggandor/leap.nvim")
@@ -108,12 +111,18 @@ return packer.startup(function(use)
   use("lewis6991/gitsigns.nvim")
   use("f-person/git-blame.nvim")
   use("ruifm/gitlinker.nvim")
+  use("sindrets/diffview.nvim")
 
   -- Other
   use("sQVe/sort.nvim")
   use("karb94/neoscroll.nvim")
   use("Pocco81/TrueZen.nvim")
   use("monaqa/dial.nvim")
+  use("kevinhwang91/nvim-bqf")
+  use({
+    "sudormrfbin/cheatsheet.nvim",
+    requires = { { "nvim-telescope/telescope.nvim" }, { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
+  })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

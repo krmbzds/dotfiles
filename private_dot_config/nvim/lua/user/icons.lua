@@ -98,6 +98,12 @@ local icons = {
     Tag = "",
     Watch = "",
   },
+  diffview = {
+    FolderOpen = "",
+    FolderClosed = "",
+    FoldOpen = "",
+    FoldClosed = "",
+  },
   nvim_tree = {
     Default = "",
     Symlink = "",

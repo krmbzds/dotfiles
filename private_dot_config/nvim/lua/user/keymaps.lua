@@ -35,6 +35,10 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
+-- Navigate tabs
+keymap("n", "<A-l>", ":tabnext<CR>", opts)
+keymap("n", "<A-h>", ":tabprevious<CR>", opts)
+
 -- Move text up and down
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>==", opts)
 keymap("n", "<A-k>", "<Esc>:m .-2<CR>==", opts)
@@ -42,6 +46,34 @@ keymap("n", "<A-k>", "<Esc>:m .-2<CR>==", opts)
 -- Nvimtree
 keymap("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", opts)
 keymap("n", "<leader>0", "<cmd>NvimTreeFocus<cr>", opts)
+
+-- Unimpaired
+keymap("n", "[a", ":previous<cr>", opts)
+keymap("n", "]a", ":next<cr>", opts)
+keymap("n", "[A", ":first<cr>", opts)
+keymap("n", "]A", ":last<cr>", opts)
+keymap("n", "[b", ":bprevious<cr>", opts)
+keymap("n", "]b", ":bnext<cr>", opts)
+keymap("n", "[B", ":bfirst<cr>", opts)
+keymap("n", "]B", ":blast<cr>", opts)
+keymap("n", "[l", ":lprevious<cr>", opts)
+keymap("n", "]l", ":lnext<cr>", opts)
+keymap("n", "[L", ":lfirst<cr>", opts)
+keymap("n", "]L", ":llast<cr>", opts)
+keymap("n", "[<C-L>", ":lpfile<cr>", opts)
+keymap("n", "]<C-L>", ":lnfile<cr>", opts)
+keymap("n", "[q", ":cprevious<cr>", opts)
+keymap("n", "]q", ":cnext<cr>", opts)
+keymap("n", "[Q", ":cfirst<cr>", opts)
+keymap("n", "]Q", ":clast<cr>", opts)
+keymap("n", "[<C-Q>", ":cpfile<cr>", opts)
+keymap("n", "]<C-Q>", ":cnfile<cr>", opts)
+keymap("n", "[t", ":tprevious<cr>", opts)
+keymap("n", "]t", ":tnext<cr>", opts)
+keymap("n", "[T", ":tfirst<cr>", opts)
+keymap("n", "]T", ":tlast<cr>", opts)
+keymap("n", "[<C-T>", ":ptprevious<cr>", opts)
+keymap("n", "]<C-T>", ":ptnext<cr>", opts)
 
 -- Insert --
 -- Press jk fast to enter

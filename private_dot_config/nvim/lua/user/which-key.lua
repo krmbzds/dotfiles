@@ -95,6 +95,7 @@ local mappings = {
   ["F"] = { "<cmd>lua require('telescope.builtin').live_grep(require('telescope.themes').get_" .. find_text_theme .. "{})<cr>", "Find text" },
   ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
   ["z"] = { "<cmd>TZAtaraxis<cr>", "Zen Mode"},
+  ["?"] = { "<cmd>Cheatsheet<cr>", "Cheatsheet"},
 
   b = {
     name = "Buffers",
@@ -150,6 +151,7 @@ local mappings = {
     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
     c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
     d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
+    D = { "<cmd>DiffviewOpen<cr>", "Diffview" },
     L = { "<cmd>lua vim.g.gitblame_display_virtual_text=1-vim.g.gitblame_display_virtual_text<cr>", "Toggle blame"},
     O = { "<cmd>GitBlameOpenCommitURL<cr>", "Open in browser"},
     h = { "<cmd>GitBlameCopySHA<cr>", "Copy hash"},
@@ -166,7 +168,7 @@ local mappings = {
     j = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic" },
     k = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
     l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-    q = { "<cmd>lua vim.diagnostic.set_loclist()<cr>", "Quickfix" },
+    q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
     S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
@@ -185,6 +187,16 @@ local mappings = {
   },
 
   t = {
+    name = "Tabs",
+    c = { "<cmd>tabclose<cr>", "Close tab" },
+    h = { "<cmd>-tabmove<cr>", "Move tab left" },
+    j = { "<cmd>tabnext<cr>", "Next tab" },
+    k = { "<cmd>tabprevious<cr>", "Previous tab" },
+    l = { "<cmd>+tabmove<cr>", "Move tab right" },
+    t = { "<cmd>tab sb %<cr>", "Move buffer to a new tab" },
+  },
+
+  T = {
     name = "Terminal",
     d = { "<cmd>lua _LAZYDOCKER_TOGGLE()<cr>", "Lazydocker" },
     r = { "<cmd>lua _RUBY_TOGGLE()<cr>", "Ruby" },

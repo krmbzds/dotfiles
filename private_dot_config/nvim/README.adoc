@@ -1,0 +1,83 @@
+= Neovim Config
+:author: Kerem Bozdas
+:description: My personal Neovim configuration
+:revdate: 2022-03-29
+:experimental:
+:autofit-option:
+:sectanchors:
+:url-repo: https://github.com/krmbzds/nvim
+:chistian-chiarulli: https://github.com/ChristianChiarulli[Christian Chiarulli]
+:neovim-from-scratch: https://github.com/LunarVim/Neovim-from-scratch[Neovim from Scratch]
+:christian-chiarulli-nvim-config: https://github.com/ChristianChiarulli/nvim[Personal Configuration of Christian Chiarulli]
+:neovim-maintainers: https://github.com/sponsors/neovim[Neovim Maintainers]
+:bram-moolenar: https://www.moolenaar.net[Bram Moolenar]
+:teej: https://github.com/tjdevries[TJ DeVries]
+:ruby-lang: https://www.ruby-lang.org/en/[Ruby]
+:neovim-from-scratch-license: https://github.com/LunarVim/Neovim-from-scratch/blob/master/LICENSE[terms]
+:dotfiles: https://github.com/krmbzds/dotfiles[dotfiles]
+
+My personal Neovim configuration, 100% Lua.
+
+== Ingredients
+
+* {neovim-from-scratch}
+* {christian-chiarulli-nvim-config}
+* My additions as a {ruby-lang} enjoyer
+
+== Credits
+
+.I would like to thank:
+* {chistian-chiarulli} for his excellent {neovim-from-scratch} video series
+* {neovim-maintainers} for their amazing work on Neovim
+* {bram-moolenar} for his work on Vim
+* <<Plugin Maintainers>> for making Neovim great
+
+=== Plugin Maintainers
+https://github.com/abecodes[abecodes] · 
+https://github.com/abzcoding[abzcoding] · 
+https://github.com/ahmedkhalf[ahmedkhalf] · 
+https://github.com/akinsho[akinsho] · 
+https://github.com/antoinemadec[antoinemadec] · 
+https://github.com/br1anchen[br1anchen] · 
+https://github.com/f-person[f-person] · 
+https://github.com/folke[folke] · 
+https://github.com/ggandor[ggandor] · 
+https://github.com/goolord[goolord] · 
+https://github.com/hrsh7th[hrsh7th] · 
+https://github.com/JoosepAlviste[JoosepAlviste] · 
+https://github.com/jose-elias-alvarez[jose-elias-alvarez] · 
+https://github.com/karb94[karb94] · 
+https://github.com/kevinhwang91[kevinhwang91] · 
+https://github.com/kyazdani42[kyazdani42] · 
+https://github.com/L3MON4D3[L3MON4D3] · 
+https://github.com/lewis6991[lewis6991] · 
+https://github.com/mfussenegger[mfussenegger] · 
+https://github.com/Mofiqul[Mofiqul] · 
+https://github.com/moll[moll] · 
+https://github.com/monaqa[monaqa] · 
+https://github.com/nathom[nathom] · 
+https://github.com/numToStr[numToStr] · 
+https://github.com/Pocco81[Pocco81] · 
+https://github.com/rafamadriz[rafamadriz] · 
+https://github.com/rcarriga[rcarriga] · 
+https://github.com/RRethy[RRethy] · 
+https://github.com/ruifm[ruifm] · 
+https://github.com/saadparwaiz1[saadparwaiz1] · 
+https://github.com/simrat39[simrat39] · 
+https://github.com/sindrets[sindrets] · 
+https://github.com/SmiteshP[SmiteshP] · 
+https://github.com/sQVe[sQVe] · 
+https://github.com/sudormrfbin[sudormrfbin] · 
+https://github.com/suketa[suketa] · 
+https://github.com/tamago324[tamago324] · 
+https://github.com/wbthomason[wbthomason] · 
+https://github.com/williamboman[williamboman] · 
+https://github.com/windwp[windwp]
+
+== Extras
+
+Check out my {dotfiles}.
+
+== License
+
+Distributed under the same {neovim-from-scratch-license} as {neovim-from-scratch}.
