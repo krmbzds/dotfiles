@@ -22,35 +22,38 @@ function install_asdf_global_plugin() {
 }
 
 function install_asdf_plugins() {
-  {{ if .asdf.lua }}        install_asdf_global_plugin  lua        latest  "https://github.com/Stratus3D/asdf-lua.git"           {{ end }}
-  {{ if .asdf.ruby }}       install_asdf_global_plugin  ruby       latest  "https://github.com/asdf-vm/asdf-ruby.git"            {{ end }}
-  {{ if .asdf.rust }}       install_asdf_global_plugin  rust       latest  "https://github.com/asdf-community/asdf-rust.git"     {{ end }}
-  {{ if .asdf.yarn }}       install_asdf_global_plugin  yarn       latest  "https://github.com/twuni/asdf-yarn.git"              {{ end }}
-  {{ if .asdf.golang }}     install_asdf_global_plugin  golang     latest  "https://github.com/kennyp/asdf-golang.git"           {{ end }}
-  {{ if .asdf.nodejs }}     install_asdf_global_plugin  nodejs     latest  "https://github.com/asdf-vm/asdf-nodejs.git"          {{ end }}
-  {{ if .asdf.python }}     install_asdf_global_plugin  python     latest  "https://github.com/danhper/asdf-python.git"          {{ end }}
+  {{ if .asdf.lua }}        install_asdf_global_plugin  lua       "5.1.5"  "https://github.com/Stratus3D/asdf-lua.git"              {{ end }}
+  {{ if .asdf.ruby }}       install_asdf_global_plugin  ruby       latest  "https://github.com/asdf-vm/asdf-ruby.git"               {{ end }}
+  {{ if .asdf.rust }}       install_asdf_global_plugin  rust       latest  "https://github.com/asdf-community/asdf-rust.git"        {{ end }}
+  {{ if .asdf.yarn }}       install_asdf_global_plugin  yarn       latest  "https://github.com/twuni/asdf-yarn.git"                 {{ end }}
+  {{ if .asdf.golang }}     install_asdf_global_plugin  golang     latest  "https://github.com/kennyp/asdf-golang.git"              {{ end }}
+  {{ if .asdf.nodejs }}     install_asdf_global_plugin  nodejs     latest  "https://github.com/asdf-vm/asdf-nodejs.git"             {{ end }}
+  {{ if .asdf.python }}     install_asdf_global_plugin  python     latest  "https://github.com/danhper/asdf-python.git"             {{ end }}
 
-  {{ if .asdf.fd }}         install_asdf_global_plugin  fd         latest  "https://gitlab.com/wt0f/asdf-fd.git"                 {{ end }}
-  {{ if .asdf.jq }}         install_asdf_global_plugin  jq         latest  "https://github.com/azmcode/asdf-jq.git"              {{ end }}
-  {{ if .asdf.xh }}         install_asdf_global_plugin  xh         latest  "https://github.com/NeoHsu/asdf-xh"                   {{ end }}
-  {{ if .asdf.bat }}        install_asdf_global_plugin  bat        latest  "https://gitlab.com/wt0f/asdf-bat.git"                {{ end }}
-  {{ if .asdf.duf }}        install_asdf_global_plugin  duf        latest  "https://github.com/NeoHsu/asdf-duf.git"              {{ end }}
-  {{ if .asdf.exa }}        install_asdf_global_plugin  exa        latest  "https://github.com/nyrst/asdf-exa.git"               {{ end }}
-  {{ if .asdf.dust }}       install_asdf_global_plugin  dust       latest  "https://github.com/looztra/asdf-dust.git"            {{ end }}
-  {{ if .asdf.helm }}       install_asdf_global_plugin  helm       latest  "https://github.com/Antiarchitect/asdf-helm.git"      {{ end }}
-  {{ if .asdf.tmux }}       install_asdf_global_plugin  tmux       latest  "https://github.com/aphecetche/asdf-tmux.git"         {{ end }}
-  {{ if .asdf.cheat }}      install_asdf_global_plugin  cheat      latest  "https://github.com/jmoratilla/asdf-cheat-plugin.git" {{ end }}
-  {{ if .asdf.delta }}      install_asdf_global_plugin  delta      latest  "https://github.com/andweeb/asdf-delta.git"           {{ end }}
-  {{ if .asdf.doctl }}      install_asdf_global_plugin  doctl      latest  "https://github.com/maristgeek/asdf-doctl.git"        {{ end }}
-  {{ if .asdf.viddy }}      install_asdf_global_plugin  viddy      latest  "https://github.com/ryodocx/asdf-viddy.git"           {{ end }}
-  {{ if .asdf.neovim }}     install_asdf_global_plugin  neovim    nightly  "https://github.com/richin13/asdf-neovim.git"         {{ end }}
-  {{ if .asdf.stylua }}     install_asdf_global_plugin  stylua     latest  "https://github.com/jc00ke/asdf-stylua.git"           {{ end }}
-  {{ if .asdf.kubectl }}    install_asdf_global_plugin  kubectl    latest  "https://github.com/Banno/asdf-kubectl.git"           {{ end }}
-  {{ if .asdf.lazygit }}    install_asdf_global_plugin  lazygit    latest  "https://github.com/nklmilojevic/asdf-lazygit.git"    {{ end }}
-  {{ if .asdf.ripgrep }}    install_asdf_global_plugin  ripgrep    latest  "https://gitlab.com/wt0f/asdf-ripgrep.git"            {{ end }}
-  {{ if .asdf.terraform }}  install_asdf_global_plugin  terraform  latest  "https://github.com/Banno/asdf-hashicorp.git"         {{ end }}
-  {{ if .asdf.lazydocker }} install_asdf_global_plugin  lazydocker "0.12"  "https://github.com/comdotlinux/asdf-lazydocker.git"  {{ end }}
-  {{ if .asdf.shellcheck }} install_asdf_global_plugin  shellcheck latest  "https://github.com/luizm/asdf-shellcheck.git"        {{ end }}
+  {{ if .asdf.fd }}         install_asdf_global_plugin  fd         latest  "https://gitlab.com/wt0f/asdf-fd.git"                    {{ end }}
+  {{ if .asdf.jq }}         install_asdf_global_plugin  jq         latest  "https://github.com/azmcode/asdf-jq.git"                 {{ end }}
+  {{ if .asdf.jq }}         install_asdf_global_plugin  jq         latest  "https://github.com/azmcode/asdf-jq.git"                 {{ end }}
+  {{ if .asdf.xh }}         install_asdf_global_plugin  xh         latest  "https://github.com/NeoHsu/asdf-xh"                      {{ end }}
+  {{ if .asdf.bat }}        install_asdf_global_plugin  bat        latest  "https://gitlab.com/wt0f/asdf-bat.git"                   {{ end }}
+  {{ if .asdf.duf }}        install_asdf_global_plugin  duf        latest  "https://github.com/NeoHsu/asdf-duf.git"                 {{ end }}
+  {{ if .asdf.exa }}        install_asdf_global_plugin  exa        latest  "https://github.com/nyrst/asdf-exa.git"                  {{ end }}
+  {{ if .asdf.dust }}       install_asdf_global_plugin  dust       latest  "https://github.com/looztra/asdf-dust.git"               {{ end }}
+  {{ if .asdf.helm }}       install_asdf_global_plugin  helm       latest  "https://github.com/Antiarchitect/asdf-helm.git"         {{ end }}
+  {{ if .asdf.tmux }}       install_asdf_global_plugin  tmux       latest  "https://github.com/aphecetche/asdf-tmux.git"            {{ end }}
+  {{ if .asdf.cheat }}      install_asdf_global_plugin  cheat      latest  "https://github.com/jmoratilla/asdf-cheat-plugin.git"    {{ end }}
+  {{ if .asdf.delta }}      install_asdf_global_plugin  delta      latest  "https://github.com/andweeb/asdf-delta.git"              {{ end }}
+  {{ if .asdf.doctl }}      install_asdf_global_plugin  doctl      latest  "https://github.com/maristgeek/asdf-doctl.git"           {{ end }}
+  {{ if .asdf.viddy }}      install_asdf_global_plugin  viddy      latest  "https://github.com/ryodocx/asdf-viddy.git"              {{ end }}
+  {{ if .asdf.neovim }}     install_asdf_global_plugin  neovim    nightly  "https://github.com/richin13/asdf-neovim.git"            {{ end }}
+  {{ if .asdf.stylua }}     install_asdf_global_plugin  stylua     latest  "https://github.com/jc00ke/asdf-stylua.git"              {{ end }}
+  {{ if .asdf.kubectl }}    install_asdf_global_plugin  kubectl    latest  "https://github.com/Banno/asdf-kubectl.git"              {{ end }}
+  {{ if .asdf.lazygit }}    install_asdf_global_plugin  lazygit    latest  "https://github.com/nklmilojevic/asdf-lazygit.git"       {{ end }}
+  {{ if .asdf.ripgrep }}    install_asdf_global_plugin  ripgrep    latest  "https://gitlab.com/wt0f/asdf-ripgrep.git"               {{ end }}
+  {{ if .asdf.terraform }}  install_asdf_global_plugin  terraform  latest  "https://github.com/Banno/asdf-hashicorp.git"            {{ end }}
+  {{ if .asdf.lazydocker }} install_asdf_global_plugin  lazydocker "0.12"  "https://github.com/comdotlinux/asdf-lazydocker.git"     {{ end }}
+  {{ if .asdf.shellcheck }} install_asdf_global_plugin  shellcheck latest  "https://github.com/luizm/asdf-shellcheck.git"           {{ end }}
+  {{ if .asdf.shellcheck }} install_asdf_global_plugin  shellcheck latest  "https://github.com/luizm/asdf-shellcheck.git"           {{ end }}
+  {{ if .asdf.github_cli }} install_asdf_global_plugin  github-cli latest  "https://github.com/bartlomiejdanek/asdf-github-cli.git" {{ end }}
 
   {{ if .asdf.golang }}chmod -R u+wx "{{ .chezmoi.homeDir }}/.asdf/installs/golang"{{ end }}
   true
@@ -83,11 +86,24 @@ function install_zeal_docsets() {
   {{ end }}
 }
 
+function install_github_cli() {
+  {{ if (and (lookPath "go") .asdf.github_cli) }}
+    gh auth login
+    local extensions=(f i s)
+    for i in "${extensions[@]}"; do
+      gh extension install "gennaro-tedesco/gh-$i" || true
+    done
+  {{ else }}
+    true
+  {{ end }}
+}
+
 # ****************************************************************************
 # *                                Main Script                               *
 # ****************************************************************************
 
 install_asdf_plugins
 install_zeal_cli && install_zeal_docsets
+install_github_cli
 
 {{ end }}

@@ -68,6 +68,7 @@ ripgrep = true
 terraform = true
 lazydocker = true
 shellcheck = true
+github_cli = true
 
 [logitech.g213]
 enabled = false
