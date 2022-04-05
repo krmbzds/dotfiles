@@ -1,6 +1,5 @@
 local status_ok, colorizer = pcall(require, "colorizer")
 if not status_ok then
-  require("notify").notify("Error loading colorizer", "error")
   return
 end
 

@@ -1,6 +1,5 @@
 local status_ok, cheatsheet = pcall(require, "cheatsheet")
 if not status_ok then
-  require("notify").notify("Error loading cheatsheet", "error")
   return
 end
 

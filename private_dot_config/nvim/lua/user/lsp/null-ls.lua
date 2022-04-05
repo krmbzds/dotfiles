@@ -1,6 +1,5 @@
-local null_ls_status_ok, null_ls = pcall(require, "null-ls")
-if not null_ls_status_ok then
-  require("notify").notify("Error loading null-ls", "error")
+local null_ls_ok, null_ls = pcall(require, "null-ls")
+if not null_ls_ok then
   return
 end
 

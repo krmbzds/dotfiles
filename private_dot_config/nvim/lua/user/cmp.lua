@@ -1,12 +1,10 @@
-local cmp_status_ok, cmp = pcall(require, "cmp")
-if not cmp_status_ok then
-  require("notify").notify("Error loading cmp", "error")
+local cmp_ok, cmp = pcall(require, "cmp")
+if not cmp_ok then
   return
 end
 
-local snip_status_ok, luasnip = pcall(require, "luasnip")
-if not snip_status_ok then
-  require("notify").notify("Error loading luasnip", "error")
+local snip_ok, luasnip = pcall(require, "luasnip")
+if not snip_ok then
   return
 end
 

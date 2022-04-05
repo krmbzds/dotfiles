@@ -1,15 +1,42 @@
 local status_ok, configs = pcall(require, "nvim-treesitter.configs")
 if not status_ok then
-  require("notify").notify("Error loading configs", "error")
   return
 end
 
 configs.setup({
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = {
+    "bash",
+    "c",
+    "cmake",
+    "comment",
+    "cpp",
+    "css",
+    "dockerfile",
+    "hcl",
+    "html",
+    "http",
+    "javascript",
+    "json",
+    "json5",
+    "jsonc",
+    "lua",
+    "make",
+    "python",
+    "ruby",
+    "scss",
+    "toml",
+    "typescript",
+    "vim",
+    "yaml",
+  },
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
   ignore_install = { "" }, -- List of parsers to ignore installing
   autopairs = {
     enable = true,
+  },
+  autotag = {
+    enable = true,
+    filetypes = { "html", "xml", "javascript", "typescript" },
   },
   endwise = {
     enable = true,

@@ -1,12 +1,10 @@
 local status_ok, gps = pcall(require, "nvim-gps")
 if not status_ok then
-  require("notify").notify("Error loading gps", "error")
   return
 end
 
-local icons_status_ok, icons = pcall(require, "user.icons")
-if not icons_status_ok then
-  require("notify").notify("Error loading icons", "error")
+local icons_ok, icons = pcall(require, "user.icons")
+if not icons_ok then
   return
 end
 

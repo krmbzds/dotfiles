@@ -43,9 +43,10 @@ keymap("n", "<A-h>", ":tabprevious<CR>", opts)
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>==", opts)
 keymap("n", "<A-k>", "<Esc>:m .-2<CR>==", opts)
 
--- Nvimtree
-keymap("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", opts)
-keymap("n", "<leader>0", "<cmd>NvimTreeFocus<cr>", opts)
+-- Neotree
+keymap("n", "<leader>E", "<cmd>Neotree toggle position=left<cr>", opts)
+keymap("n", "<leader>e", "<cmd>Neotree toggle position=float<cr>", opts)
+keymap("n", "<leader>0", "<cmd>Neotree focus<cr>", opts)
 
 -- Unimpaired
 keymap("n", "[a", ":previous<cr>", opts)
@@ -76,9 +77,6 @@ keymap("n", "[<C-T>", ":ptprevious<cr>", opts)
 keymap("n", "]<C-T>", ":ptnext<cr>", opts)
 
 -- Insert --
--- Press jk fast to enter
-keymap("i", "jk", "<ESC>", opts)
-
 -- Make Control+Backspace delete whole words
 keymap("i", "<C-H>", "<C-W>", opts)
 

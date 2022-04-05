@@ -34,16 +34,17 @@ My personal Neovim configuration, 100% Lua.
 
 === Plugin Maintainers
 https://github.com/abecodes[abecodes] · 
-https://github.com/abzcoding[abzcoding] · 
 https://github.com/ahmedkhalf[ahmedkhalf] · 
 https://github.com/akinsho[akinsho] · 
 https://github.com/antoinemadec[antoinemadec] · 
 https://github.com/br1anchen[br1anchen] · 
+https://github.com/cseickel[cseickel] · 
+https://github.com/danymat[danymat] · 
 https://github.com/f-person[f-person] · 
 https://github.com/folke[folke] · 
 https://github.com/ggandor[ggandor] · 
-https://github.com/goolord[goolord] · 
 https://github.com/hrsh7th[hrsh7th] · 
+https://github.com/jiaoshijie[jiaoshijie] · 
 https://github.com/JoosepAlviste[JoosepAlviste] · 
 https://github.com/jose-elias-alvarez[jose-elias-alvarez] · 
 https://github.com/karb94[karb94] · 
@@ -51,11 +52,12 @@ https://github.com/kevinhwang91[kevinhwang91] ·
 https://github.com/kyazdani42[kyazdani42] · 
 https://github.com/L3MON4D3[L3MON4D3] · 
 https://github.com/lewis6991[lewis6991] · 
+https://github.com/max397574[max397574] · 
 https://github.com/mfussenegger[mfussenegger] · 
 https://github.com/Mofiqul[Mofiqul] · 
 https://github.com/moll[moll] · 
 https://github.com/monaqa[monaqa] · 
-https://github.com/nathom[nathom] · 
+https://github.com/MunifTanjim[MunifTanjim] · 
 https://github.com/numToStr[numToStr] · 
 https://github.com/Pocco81[Pocco81] · 
 https://github.com/rafamadriz[rafamadriz] · 
@@ -63,8 +65,6 @@ https://github.com/rcarriga[rcarriga] ·
 https://github.com/RRethy[RRethy] · 
 https://github.com/ruifm[ruifm] · 
 https://github.com/saadparwaiz1[saadparwaiz1] · 
-https://github.com/simrat39[simrat39] · 
-https://github.com/sindrets[sindrets] · 
 https://github.com/SmiteshP[SmiteshP] · 
 https://github.com/sQVe[sQVe] · 
 https://github.com/sudormrfbin[sudormrfbin] · 

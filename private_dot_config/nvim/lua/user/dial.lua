@@ -1,12 +1,10 @@
 local status_ok, dial_config = pcall(require, "dial.config")
 if not status_ok then
-  require("notify").notify("Error loading dial config", "error")
   return
 end
 
-local augend_status_ok, augend = pcall(require, "dial.augend")
-if not augend_status_ok then
-  require("notify").notify("Error loading augend", "error")
+local augend_ok, augend = pcall(require, "dial.augend")
+if not augend_ok then
   return
 end
 
@@ -23,8 +21,6 @@ dial_config.augends:register_group({
     augend.integer.alias.hex,
     augend.date.alias["%Y-%m-%d"],
     augend.date.alias["%H:%M"],
-    augend.constant.alias.alpha,
-    augend.constant.alias.Alpha,
   },
 })
 

@@ -1,19 +1,16 @@
 -- Setup nvim-cmp.
-local cmp_status_ok, cmp = pcall(require, "cmp")
-if not cmp_status_ok then
-  require("notify").notify("Error loading cmp", "error")
+local cmp_ok, cmp = pcall(require, "cmp")
+if not cmp_ok then
   return
 end
 
-local autopairs_status_ok, autopairs = pcall(require, "nvim-autopairs")
-if not autopairs_status_ok then
-  require("notify").notify("Error loading autopairs", "error")
+local autopairs_ok, autopairs = pcall(require, "nvim-autopairs")
+if not autopairs_ok then
   return
 end
 
-local cmp_autopairs_status_ok, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
-if not cmp_autopairs_status_ok then
-  require("notify").notify("Error loading cmp_autopairs", "error")
+local cmp_autopairs_ok, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
+if not cmp_autopairs_ok then
   return
 end
 

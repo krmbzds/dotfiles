@@ -1,12 +1,10 @@
 local status_ok, lualine = pcall(require, "lualine")
 if not status_ok then
-  require("notify").notify("Error loading lualine", "error")
   return
 end
 
 local status_gps_ok, gps = pcall(require, "nvim-gps")
 if not status_gps_ok then
-  require("notify").notify("Error loading gps", "error")
   return
 end
 
@@ -86,7 +84,7 @@ lualine.setup({
     theme = "auto",
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
-    disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline", "toggleterm" },
+    disabled_filetypes = { "dashboard", "neo-tree", "toggleterm" },
     always_divide_middle = true,
   },
   sections = {

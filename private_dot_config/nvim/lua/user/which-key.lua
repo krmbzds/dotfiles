@@ -1,17 +1,12 @@
 local status_ok, which_key = pcall(require, "which-key")
 if not status_ok then
-  require("notify").notify("Error loading which-key", "error")
   return
 end
 
-local buffer_theme = "ivy"
-local find_file_theme = "dropdown{previewer = false}"
-local find_text_theme = "ivy"
-
 local setup = {
   plugins = {
-    marks = true, -- shows a list of your marks on ' and `
-    registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+    marks = false, -- shows a list of your marks on ' and `
+    registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
     spelling = {
       enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
       suggestions = 20, -- how many suggestions should be shown in the list?
@@ -85,22 +80,22 @@ local opts = {
 
 -- stylua: ignore
 local mappings = {
-  ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
-  ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+  ["a"] = { "<cmd>Neogen<cr>", "Annotate" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
   ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
   ["h"] = { "<cmd>set invhlsearch<CR>", "Toggle Highlight" },
-  ["f"] = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_" .. find_file_theme .. ")<cr>", "Find files" },
-  ["F"] = { "<cmd>lua require('telescope.builtin').live_grep(require('telescope.themes').get_" .. find_text_theme .. "{})<cr>", "Find text" },
+  ["f"] = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Find File" },
   ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
+  ["u"] = { "<cmd>UndotreeToggle<cr>", "Undotree" },
   ["z"] = { "<cmd>TZAtaraxis<cr>", "Zen Mode"},
+  ["F"] = { "<cmd>TZFocus<cr>", "Focus Mode"},
   ["?"] = { "<cmd>Cheatsheet<cr>", "Cheatsheet"},
 
   b = {
     name = "Buffers",
     j = { "<cmd>BufferLinePick<cr>", "Jump" },
-    f = { "<cmd>Telescope buffers<cr>", "Find" },
+    f = { "<cmd>Neotree buffers position=float<cr>", "Find" },
     b = { "<cmd>BufferLineCyclePrev<cr>", "Previous" },
     e = { "<cmd>BufferLinePickClose<cr>", "Pick which buffer to close" },
     h = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
@@ -151,7 +146,6 @@ local mappings = {
     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
     c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
     d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
-    D = { "<cmd>DiffviewOpen<cr>", "Diffview" },
     L = { "<cmd>lua vim.g.gitblame_display_virtual_text=1-vim.g.gitblame_display_virtual_text<cr>", "Toggle blame"},
     O = { "<cmd>GitBlameOpenCommitURL<cr>", "Open in browser"},
     h = { "<cmd>GitBlameCopySHA<cr>", "Copy hash"},
@@ -160,7 +154,7 @@ local mappings = {
   l = {
     name = "LSP",
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-    d = { "<cmd>Telescope diagnostics bufnr=0 theme=" .. buffer_theme .. "<cr>", "Buffer Diagnostics" },
+    d = { "<cmd>Telescope diagnostics bufnr=0 theme=ivy<cr>", "Buffer Diagnostics" },
     w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
     f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
     i = { "<cmd>LspInfo<cr>", "Info" },
@@ -176,14 +170,18 @@ local mappings = {
 
   s = {
     name = "Search",
+    f = { "<cmd>Telescope find_files theme=dropdown previewer=false<cr>", "Find files" },
+    g = { "<cmd>Telescope live_grep theme=ivy<cr>", "Live Grep" },
     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-    c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
-    h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
+    c = { "<cmd>Cheatsheet<cr>", "Cheatsheet"},
+    h = { "<cmd>Telescope help_tags<cr>", "Help" },
+    l = { "<cmd>Telescope resume<cr>", "Last Search" },
     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-    r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+    r = { "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", "Recent Files"},
     R = { "<cmd>Telescope registers<cr>", "Registers" },
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     C = { "<cmd>Telescope commands<cr>", "Commands" },
+    p = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
   },
 
   t = {
