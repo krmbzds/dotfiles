@@ -86,13 +86,13 @@ function install_zeal_docsets() {
   {{ end }}
 }
 
-function install_github_cli() {
+function install_github_cli_extensions() {
   {{ if (and (lookPath "go") .asdf.github_cli) }}
     gh auth login
-    local extensions=(f i s)
-    for i in "${extensions[@]}"; do
-      gh extension install "gennaro-tedesco/gh-$i" || true
-    done
+    gh extension install gennaro-tedesco/gh-f || true
+    gh extension install gennaro-tedesco/gh-i || true
+    gh extension install gennaro-tedesco/gh-s || true
+    gh extension install dlvhdr/gh-dash || true
   {{ else }}
     true
   {{ end }}
@@ -104,6 +104,6 @@ function install_github_cli() {
 
 install_asdf_plugins
 install_zeal_cli && install_zeal_docsets
-install_github_cli
+install_github_cli_extensions
 
 {{ end }}

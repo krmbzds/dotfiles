@@ -1,0 +1,31 @@
+{{ if (and (lookPath "go") .asdf.github_cli) }}
+prSections:
+- title: My Pull Requests
+  filters: is:open author:@me
+- title: Needs My Review
+  filters: is:open review-requested:@me
+- title: Neovim
+  filters: is:open -author:@me repo:abecodes/tabout.nvim repo:ahmedkhalf/project.nvim repo:akinsho/bufferline.nvim repo:akinsho/toggleterm.nvim repo:antoinemadec/FixCursorHold.nvim repo:br1anchen/nvim-colorizer.lua repo:danymat/neogen repo:f-person/git-blame.nvim repo:folke/which-key.nvim repo:ggandor/leap.nvim repo:hrsh7th/cmp-buffer repo:hrsh7th/cmp-cmdline repo:hrsh7th/cmp-nvim-lsp repo:hrsh7th/cmp-nvim-lua repo:hrsh7th/cmp-path repo:hrsh7th/nvim-cmp repo:jiaoshijie/undotree repo:JoosepAlviste/nvim-ts-context-commentstring repo:jose-elias-alvarez/null-ls.nvim repo:karb94/neoscroll.nvim repo:kevinhwang91/nvim-bqf repo:kyazdani42/nvim-web-devicons repo:L3MON4D3/LuaSnip repo:lewis6991/gitsigns.nvim repo:lewis6991/impatient.nvim repo:max397574/better-escape.nvim repo:mfussenegger/nvim-dap repo:Mofiqul/dracula.nvim repo:moll/vim-bbye repo:monaqa/dial.nvim repo:MunifTanjim/nui.nvim repo:neovim/nvim-lspconfig repo:numToStr/Comment.nvim repo:nvim-lua/plenary.nvim repo:nvim-lua/popup.nvim repo:nvim-lualine/lualine.nvim repo:nvim-neo-tree/neo-tree.nvim repo:nvim-telescope/telescope-frecency.nvim repo:nvim-telescope/telescope-fzf-native.nvim repo:nvim-telescope/telescope.nvim repo:nvim-treesitter/nvim-treesitter repo:Pocco81/TrueZen.nvim repo:rafamadriz/friendly-snippets repo:rcarriga/nvim-dap-ui repo:rcarriga/nvim-notify repo:RRethy/nvim-treesitter-endwise repo:RRethy/nvim-treesitter-textsubjects repo:ruifm/gitlinker.nvim repo:saadparwaiz1/cmp_luasnip repo:SmiteshP/nvim-gps repo:sQVe/sort.nvim repo:sudormrfbin/cheatsheet.nvim repo:suketa/nvim-dap-ruby repo:tamago324/nlsp-settings.nvim repo:wbthomason/packer.nvim repo:williamboman/nvim-lsp-installer repo:windwp/nvim-autopairs repo:windwp/nvim-ts-autotag 
+- title: Ruby
+  filters: is:open -author:@me repo:ruby/ruby repo:rubyreferences/rubyref repo:rubyreferences/rubychanges repo:ruby/debug repo:ruby/irb repo:ruby/rbs
+- title: Rails
+  filters: is:open -author:@me repo:rails/rails repo:hotwired/turbo-rails repo:hotwired/stimulus-rails repo:rails/propshaft repo:rails/importmap-rails
+issuesSections:
+- title: My Issues
+  filters: is:open author:@me
+- title: Assigned
+  filters: is:open assignee:@me
+- title: Neovim
+  filters: is:open -author:@me repo:abecodes/tabout.nvim repo:ahmedkhalf/project.nvim repo:akinsho/bufferline.nvim repo:akinsho/toggleterm.nvim repo:antoinemadec/FixCursorHold.nvim repo:br1anchen/nvim-colorizer.lua repo:danymat/neogen repo:f-person/git-blame.nvim repo:folke/which-key.nvim repo:ggandor/leap.nvim repo:hrsh7th/cmp-buffer repo:hrsh7th/cmp-cmdline repo:hrsh7th/cmp-nvim-lsp repo:hrsh7th/cmp-nvim-lua repo:hrsh7th/cmp-path repo:hrsh7th/nvim-cmp repo:jiaoshijie/undotree repo:JoosepAlviste/nvim-ts-context-commentstring repo:jose-elias-alvarez/null-ls.nvim repo:karb94/neoscroll.nvim repo:kevinhwang91/nvim-bqf repo:kyazdani42/nvim-web-devicons repo:L3MON4D3/LuaSnip repo:lewis6991/gitsigns.nvim repo:lewis6991/impatient.nvim repo:max397574/better-escape.nvim repo:mfussenegger/nvim-dap repo:Mofiqul/dracula.nvim repo:moll/vim-bbye repo:monaqa/dial.nvim repo:MunifTanjim/nui.nvim repo:neovim/nvim-lspconfig repo:numToStr/Comment.nvim repo:nvim-lua/plenary.nvim repo:nvim-lua/popup.nvim repo:nvim-lualine/lualine.nvim repo:nvim-neo-tree/neo-tree.nvim repo:nvim-telescope/telescope-frecency.nvim repo:nvim-telescope/telescope-fzf-native.nvim repo:nvim-telescope/telescope.nvim repo:nvim-treesitter/nvim-treesitter repo:Pocco81/TrueZen.nvim repo:rafamadriz/friendly-snippets repo:rcarriga/nvim-dap-ui repo:rcarriga/nvim-notify repo:RRethy/nvim-treesitter-endwise repo:RRethy/nvim-treesitter-textsubjects repo:ruifm/gitlinker.nvim repo:saadparwaiz1/cmp_luasnip repo:SmiteshP/nvim-gps repo:sQVe/sort.nvim repo:sudormrfbin/cheatsheet.nvim repo:suketa/nvim-dap-ruby repo:tamago324/nlsp-settings.nvim repo:wbthomason/packer.nvim repo:williamboman/nvim-lsp-installer repo:windwp/nvim-autopairs repo:windwp/nvim-ts-autotag 
+- title: Ruby
+  filters: is:open -author:@me repo:ruby/ruby repo:rubyreferences/rubyref repo:rubyreferences/rubychanges repo:ruby/debug repo:ruby/irb repo:ruby/rbs
+- title: Rails
+  filters: is:open -author:@me repo:rails/rails repo:hotwired/turbo-rails repo:hotwired/stimulus-rails repo:rails/propshaft repo:rails/importmap-rails
+defaults:
+  preview:
+    open: true
+    width: 50
+  prsLimit: 20
+  issuesLimit: 20
+  view: prs
+{{ end }}
