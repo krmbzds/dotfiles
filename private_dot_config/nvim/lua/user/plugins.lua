@@ -102,6 +102,7 @@ return packer.startup(function(use)
   use({ "lewis6991/gitsigns.nvim" })
   use({ "f-person/git-blame.nvim" })
   use({ "ruifm/gitlinker.nvim", requires = { "nvim-lua/plenary.nvim" } })
+  use({ "TimUntersberger/neogit", requires = { "nvim-lua/plenary.nvim" } })
 
   -- Movement
   use({ "ggandor/leap.nvim" })
@@ -113,7 +114,6 @@ return packer.startup(function(use)
   use({ "jiaoshijie/undotree" })
 
   -- Hacks
-  use({ "moll/vim-bbye" })
   use({ "max397574/better-escape.nvim" })
   use({ "antoinemadec/FixCursorHold.nvim" }) -- This is needed to fix lsp doc highlight
 

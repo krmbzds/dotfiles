@@ -95,6 +95,15 @@ telescope.setup({
       override_file_sorter = true, -- override the file sorter
       case_mode = "smart_case", -- or "ignore_case" or "respect_case"
     },
+    frecency = {
+      default_workspace = "CWD",
+      show_unindexed = false,
+      ignore_patterns = {
+        "*.git/*",
+        "*/tmp/*",
+        "node_modules/",
+      },
+    },
   },
 })
 

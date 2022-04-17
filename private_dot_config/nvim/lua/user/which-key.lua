@@ -18,7 +18,7 @@ local setup = {
       motions = true, -- adds help for motions
       text_objects = true, -- help for text objects triggered after entering an operator
       windows = true, -- default bindings on <c-w>
-      nav = true, -- misc bindings to work with windows
+      nav = false, -- misc bindings to work with windows
       z = true, -- bindings for folds, spelling and others prefixed with z
       g = true, -- bindings for prefixed with g
     },
@@ -83,10 +83,12 @@ local mappings = {
   ["a"] = { "<cmd>Neogen<cr>", "Annotate" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
-  ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+  ["c"] = { "<cmd>bdelete<CR>", "Close Buffer" },
+  ["C"] = { "<cmd>bdelete!<cr>", "Close Unsaved Buffer" },
   ["h"] = { "<cmd>set invhlsearch<CR>", "Toggle Highlight" },
   ["f"] = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Find File" },
   ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
+  ["r"] = { "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", "Recent Files"},
   ["u"] = { "<cmd>UndotreeToggle<cr>", "Undotree" },
   ["z"] = { "<cmd>TZAtaraxis<cr>", "Zen Mode"},
   ["F"] = { "<cmd>TZFocus<cr>", "Focus Mode"},
@@ -133,7 +135,7 @@ local mappings = {
 
   g = {
     name = "Git",
-    g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
+    g = { "<cmd>lua require('neogit').open()<cr>", "Neogit" },
     j = { "<cmd>lua require('gitsigns').next_hunk()<cr>", "Next hunk" },
     k = { "<cmd>lua require('gitsigns').prev_hunk()<cr>", "Prev hunk" },
     l = { "<cmd>lua require('gitsigns').blame_line()<cr>", "Blame line" },
@@ -177,7 +179,6 @@ local mappings = {
     h = { "<cmd>Telescope help_tags<cr>", "Help" },
     l = { "<cmd>Telescope resume<cr>", "Last Search" },
     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-    r = { "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", "Recent Files"},
     R = { "<cmd>Telescope registers<cr>", "Registers" },
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     C = { "<cmd>Telescope commands<cr>", "Commands" },

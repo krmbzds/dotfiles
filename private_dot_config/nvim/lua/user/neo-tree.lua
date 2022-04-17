@@ -60,11 +60,31 @@ neo_tree.setup({
       ["<space>"] = "toggle_node",
       ["<2-LeftMouse>"] = "open",
       ["<cr>"] = "open",
+      ["<tab>"] = function(state)
+        state.commands["open"](state)
+        vim.cmd("Neotree reveal")
+      end,
       ["s"] = "open_split",
       ["v"] = "open_vsplit",
       ["t"] = "open_tabnew",
-      ["h"] = "close_node",
-      ["l"] = "toggle_node",
+      ["h"] = function(state)
+        local node = state.tree:get_node()
+        if node.type == "directory" and node:is_expanded() then
+          require("neo-tree.sources.filesystem").toggle_directory(state, node)
+        else
+          require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+        end
+      end,
+      ["l"] = function(state)
+        local node = state.tree:get_node()
+        if node.type == "directory" then
+          if not node:is_expanded() then
+            require("neo-tree.sources.filesystem").toggle_directory(state, node)
+          elseif node:has_children() then
+            require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+          end
+        end
+      end,
       ["z"] = "close_all_nodes",
       ["R"] = "refresh",
       ["a"] = "add",
@@ -80,6 +100,9 @@ neo_tree.setup({
     },
   },
   filesystem = {
+    follow_current_file = true,
+    use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes instead of relying on nvim autocmd events.
+    async_directory_scan = false, -- Scan files synchronously
     window = {
       mappings = {
         ["H"] = "toggle_hidden",
@@ -105,9 +128,6 @@ neo_tree.setup({
       --   --"thumbs.db"
       -- },
     },
-    follow_current_file = true,
-    use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
-    -- instead of relying on nvim autocmd events.
   },
   buffers = {
     bind_to_cwd = true,

@@ -76,6 +76,10 @@ keymap("n", "]T", ":tlast<cr>", opts)
 keymap("n", "[<C-T>", ":ptprevious<cr>", opts)
 keymap("n", "]<C-T>", ":ptnext<cr>", opts)
 
+-- Gitsigns
+keymap("n", "[g", "<cmd>Gitsigns prev_hunk<cr>", opts)
+keymap("n", "]g", "<cmd>Gitsigns next_hunk<cr>", opts)
+
 -- Insert --
 -- Make Control+Backspace delete whole words
 keymap("i", "<C-H>", "<C-W>", opts)

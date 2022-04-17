@@ -10,6 +10,7 @@ require("user.telescope")
 require("user.treesitter")
 require("user.autopairs")
 require("user.comment")
+require("user.neogit")
 require("user.gitsigns")
 require("user.git-blame")
 require("user.gitlinker")
@@ -33,3 +34,5 @@ require("user.bqf")
 require("user.cheatsheet")
 require("user.better-escape")
 require("user.neogen")
+
+vim.opt.laststatus = 3 -- global statusline
