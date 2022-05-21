@@ -70,6 +70,7 @@ return packer.startup(function(use)
   use({ "saadparwaiz1/cmp_luasnip", requires = { "hhrsh7th/nvim-cmp" } })
   use({ "hrsh7th/cmp-nvim-lsp", requires = { "hhrsh7th/nvim-cmp" } })
   use({ "hrsh7th/cmp-nvim-lua", requires = { "hhrsh7th/nvim-cmp" } })
+  use({ "rcarriga/cmp-dap", requires = { "hhrsh7th/nvim-cmp" } })
 
   -- Snippets
   use({ "L3MON4D3/LuaSnip" })

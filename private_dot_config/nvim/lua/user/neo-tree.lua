@@ -9,6 +9,7 @@ if not icons_ok then
 end
 
 neo_tree.setup({
+  close_if_last_window = "true",
   popup_border_style = "rounded", -- "double", "none", "rounded", "shadow", "single" or "solid"
   default_component_configs = {
     indent = {
@@ -61,8 +62,13 @@ neo_tree.setup({
       ["<2-LeftMouse>"] = "open",
       ["<cr>"] = "open",
       ["<tab>"] = function(state)
-        state.commands["open"](state)
-        vim.cmd("Neotree reveal")
+        local node = state.tree:get_node()
+        if require("neo-tree.utils").is_expandable(node) then
+          state.commands["toggle_node"](state)
+        else
+          state.commands["open"](state)
+          vim.cmd("Neotree reveal")
+        end
       end,
       ["s"] = "open_split",
       ["v"] = "open_vsplit",

@@ -3,6 +3,11 @@ if not cmp_ok then
   return
 end
 
+local cmp_dap_ok, cmp_dap = pcall(require, "cmp_dap")
+if not cmp_dap_ok then
+  return
+end
+
 local snip_ok, luasnip = pcall(require, "luasnip")
 if not snip_ok then
   return
@@ -24,7 +29,10 @@ cmp.setup({
       luasnip.lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
-  mapping = {
+  enabled = function()
+    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or cmp_dap.is_dap_buffer()
+  end,
+  mapping = cmp.mapping.preset.insert({
     ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<C-j>"] = cmp.mapping.select_next_item(),
     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
@@ -66,7 +74,7 @@ cmp.setup({
       "i",
       "s",
     }),
-  },
+  }),
   formatting = {
     fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
@@ -89,19 +97,27 @@ cmp.setup({
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
+    { name = "dap" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
   },
+  -- documentation = true,
   window = {
+    -- documentation = "native",
     documentation = {
-      border = "native",
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+      winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
+    },
+    completion = {
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+      winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
     },
   },
   experimental = {
-    ghost_text = false,
-    native_menu = false,
+    ghost_text = true,
+    -- native_menu = false,
   },
 })
 
