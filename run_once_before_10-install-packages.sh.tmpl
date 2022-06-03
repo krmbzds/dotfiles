@@ -14,7 +14,7 @@ function install_anki() {
     local tempdir
     archive="$(mktemp)"
     tempdir="$(mktemp -d)"
-    curl -fsSL 'https://api.github.com/repos/ankitects/anki/releases/latest' | grep 'browser_' | cut -d\" -f4 | grep "linux" | xargs curl -s -L --output "$archive"
+    curl -fsSL 'https://api.github.com/repos/ankitects/anki/releases/latest' | grep 'browser_' | cut -d\" -f4 | grep "linux" | grep "qt6" | xargs curl -s -L --output "$archive"
     tar -xf "$archive" -C "$tempdir" --strip-components=1
     cd "$tempdir" || return
     PREFIX="{{- .chezmoi.homeDir -}}/.local" ./install.sh

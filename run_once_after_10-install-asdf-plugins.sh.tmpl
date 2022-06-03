@@ -50,7 +50,7 @@ function install_asdf_plugins() {
   {{ if .asdf.lazygit }}    install_asdf_global_plugin  lazygit    latest  "https://github.com/nklmilojevic/asdf-lazygit.git"       {{ end }}
   {{ if .asdf.ripgrep }}    install_asdf_global_plugin  ripgrep    latest  "https://gitlab.com/wt0f/asdf-ripgrep.git"               {{ end }}
   {{ if .asdf.terraform }}  install_asdf_global_plugin  terraform  latest  "https://github.com/Banno/asdf-hashicorp.git"            {{ end }}
-  {{ if .asdf.lazydocker }} install_asdf_global_plugin  lazydocker "0.12"  "https://github.com/comdotlinux/asdf-lazydocker.git"     {{ end }}
+  {{ if .asdf.lazydocker }} install_asdf_global_plugin  lazydocker latest  "https://github.com/comdotlinux/asdf-lazydocker.git"     {{ end }}
   {{ if .asdf.shellcheck }} install_asdf_global_plugin  shellcheck latest  "https://github.com/luizm/asdf-shellcheck.git"           {{ end }}
   {{ if .asdf.shellcheck }} install_asdf_global_plugin  shellcheck latest  "https://github.com/luizm/asdf-shellcheck.git"           {{ end }}
   {{ if .asdf.github_cli }} install_asdf_global_plugin  github-cli latest  "https://github.com/bartlomiejdanek/asdf-github-cli.git" {{ end }}
