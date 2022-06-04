@@ -80,6 +80,7 @@ end
 
 lualine.setup({
   options = {
+    global_status = true,
     icons_enabled = true,
     theme = "auto",
     component_separators = { left = "", right = "" },

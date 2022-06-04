@@ -52,6 +52,7 @@ return packer.startup(function(use)
   use({ "karb94/neoscroll.nvim" })
   use({ "folke/which-key.nvim" })
   use({ "Pocco81/TrueZen.nvim" })
+  use({ "RRethy/vim-illuminate" })
 
   -- Debug Adapter Protocol
   use({ "mfussenegger/nvim-dap" })

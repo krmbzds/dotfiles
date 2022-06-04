@@ -1,5 +1,7 @@
 local M = {}
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 M.setup = function()
   local icons = require("user.icons")
   local signs = {
@@ -45,18 +47,12 @@ M.setup = function()
 end
 
 local function lsp_highlight_document(client)
-  -- Set autocommands conditional on server_capabilities
   if client.server_capabilities.documentHighlightProvider then
-    vim.api.nvim_exec(
-      [[
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]],
-      false
-    )
+    local status_illuminate_ok, illuminate = pcall(require, "illuminate")
+    if not status_illuminate_ok then
+      return
+    end
+    illuminate.on_attach(client)
   end
 end
 
@@ -79,17 +75,15 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
+  local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+  if not status_cmp_ok then
+    return
+  end
+
+  M.capabilities.textDocument.completion.completionItem.snippetSupport = true
+  M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
-end
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if status_ok then
-  M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
-else
-  return
 end
 
 return M
