@@ -65,11 +65,6 @@ g.loaded_vimballPlugin = 1
 g.loaded_zip = 1
 g.loaded_zipPlugin = 1
 
-if fn.has("nvim-0.7") == 1 then
-  g.do_filetype_lua = 1
-  g.did_load_filetypes = 0
-end
-
 cmd("set whichwrap+=<,>,[,],h,l")
 cmd([[set iskeyword+=-]])
 cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
