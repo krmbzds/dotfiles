@@ -32,7 +32,6 @@ function install_asdf_plugins() {
 
   {{ if .asdf.fd }}         install_asdf_global_plugin  fd         latest  "https://gitlab.com/wt0f/asdf-fd.git"                    {{ end }}
   {{ if .asdf.jq }}         install_asdf_global_plugin  jq         latest  "https://github.com/azmcode/asdf-jq.git"                 {{ end }}
-  {{ if .asdf.jq }}         install_asdf_global_plugin  jq         latest  "https://github.com/azmcode/asdf-jq.git"                 {{ end }}
   {{ if .asdf.xh }}         install_asdf_global_plugin  xh         latest  "https://github.com/NeoHsu/asdf-xh"                      {{ end }}
   {{ if .asdf.bat }}        install_asdf_global_plugin  bat        latest  "https://gitlab.com/wt0f/asdf-bat.git"                   {{ end }}
   {{ if .asdf.duf }}        install_asdf_global_plugin  duf        latest  "https://github.com/NeoHsu/asdf-duf.git"                 {{ end }}
@@ -40,6 +39,7 @@ function install_asdf_plugins() {
   {{ if .asdf.dust }}       install_asdf_global_plugin  dust       latest  "https://github.com/looztra/asdf-dust.git"               {{ end }}
   {{ if .asdf.helm }}       install_asdf_global_plugin  helm       latest  "https://github.com/Antiarchitect/asdf-helm.git"         {{ end }}
   {{ if .asdf.tmux }}       install_asdf_global_plugin  tmux       latest  "https://github.com/aphecetche/asdf-tmux.git"            {{ end }}
+  {{ if .asdf.vale }}       install_asdf_global_plugin  vale       latest  "https://github.com/osg/asdf-vale.git"                   {{ end }}
   {{ if .asdf.cheat }}      install_asdf_global_plugin  cheat      latest  "https://github.com/jmoratilla/asdf-cheat-plugin.git"    {{ end }}
   {{ if .asdf.delta }}      install_asdf_global_plugin  delta      latest  "https://github.com/andweeb/asdf-delta.git"              {{ end }}
   {{ if .asdf.doctl }}      install_asdf_global_plugin  doctl      latest  "https://github.com/maristgeek/asdf-doctl.git"           {{ end }}
@@ -51,7 +51,6 @@ function install_asdf_plugins() {
   {{ if .asdf.ripgrep }}    install_asdf_global_plugin  ripgrep    latest  "https://gitlab.com/wt0f/asdf-ripgrep.git"               {{ end }}
   {{ if .asdf.terraform }}  install_asdf_global_plugin  terraform  latest  "https://github.com/Banno/asdf-hashicorp.git"            {{ end }}
   {{ if .asdf.lazydocker }} install_asdf_global_plugin  lazydocker latest  "https://github.com/comdotlinux/asdf-lazydocker.git"     {{ end }}
-  {{ if .asdf.shellcheck }} install_asdf_global_plugin  shellcheck latest  "https://github.com/luizm/asdf-shellcheck.git"           {{ end }}
   {{ if .asdf.shellcheck }} install_asdf_global_plugin  shellcheck latest  "https://github.com/luizm/asdf-shellcheck.git"           {{ end }}
   {{ if .asdf.github_cli }} install_asdf_global_plugin  github-cli latest  "https://github.com/bartlomiejdanek/asdf-github-cli.git" {{ end }}
 
@@ -98,6 +97,15 @@ function install_github_cli_extensions() {
   {{ end }}
 }
 
+function install_vale_styles() {
+  {{ if (and (lookPath "vale") .asdf.vale) }}
+    mkdir -p "{{- .chezmoi.homeDir -}}/.local/share/vale/styles"
+    vale sync
+  {{ else }}
+    true
+  {{ end }}
+}
+
 # ****************************************************************************
 # *                                Main Script                               *
 # ****************************************************************************
@@ -105,5 +113,6 @@ function install_github_cli_extensions() {
 install_asdf_plugins
 install_zeal_cli && install_zeal_docsets
 install_github_cli_extensions
+install_vale_styles
 
 {{ end }}
