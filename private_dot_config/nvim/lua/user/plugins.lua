@@ -42,6 +42,7 @@ return packer.startup(function(use)
   use({ "MunifTanjim/nui.nvim" })
   use({ "rcarriga/nvim-notify" })
   use({ "kyazdani42/nvim-web-devicons" })
+  use({ "gpanders/editorconfig.nvim" })
 
   -- UI
   -- stylua: ignore
