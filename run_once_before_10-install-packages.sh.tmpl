@@ -185,6 +185,12 @@ function install_packages() {
     libyaml-cpp-dev
     {{ end }}
 
+    {{ if .dependencies.libreoffice }}
+    libreoffice-gtk3
+    libreoffice-writer
+    libreoffice-calc
+    {{- end }}
+
     {{ if .dependencies.signal_messenger }}
     signal-desktop
     {{- end }}

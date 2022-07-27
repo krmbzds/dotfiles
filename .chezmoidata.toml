@@ -26,6 +26,7 @@ faas = true
 meld = true
 docker = true
 newsboat = true
+libreoffice = true
 sublime_text = true
 signal_messenger = true
 
