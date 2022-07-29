@@ -105,6 +105,16 @@ function skyloong_gk61x_remap_keys() {
   {{ end }}
 }
 
+function legder_nano_s_setup() {
+  {{ if .ledger.nano_s }}
+    create_udevmon_service
+    echo '{{- template "udev_rule_ledger" . -}}' | sudo tee /etc/udev/rules.d/20-LedgerNanoS.rules > /dev/null
+    enable_service udevmon
+  {{ else }}
+    true
+  {{ end }}
+}
+
 function configure_docker_postinstall() {
   {{ if .dependencies.docker }}
     if ! [ "$(getent group docker)" ]; then
@@ -131,5 +141,6 @@ logitech_mx_anywhere_2s_set_dpi
 logitech_g213_set_custom_backlight
 logitech_g213_remap_keys
 skyloong_gk61x_remap_keys
+ledger_nano_s_setup
 
 {{ end }}

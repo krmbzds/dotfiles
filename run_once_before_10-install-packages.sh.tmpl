@@ -152,6 +152,10 @@ function install_packages() {
     python3-usb
     {{ end }}
 
+    {{ if .ledger.nano_s }}
+    libfuse2
+    {{ end }}
+
     {{ if .dependencies.zeal }}
     zeal
     {{ end }}
