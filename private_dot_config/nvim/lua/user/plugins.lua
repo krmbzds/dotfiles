@@ -52,7 +52,7 @@ return packer.startup(function(use)
   use({ "SmiteshP/nvim-gps", requires = { "nvim-treesitter/nvim-treesitter", "nvim-lualine/lualine.nvim" } })
   use({ "karb94/neoscroll.nvim" })
   use({ "folke/which-key.nvim" })
-  use({ "Pocco81/TrueZen.nvim" })
+  use({ "Pocco81/true-zen.nvim" })
   use({ "RRethy/vim-illuminate" })
 
   -- Debug Adapter Protocol

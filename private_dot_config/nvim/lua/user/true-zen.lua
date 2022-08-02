@@ -10,9 +10,4 @@ true_zen.setup({
       quit = "close",
     },
   },
-  integrations = {
-    gitsigns = true,
-    nvim_bufferline = true,
-    lualine = true,
-  },
 })
