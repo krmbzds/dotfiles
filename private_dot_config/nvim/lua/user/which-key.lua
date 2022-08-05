@@ -89,7 +89,7 @@ local mappings = {
   ["f"] = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Find File" },
   ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
   ["r"] = { "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", "Recent Files"},
-  ["u"] = { "<cmd>UndotreeToggle<cr>", "Undotree" },
+  ["u"] = { "<cmd>lua require('undotree').toggle()<cr>", "Undotree" },
   ["z"] = { "<cmd>TZAtaraxis<cr>", "Zen Mode"},
   ["F"] = { "<cmd>TZFocus<cr>", "Focus Mode"},
   ["?"] = { "<cmd>Cheatsheet<cr>", "Cheatsheet"},
