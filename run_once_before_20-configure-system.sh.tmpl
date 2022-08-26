@@ -59,14 +59,6 @@ function compile_libsecret() {
   fi
 }
 
-function disable_pulseaudio_switch_on_connect() {
-  {{ if not .pulseaudio.switch_on_connect }}
-    sudo sed -i 's/^load-module module-switch-on-connect$/# load-module module-switch-on-connect/g' /etc/pulse/default.pa
-  {{ else }}
-    true
-  {{ end }}
-}
-
 function logitech_mx_anywhere_2s_set_dpi() {
   {{ if (and .logitech.mx_anywhere_2s.enabled .logitech.mx_anywhere_2s.dpi ) }}
     echo '{{- template "udev_rule_2s" . -}}' | sudo tee /etc/udev/rules.d/50-LogitechMXAnywhere2S.rules > /dev/null
@@ -136,7 +128,6 @@ install_font_source_code_pro
 compile_libsecret
 configure_docker_postinstall
 import_gpg_key_from_url {{ .gpg.pubkey_url }}
-disable_pulseaudio_switch_on_connect
 logitech_mx_anywhere_2s_set_dpi
 logitech_g213_set_custom_backlight
 logitech_g213_remap_keys

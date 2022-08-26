@@ -30,9 +30,6 @@ libreoffice = true
 sublime_text = true
 signal_messenger = true
 
-[pulseaudio]
-switch_on_connect = false
-
 [gnome]
 dracula = true
 workspace_count = 4
