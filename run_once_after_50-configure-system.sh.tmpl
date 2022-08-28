@@ -7,11 +7,11 @@ set -e
 # *                             Config Functions                             *
 # ****************************************************************************
 
-function intall_and_configure_tpm() {
+function install_and_configure_tpm() {
   . {{ .chezmoi.homeDir }}/.asdf/asdf.sh && asdf reshim tmux
-  if [ ! -d "{{ .chezmoi.homeDir }}/.tmux/plugins/tpm" ]; then
-    git clone https://github.com/tmux-plugins/tpm {{ .chezmoi.homeDir -}}/.tmux/plugins/tpm
-    TMUX_PLUGIN_MANAGER_PATH="{{ .chezmoi.homeDir -}}/.tmux/plugins/tpm" {{ .chezmoi.homeDir -}}/.tmux/plugins/tpm/scripts/install_plugins.sh
+  if [ ! -d "{{ .chezmoi.homeDir }}/.local/share/tmux/plugins/tpm" ]; then
+    git clone https://github.com/tmux-plugins/tpm {{ .chezmoi.homeDir -}}/.local/share/tmux/plugins/tpm
+    TMUX_PLUGIN_MANAGER_PATH="{{ .chezmoi.homeDir -}}/.local/share/tmux/plugins/tpm" {{ .chezmoi.homeDir -}}/.local/share/tmux/plugins/tpm/scripts/install_plugins.sh || rm -rf {{ .chezmoi.homeDir -}}/.local/share/tmux/plugins/tpm
   fi
 }
 
@@ -138,7 +138,7 @@ restart_gnome_shell
 
 rebuild_bat_cache
 
-intall_and_configure_tpm
+install_and_configure_tpm
 update_alternatives
 
 {{ end }}
