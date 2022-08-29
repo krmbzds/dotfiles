@@ -10,11 +10,18 @@ set -e
 function install_anki() {
   {{ if .dependencies.anki }}
     ! command -v anki &>/dev/null || return 0
+    local cmd
+    local url
     local archive
     local tempdir
+    cmd='curl -fsSL'
+    url='https://api.github.com/repos/ankitects/anki/releases/latest'
     archive="$(mktemp)"
     tempdir="$(mktemp -d)"
-    curl -fsSL 'https://api.github.com/repos/ankitects/anki/releases/latest' | grep 'browser_' | cut -d\" -f4 | grep "linux" | grep "qt6" | xargs curl -s -L --output "$archive"
+    if [ -n "$GITHUB_API_TOKEN" ]; then
+      cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+    fi
+    eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | grep "linux" | grep "qt6" | xargs curl -s -L --output "$archive"
     tar -xf "$archive" -C "$tempdir" --strip-components=1
     cd "$tempdir" || return
     PREFIX="{{- .chezmoi.homeDir -}}/.local" ./install.sh

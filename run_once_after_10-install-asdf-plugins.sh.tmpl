@@ -60,9 +60,16 @@ function install_asdf_plugins() {
 
 function install_zeal_cli() {
   {{ if .dependencies.zeal }}
+  local cmd
+  local url
+  local executable
+  local cmd='curl -fsSL'
   local url='https://api.github.com/repos/Morpheus636/zeal-cli/releases/latest'
   local executable={{ .chezmoi.homeDir }}/bin/zeal-cli
-  curl -fsSL $url | grep 'browser_' | cut -d\" -f4 | xargs curl -s -L --output "$executable"
+  if [ -n "$GITHUB_API_TOKEN" ]; then
+    cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+  fi
+  eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | xargs curl -s -L --output "$executable"
   chmod +x "$executable"
   {{ else }}
   true
