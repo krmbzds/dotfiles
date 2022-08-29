@@ -14,11 +14,14 @@ alias glg='git log --decorate --graph --abbrev-commit --date=relative'
 alias gdh='git diff HEAD'
 alias gds='git diff --staged'
 alias gst='git status'
+{{ if lookPath "difft" -}}
+alias gdt='GIT_EXTERNAL_DIFF=difft INLINE=y git diff'
+alias gss='GIT_EXTERNAL_DIFF=difft INLINE=y git show --ext-diff'
+{{ end -}}
 if [[ "$EDITOR" = 'nvim' ]]; then
 alias vimdiff='nvim -d'
 fi
 {{ end -}}
-
 {{ if lookPath "exa" -}}
 alias tree='exa -Ta'
 alias l='exa -F'

@@ -68,6 +68,7 @@ terraform = true
 lazydocker = true
 shellcheck = true
 github_cli = true
+difftastic = true
 
 [logitech.g213]
 enabled = false
