@@ -1,0 +1,39 @@
+{{ if .asdf.enabled -}}
+#!/bin/bash
+# Original source: https://gist.github.com/developer-guy/4de4e2ff2eaa31633a0fef719c92eada
+
+function update() {
+  for i in $(asdf plugin list); do
+    CURRENT_VERSION=$(asdf current "$i" | awk '{print $2}')
+    LATEST_VERSION=$(asdf latest "$i")
+    if [[ $(semver_check "$LATEST_VERSION" "$CURRENT_VERSION") -lt 0 ]]; then
+      case "$i" in
+      python) CONFIGURE_OPTS=--enable-optimizations asdf install "$i" "$LATEST_VERSION" ;;
+      ruby) CONFIGURE_OPTS=--disable-install-doc asdf install "$i" "$LATEST_VERSION" ;;
+      rust) RUST_WITHOUT=rust-docs,rust-other-component asdf install "$i" "$LATEST_VERSION" ;;
+      lua) asdf install "$i" "5.1.5" ;;
+      neovim) asdf uninstall "$i" nightly && asdf install "$i" nightly ;;
+      *) asdf install "$i" "$LATEST_VERSION" ;;
+      esac
+      asdf global "$i" "$LATEST_VERSION"
+    else
+      echo "✓ $i ($CURRENT_VERSION)"
+    fi
+    sleep 3
+  done
+}
+
+function semver_check() {
+  local newest
+  newest=$(echo -e "$1\n$2" | sort -V | tail -1)
+  [[ "$1" != "$2" && "$1" != "$newest" ]] && echo -1 && return
+  [[ "$1" == "$2" ]]
+  echo $?
+}
+
+function main() {
+  update
+}
+
+main
+{{ end -}}
