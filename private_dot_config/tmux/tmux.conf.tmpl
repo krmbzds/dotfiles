@@ -59,6 +59,10 @@ set -g @nova-rows 0
 set -g @nova-pane "#I#{?pane_in_mode, #{pane_mode},} #W"
 set -g @nova-pane-justify "left"
 
+# Configure extrakto
+set -g @extrakto_copy_key "tab"
+set -g @extrakto_insert_key "enter"
+
 {{ if .prefs.dracula_pro -}}
 set -g "@nova-pane-active-border-style" "#22212C"
 set -g "@nova-pane-border-style" "#22212C"
