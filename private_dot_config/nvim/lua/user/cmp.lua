@@ -3,11 +3,6 @@ if not cmp_ok then
   return
 end
 
-local cmp_dap_ok, cmp_dap = pcall(require, "cmp_dap")
-if not cmp_dap_ok then
-  return
-end
-
 local snip_ok, luasnip = pcall(require, "luasnip")
 if not snip_ok then
   return
@@ -30,7 +25,11 @@ cmp.setup({
     end,
   },
   enabled = function()
-    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or cmp_dap.is_dap_buffer()
+    local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+    if buftype == "prompt" then
+      return false
+    end
+    return vim.g.cmp_active
   end,
   mapping = cmp.mapping.preset.insert({
     ["<C-k>"] = cmp.mapping.select_prev_item(),
@@ -97,7 +96,6 @@ cmp.setup({
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
-    { name = "dap" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,

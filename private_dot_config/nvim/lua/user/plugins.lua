@@ -71,7 +71,6 @@ return packer.startup(function(use)
   use({ "saadparwaiz1/cmp_luasnip", requires = { "hhrsh7th/nvim-cmp" } })
   use({ "hrsh7th/cmp-nvim-lsp", requires = { "hhrsh7th/nvim-cmp" } })
   use({ "hrsh7th/cmp-nvim-lua", requires = { "hhrsh7th/nvim-cmp" } })
-  use({ "rcarriga/cmp-dap", requires = { "hhrsh7th/nvim-cmp" } })
 
   -- Snippets
   use({ "L3MON4D3/LuaSnip" })
@@ -80,8 +79,6 @@ return packer.startup(function(use)
 
   -- Language Server Protocol
   use({ "neovim/nvim-lspconfig" }) -- enable LSP
-  use({ "williamboman/nvim-lsp-installer", requires = { "neovim/nvim-lspconfig" } })
-  use({ "tamago324/nlsp-settings.nvim", requires = { "neovim/nvim-lspconfig" } })
   use({ "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } })
 
   -- Telescope
