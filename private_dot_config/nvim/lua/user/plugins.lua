@@ -115,6 +115,7 @@ return packer.startup(function(use)
   -- Hacks
   use({ "max397574/better-escape.nvim" })
   use({ "antoinemadec/FixCursorHold.nvim" }) -- This is needed to fix lsp doc highlight
+  use({ "famiu/bufdelete.nvim" })
 
   -- Other
   use({ "akinsho/toggleterm.nvim" })
