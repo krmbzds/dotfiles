@@ -36,9 +36,9 @@ My personal Neovim configuration, 100% Lua.
 === Plugin Maintainers
 https://github.com/abecodes[abecodes] · 
 https://github.com/ahmedkhalf[ahmedkhalf] · 
+https://github.com/Akianonymus[Akianonymus] ·
 https://github.com/akinsho[akinsho] · 
 https://github.com/antoinemadec[antoinemadec] · 
-https://github.com/br1anchen[br1anchen] · 
 https://github.com/cseickel[cseickel] · 
 https://github.com/danymat[danymat] · 
 https://github.com/f-person[f-person] · 

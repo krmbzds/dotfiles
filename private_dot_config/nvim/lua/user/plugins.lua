@@ -61,16 +61,16 @@ return packer.startup(function(use)
 
   -- Colorschemes
   use({ "Mofiqul/dracula.nvim" })
-  use({ "br1anchen/nvim-colorizer.lua" })
+  use({ "NvChad/nvim-colorizer.lua" })
 
   -- Completion
   use({ "hrsh7th/nvim-cmp" })
   use({ "hrsh7th/cmp-buffer", requires = { "hrsh7th/nvim-cmp" } })
-  use({ "hrsh7th/cmp-path", requires = { "hhrsh7th/nvim-cmp" } })
-  use({ "hrsh7th/cmp-cmdline", requires = { "hhrsh7th/nvim-cmp" } })
-  use({ "saadparwaiz1/cmp_luasnip", requires = { "hhrsh7th/nvim-cmp" } })
-  use({ "hrsh7th/cmp-nvim-lsp", requires = { "hhrsh7th/nvim-cmp" } })
-  use({ "hrsh7th/cmp-nvim-lua", requires = { "hhrsh7th/nvim-cmp" } })
+  use({ "hrsh7th/cmp-path", requires = { "hrsh7th/nvim-cmp" } })
+  use({ "hrsh7th/cmp-cmdline", requires = { "hrsh7th/nvim-cmp" } })
+  use({ "saadparwaiz1/cmp_luasnip", requires = { "hrsh7th/nvim-cmp" } })
+  use({ "hrsh7th/cmp-nvim-lsp", requires = { "hrsh7th/nvim-cmp" } })
+  use({ "hrsh7th/cmp-nvim-lua", requires = { "hrsh7th/nvim-cmp" } })
 
   -- Snippets
   use({ "L3MON4D3/LuaSnip" })
@@ -78,8 +78,11 @@ return packer.startup(function(use)
   use({ "danymat/neogen", requires = { "nvim-treesitter/nvim-treesitter" } })
 
   -- Language Server Protocol
-  use({ "neovim/nvim-lspconfig" }) -- enable LSP
+  use({ "neovim/nvim-lspconfig" })
+  use({ "williamboman/mason.nvim", requires = { "neovim/nvim-lspconfig" } })
+  use({ "williamboman/mason-lspconfig.nvim", requires = { "williamboman/mason.nvim" } })
   use({ "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } })
+  use({ "folke/lua-dev.nvim", requires = { "hrsh7th/nvim-cmp" } })
 
   -- Telescope
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" } })
@@ -105,7 +108,7 @@ return packer.startup(function(use)
 
   -- Movement
   use({ "ggandor/leap.nvim" })
-  use({ "abecodes/tabout.nvim", requires = { "nvim-treesitter/nvim-treesitter" } })
+  use({ "abecodes/tabout.nvim", wants = { "nvim-treesitter" }, after = { "cmp-nvim-lsp" } })
 
   -- Text editing helpers
   use({ "sQVe/sort.nvim" })
