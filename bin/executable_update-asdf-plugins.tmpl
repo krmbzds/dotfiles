@@ -12,7 +12,7 @@ function update() {
       ruby) CONFIGURE_OPTS=--disable-install-doc asdf install "$i" "$LATEST_VERSION" ;;
       rust) RUST_WITHOUT=rust-docs,rust-other-component asdf install "$i" "$LATEST_VERSION" ;;
       lua) asdf install "$i" "5.1.5" ;;
-      neovim) asdf uninstall "$i" nightly && asdf install "$i" nightly ;;
+      neovim) asdf uninstall neovim nightly; asdf install neovim nightly ;;
       *) asdf install "$i" "$LATEST_VERSION" ;;
       esac
       asdf global "$i" "$LATEST_VERSION"
