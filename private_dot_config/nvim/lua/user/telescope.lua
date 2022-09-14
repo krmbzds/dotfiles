@@ -3,11 +3,7 @@ if not status_ok then
   return
 end
 
-local ignore_ok, file_ignore_patterns = pcall(require, "user.ignore")
-if not ignore_ok then
-  return
-end
-
+local ignore = require("user.ignore")
 local actions = require("telescope.actions")
 
 telescope.setup({
@@ -16,7 +12,7 @@ telescope.setup({
     prompt_prefix = " ",
     selection_caret = " ",
     path_display = { "smart" },
-    file_ignore_patterns = file_ignore_patterns,
+    file_ignore_patterns = ignore.file_ignore_patterns,
 
     mappings = {
       i = {
@@ -104,7 +100,7 @@ telescope.setup({
     frecency = {
       default_workspace = "CWD",
       show_unindexed = false,
-      ignore_patterns = file_ignore_patterns,
+      ignore_patterns = ignore.file_ignore_patterns,
     },
   },
 })

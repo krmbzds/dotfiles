@@ -26,7 +26,7 @@ end
 
 local compare = require("cmp.config.compare")
 
-require("luasnip/loaders/from_vscode").lazy_load()
+require("luasnip/loaders/from_vscode").lazy_load() -- friendly-snippets
 
 local check_backspace = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))

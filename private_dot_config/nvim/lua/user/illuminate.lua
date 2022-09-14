@@ -1,3 +1,5 @@
+local ignore = require("user.ignore")
+
 -- default configuration
 require("illuminate").configure({
   -- providers: provider used to get references in the buffer, ordered by priority
@@ -9,15 +11,7 @@ require("illuminate").configure({
   -- delay: delay in milliseconds
   delay = 120,
   -- filetypes_denylist: filetypes to not illuminate, this overrides filetypes_allowlist
-  filetypes_denylist = {
-    "dashboard",
-    "DressingSelect",
-    "neo-tree",
-    "neogitstatus",
-    "packer",
-    "TelescopePrompt",
-    "toggleterm",
-  },
+  filetypes_denylist = ignore.illuminate_filetypes_denylist,
   -- filetypes_allowlist: filetypes to illuminate, this is overriden by filetypes_denylist
   filetypes_allowlist = {},
   -- modes_denylist: modes to not illuminate, this overrides modes_allowlist
