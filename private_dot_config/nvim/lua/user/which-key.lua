@@ -160,7 +160,7 @@ local mappings = {
     w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
     f = { "<cmd>lua vim.lsp.buf.format { async = true }<cr>", "Format" },
     i = { "<cmd>LspInfo<cr>", "Info" },
-    I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
+    m = { "<cmd>Mason<cr>", "Mason" },
     j = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic" },
     k = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
     l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
