@@ -80,7 +80,7 @@ function install_zeal_docsets() {
   {{ if lookPath "zeal-cli" }}
     mkdir -p "{{ .chezmoi.homeDir }}/.local/share/Zeal/Zeal/docsets"
     {{ if .asdf.lua }}
-      zeal-cli install Lua_5.4 || true
+      zeal-cli install Lua_5.1 || true
     {{ end }}
     {{ if .asdf.ruby }}
       zeal-cli install Ruby_3 || true
