@@ -113,7 +113,7 @@ neo_tree.setup({
       mappings = {
         ["H"] = "toggle_hidden",
         ["/"] = "fuzzy_finder",
-        --["/"] = "filter_as_you_type", -- this was the default until v1.28
+        -- ["/"] = "filter_as_you_type", -- this was the default until v1.28
         ["f"] = "filter_on_submit",
         ["<esc>"] = "clear_filter",
         ["<bs>"] = "navigate_up",
