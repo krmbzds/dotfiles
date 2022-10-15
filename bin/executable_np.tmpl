@@ -1,4 +1,8 @@
+{{- if .asdf.enabled }}
+#!.asdf/shims/python
+{{ else }}
 #!/usr/bin/python3
+{{ end }}
 
 import sys
 from newsplease import NewsPlease

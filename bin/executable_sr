@@ -30,7 +30,7 @@ use strict;
 use autodie;
 use v5.14;
 
-my $wpm = 250;
+my $wpm = 400;
 my $resume = 0;
 my $multiword = 0;
 
