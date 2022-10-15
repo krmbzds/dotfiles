@@ -5,9 +5,9 @@
 :autofit-option:
 :source-highlighter: rouge
 :rouge-style: github
-:revdate: 2021-06-27
+:revdate: 2022-10-15
 
-Set up Zsh for Humans:
+Set up zsh for Humans:
 [source,sh]
 ----
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
@@ -16,5 +16,5 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/romkatv/zsh4humans/v5/inst
 Apply dotfiles:
 [source,sh]
 ----
-sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply krmbzds
+sh -c "$(curl -fsSL get.chezmoi.io)" -- init --apply krmbzds
 ----
