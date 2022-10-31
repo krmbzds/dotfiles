@@ -25,6 +25,7 @@ zeal = true
 faas = true
 meld = true
 docker = true
+flatpak = false
 newsboat = true
 libreoffice = true
 sublime_text = true

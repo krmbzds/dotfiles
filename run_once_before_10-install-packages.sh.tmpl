@@ -4,6 +4,25 @@
 set -e
 
 # ****************************************************************************
+# *                                 Cleanup                                  *
+# ****************************************************************************
+
+function remove_flatpak() {
+  {{ if .dependencies.flatpak }}
+  true
+  {{ else }}
+  command -v flatpak &>/dev/null || return 0
+  flatpak uninstall --all
+  sudo apt purge --autoremove flatpak
+  rm -rf "{{- .chezmoi.homeDir -}}/.local/share/flatpak"
+  {{ end }}
+}
+
+function remove_packages() {
+  remove_flatpak
+}
+
+# ****************************************************************************
 # *                           Manual Installations                           *
 # ****************************************************************************
 
@@ -248,6 +267,7 @@ function install_packages() {
 # *                                Main Script                               *
 # ****************************************************************************
 
+remove_packages
 install_packages
 
 {{ end }}
