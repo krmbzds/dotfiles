@@ -11,8 +11,16 @@ local diagnostics = null_ls.builtins.diagnostics
 null_ls.setup({
   debug = false,
   sources = {
-    formatting.stylua,
-    formatting.standardrb,
+    diagnostics.shellcheck,
     diagnostics.vale,
+    formatting.erb_lint,
+    formatting.jq,
+    formatting.prettierd.with({
+      env = {
+        PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/prettier/config.json"),
+      },
+    }),
+    formatting.standardrb,
+    formatting.stylua,
   },
 })

@@ -37,6 +37,7 @@ return {
           [vim.fn.stdpath("config") .. "/lua"] = true,
           -- [vim.fn.datapath "config" .. "/lua"] = true,
         },
+        checkThirdParty = false,
       },
       telemetry = {
         enable = false,
