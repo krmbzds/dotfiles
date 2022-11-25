@@ -110,10 +110,10 @@ function set_logout_confirmation_prompt() {
 }
 
 # ****************************************************************************
-# *                                Text Editor                               *
+# *                                 Defaults                                 *
 # ****************************************************************************
 
-function update_alternatives() {
+function set_neovim_as_default_editor() {
   {{ if (and .asdf.enabled .asdf.neovim (eq .prefs.editor "nvim")) }}
   local default="{{ .chezmoi.homeDir }}/.asdf/shims/nvim"
   sudo update-alternatives --install /usr/bin/vi vi "$default" 60
@@ -123,6 +123,20 @@ function update_alternatives() {
   true
   {{ end }}
 }
+
+function set_alacritty_as_default_terminal_emulator() {
+  {{ if lookPath "alacritty" }}
+  sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/alacritty 60
+  {{ else }}
+  true
+  {{ end }}
+}
+
+function update_alternatives() {
+  set_neovim_as_default_editor
+  set_alacritty_as_default_terminal_emulator
+}
+
 
 # ****************************************************************************
 # *                                Main Script                               *
