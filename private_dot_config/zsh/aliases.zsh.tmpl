@@ -68,3 +68,7 @@ function docker() {
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 {{ end -}}
+
+{{- if (eq .chezmoi.osRelease.name "Pop!_OS") -}}
+alias upgrade='sudo apt update && sudo apt list --upgradable && sudo apt upgrade && sudo apt autopurge && sudo apt autoclean {{- if lookPath "flatpak" }} && flatpak update && flatpak uninstall --unused {{- end -}}'
+{{ end -}}
