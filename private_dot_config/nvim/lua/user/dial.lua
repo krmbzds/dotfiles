@@ -14,6 +14,8 @@ dial_config.augends:register_group({
     augend.integer.alias.hex,
     augend.constant.alias.bool,
     augend.date.alias["%Y-%m-%d"],
+    augend.constant.new({ elements = { "yes", "no" }, word = true, cyclic = true }),
+    augend.constant.new({ elements = { "[ ]", "[x]" }, word = false, cyclic = true }),
     augend.date.alias["%H:%M"],
   },
   visual = {
