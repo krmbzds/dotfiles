@@ -19,7 +19,7 @@ zstyle ':z4h:' prompt-at-bottom 'yes'
 zstyle ':z4h:bindkey' keyboard  '{{ if (eq .chezmoi.os "darwin") }}mac{{ else }}pc{{ end }}'
 
 # Mark up shell's output with semantic information.
-zstyle ':z4h:' term-shell-integration 'yes'
+zstyle ':z4h:' term-shell-integration '{{ if (eq .chezmoi.os "darwin") }}yes{{ else }}no{{ end }}'
 
 # Right-arrow key accepts one character ('partial-accept') from
 # command autosuggestions or the whole thing ('accept')?
@@ -72,9 +72,6 @@ fi
 
 # Extend PATH.
 path=(~/bin $path)
-
-# Source additional local files if they exist.
-z4h source ~/.env.zsh
 
 # Use additional Git repositories pulled in with `z4h install`.
 fpath+=($Z4H/romkatv/archive)
