@@ -1,0 +1,256 @@
+# frozen_string_literal: false
+
+# https://gist.github.com/gucki/6523172
+# https://gist.github.com/DGCK81LNN/cb701f85b861b6bc3b2c8953370b62db
+# https://gist.github.com/karmatr0n/7266751236e4af267ed4feb78ae549e3
+# https://gist.github.com/swanson/3ca98caff43d52f62b4b99f6f2c7444c
+# https://gist.github.com/rishiip/2fb7302c1cb0dd490ae3760acfbdfa99
+# https://gist.github.com/mattantonelli/0d9ead06d1fc4a50f09551e7a6523653
+# https://gist.github.com/g13ydson/983aad59acb2e6db18127134a01d7e59
+
+module IRB
+  module InputCompletor
+    IGNORE_METHODS_LNN = %w[
+      pretty_print pretty_print_cycle pretty_print_inspect
+      pretty_print_instance_variables singleton_class itself taint tainted?
+      untaint untrust untrusted? trust methods singleton_methods
+      protected_methods private_methods public_methods instance_variables
+      instance_variable_get instance_variable_set instance_variable_defined?
+      remove_instance_variable display public_send public_method
+      singleton_method define_singleton_method tap pretty_inspect
+    ]
+
+    def self.retrieve_completion_data(input, bind: IRB.conf[:MAIN_CONTEXT].workspace.binding, doc_namespace: false)
+      case input
+      when /^((["'`]).*\2)\.([^.]*)$/
+        # String
+        receiver = $1
+        message = $3
+
+        candidates = String.instance_methods.collect { |m| m.to_s } - IGNORE_METHODS_LNN
+        if doc_namespace
+          "String.#{message}"
+        else
+          select_message(receiver, message, candidates)
+        end
+
+      when /^(\/[^\/]*\/)\.([^.]*)$/
+        # Regexp
+        receiver = $1
+        message = $2
+
+        candidates = Regexp.instance_methods.collect { |m| m.to_s } - IGNORE_METHODS_LNN
+        if doc_namespace
+          "Regexp.#{message}"
+        else
+          select_message(receiver, message, candidates)
+        end
+
+      when /^([^\]]*\])\.([^.]*)$/
+        # Array
+        receiver = $1
+        message = $2
+
+        candidates = Array.instance_methods.collect { |m| m.to_s } - IGNORE_METHODS_LNN
+        if doc_namespace
+          "Array.#{message}"
+        else
+          select_message(receiver, message, candidates)
+        end
+
+      when /^([^}]*\})\.([^.]*)$/
+        # Proc or Hash
+        receiver = $1
+        message = $2
+
+        proc_candidates = Proc.instance_methods.collect { |m| m.to_s } - IGNORE_METHODS_LNN
+        hash_candidates = Hash.instance_methods.collect { |m| m.to_s } - IGNORE_METHODS_LNN
+        if doc_namespace
+          ["Proc.#{message}", "Hash.#{message}"]
+        else
+          select_message(receiver, message, proc_candidates | hash_candidates)
+        end
+
+      when /^(:[^:.]+)$/
+        # Symbol
+        return nil if doc_namespace
+        sym = $1
+        candidates = Symbol.all_symbols.collect do |s|
+          ":" + s.id2name.encode(Encoding.default_external)
+        rescue EncodingError
+          # ignore
+        end
+        candidates.grep(/^#{Regexp.quote(sym)}/)
+
+      when /^::([A-Z][^:.()]*)$/
+        # Absolute Constant or class methods
+        receiver = $1
+        candidates = Object.constants.collect { |m| m.to_s }
+        if doc_namespace
+          candidates.find { |i| i == receiver }
+        else
+          candidates.grep(/^#{receiver}/).collect { |e| "::" + e }
+        end
+
+      when /^([A-Z].*)::([^:.]*)$/
+        # Constant or class methods
+        receiver = $1
+        message = $2
+        begin
+          candidates = eval("#{receiver}.constants.collect{|m| m.to_s}", bind, __FILE__, __LINE__)
+          # candidates |= eval("#{receiver}.methods.collect{|m| m.to_s}", bind)
+        rescue Exception
+          candidates = []
+        end
+        if doc_namespace
+          "#{receiver}::#{message}"
+        else
+          select_message(receiver, message, candidates, "::")
+        end
+
+      when /^(:[^:.)]+)(\.|::)([^.]*)$/
+        # Symbol
+        receiver = $1
+        sep = $2
+        message = $3
+
+        candidates = Symbol.instance_methods.collect { |m| m.to_s } - IGNORE_METHODS_LNN
+        if doc_namespace
+          "Symbol.#{message}"
+        else
+          select_message(receiver, message, candidates, sep)
+        end
+
+      when /^(?<num>-?(?:0[dbo])?[0-9_]+(?:\.[0-9_]+)?(?:(?:[eE][+-]?[0-9]+)?i?|r)?)(?<sep>\.|::)(?<mes>[^.]*)$/
+        # Numeric
+        receiver = $~[:num]
+        sep = $~[:sep]
+        message = $~[:mes]
+
+        begin
+          instance = eval(receiver, bind)
+          if doc_namespace
+            "#{instance.class.name}.#{message}"
+          else
+            candidates = instance.methods.collect { |m| m.to_s } - IGNORE_METHODS_LNN
+            select_message(receiver, message, candidates, sep)
+          end
+        rescue Exception
+          if doc_namespace
+            nil
+          else
+            candidates = []
+          end
+        end
+
+      when /^(-?0x[0-9a-fA-F_]+)(\.|::)([^.]*)$/
+        # Numeric(0xFFFF)
+        receiver = $1
+        sep = $2
+        message = $3
+
+        begin
+          instance = eval(receiver, bind)
+          if doc_namespace
+            "#{instance.class.name}.#{message}"
+          else
+            candidates = instance.methods.collect { |m| m.to_s } - IGNORE_METHODS_LNN
+            select_message(receiver, message, candidates, sep)
+          end
+        rescue Exception
+          if doc_namespace
+            nil
+          else
+            candidates = []
+          end
+        end
+
+      when /^(\$[^.]*)$/
+        # global var
+        gvar = $1
+        all_gvars = global_variables.collect { |m| m.to_s }
+        if doc_namespace
+          all_gvars.find { |i| i == gvar }
+        else
+          all_gvars.grep(Regexp.new(Regexp.quote(gvar)))
+        end
+
+      when /^([^.:"].*)(\.|::)([^.]*)$/
+        # variable.func or func.func
+        receiver = $1
+        sep = $2
+        message = $3
+
+        gv = eval("global_variables", bind, __FILE__, __LINE__).collect { |m| m.to_s }.push("true", "false", "nil")
+        lv = eval("local_variables", bind, __FILE__, __LINE__).collect { |m| m.to_s }
+        iv = eval("instance_variables", bind, __FILE__, __LINE__).collect { |m| m.to_s }
+        cv = eval("self.class.constants", bind, __FILE__, __LINE__).collect { |m| m.to_s }
+
+        if (gv | lv | iv | cv).include?(receiver) || /^[A-Z]/ =~ receiver && /\./ !~ receiver
+          # foo.func and foo is var. OR
+          # foo::func and foo is var. OR
+          # foo::Const and foo is var. OR
+          # Foo::Bar.func
+          begin
+            candidates = []
+            rec = eval(receiver, bind)
+            candidates = if (sep == "::") && rec.is_a?(Module)
+              rec.constants.collect { |m| m.to_s }
+            else
+              rec.methods.collect { |m| m.to_s } - IGNORE_METHODS_LNN
+            end
+          rescue Exception
+            candidates = []
+          end
+        else
+          # func1.func2
+          candidates = []
+          # to_ignore = ignored_modules
+          # ObjectSpace.each_object(Module){|m|
+          #   next if (to_ignore.include?(m) rescue true)
+          #   candidates.concat m.instance_methods(false).collect{|x| x.to_s}
+          # }
+          # candidates.sort!
+          # candidates.uniq!
+        end
+        if doc_namespace
+          rec_class = rec.is_a?(Module) ? rec : rec.class
+          "#{rec_class.name}#{sep}#{candidates.find { |i| i == message }}"
+        else
+          select_message(receiver, message, candidates, sep)
+        end
+
+      when /^[^:.]*$/
+        if doc_namespace
+          vars = eval("local_variables | instance_variables", bind, __FILE__, __LINE__).collect { |m| m.to_s }
+          perfect_match_var = vars.find { |m| m.to_s == input }
+          if perfect_match_var
+            eval("#{perfect_match_var}.class.name", bind, __FILE__, __LINE__)
+          else
+            candidates = eval("methods | private_methods | local_variables | instance_variables | self.class.constants", bind, __FILE__, __LINE__).collect { |m| m.to_s } - IGNORE_METHODS_LNN
+            candidates |= ReservedWords
+            candidates.find { |i| i == input }
+          end
+        else
+          candidates = eval("methods | private_methods | local_variables | instance_variables | self.class.constants", bind, __FILE__, __LINE__).collect { |m| m.to_s } - IGNORE_METHODS_LNN
+          candidates |= ReservedWords
+          candidates.grep(/^#{Regexp.quote(input)}/)
+        end
+      else
+        []
+      end
+    end
+  end
+end
+
+{{ if (or .prefs.dracula_pro .gnome.dracula) -}}
+# https://github.com/ruby/irb/pull/337
+# https://github.com/ruby/reline/pull/413
+
+if Reline
+  Reline.dialog_default_bg_color = :black
+  Reline.dialog_default_fg_color = :yellow
+  Reline.dialog_highlight_bg_color = :blue
+  Reline.dialog_highlight_fg_color = :white
+end
+{{ end -}}
