@@ -91,13 +91,13 @@ local dap_ui_config = {
 
 -- Open dap-ui when debugger starts
 dap.listeners.after.event_initialized["dapui_config"] = function()
-  dap_ui.open()
+  dap_ui.open({})
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
-  dap_ui.close()
+  dap_ui.close({})
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
-  dap_ui.close()
+  dap_ui.close({})
 end
 
 dap_ui.setup(dap_ui_config)

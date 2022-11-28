@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 -- source: vatosarmat/dotfiles
-handler = function(virtText, lnum, endLnum, width, truncate, ctx)
+local handler = function(virtText, lnum, endLnum, width, truncate, ctx)
   -- virtText - list of chunks {text, hlGroup}
   -- lnum - region start line
   -- endLnum - region end line
@@ -42,7 +42,7 @@ end
 -- global handler
 ufo.setup({
   open_fold_hl_timeout = 150,
-  provider_selector = function(bufnr, filetype, buftype)
+  provider_selector = function() -- bufnr, filetype, buftype
     return { "treesitter", "indent" }
   end,
   fold_virt_text_handler = handler,

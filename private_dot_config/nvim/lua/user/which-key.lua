@@ -204,6 +204,16 @@ local mappings = {
     h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
     v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
   },
+
+  x = {
+    name = "Trouble",
+    x = { "<cmd>TroubleToggle<cr>", "Toggle" },
+    w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace" },
+    d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document" },
+    l = { "<cmd>TroubleToggle loclist<cr>", "Location List" },
+    q = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix List" },
+    L = { "<cmd>TroubleToggle lsp_references<cr>", "LSP References" },
+  },
 }
 
 local vopts = {

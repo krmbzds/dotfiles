@@ -15,9 +15,9 @@ local diagnostics = {
   sources = { "nvim_diagnostic" },
   sections = { "error", "warn" },
   symbols = { error = icons.diagnostics.Error .. " ", warn = icons.diagnostics.Warning .. " " },
-  colored = false,
+  colored = true,
   update_in_insert = false,
-  always_visible = true,
+  always_visible = false,
 }
 
 local diff = {
@@ -79,7 +79,7 @@ lualine.setup({
     -- lualine_a = { branch, diagnostics },
     lualine_a = { branch },
     lualine_b = { mode },
-    lualine_c = {},
+    lualine_c = { diagnostics },
     -- lualine_x = { "encoding", "fileformat", "filetype" },
     lualine_x = { diff, spaces, "encoding", filetype },
     lualine_y = { location },

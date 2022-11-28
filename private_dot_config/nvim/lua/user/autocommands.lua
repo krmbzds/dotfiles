@@ -11,8 +11,10 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "asciidoc", "gitcommit", "markdown" },
   callback = function()
+    ---@diagnostic disable
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
+    ---@diagnostic enable
   end,
 })
 

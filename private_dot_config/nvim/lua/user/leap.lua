@@ -7,7 +7,7 @@ if not status_ok then
 end
 
 -- Searching in all windows (including the current one) on the tab page.
-function leap_all_windows()
+function LEAP_ALL_WINDOWS()
   local focusable_windows_on_tabpage = vim.tbl_filter(function(win)
     return vim.api.nvim_win_get_config(win).focusable
   end, vim.api.nvim_tabpage_list_wins(0))
@@ -17,4 +17,4 @@ end
 leap.setup({})
 leap.set_default_keymaps()
 
-keymap("n", "<C-s>", ":lua leap_all_windows()<cr>", opts)
+keymap("n", "<C-s>", ":lua LEAP_ALL_WINDOWS()<cr>", opts)

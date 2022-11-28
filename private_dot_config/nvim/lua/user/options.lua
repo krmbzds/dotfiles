@@ -1,3 +1,4 @@
+---@diagnostic disable
 local g = vim.g
 local fn = vim.fn
 local cmd = vim.cmd
@@ -46,6 +47,7 @@ opt.foldcolumn = "auto:4"
 opt.foldlevel = 99
 opt.foldlevelstart = 99
 opt.foldenable = true
+---@diagnostic enable
 
 -- disable builtin plugins
 g.loaded_2html_plugin = 1

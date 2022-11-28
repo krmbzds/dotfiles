@@ -84,6 +84,7 @@ return packer.startup(function(use)
   use({ "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } })
   use({ "jayp0521/mason-null-ls.nvim", requires = { "williamboman/mason.nvim", "jose-elias-alvarez/null-ls.nvim" } })
   use({ "folke/neodev.nvim", requires = { "hrsh7th/nvim-cmp" } })
+  use({ "folke/trouble.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 
   -- Telescope
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" } })
@@ -129,6 +130,7 @@ return packer.startup(function(use)
   -- Other
   use({ "akinsho/toggleterm.nvim" })
   use({ "kevinhwang91/nvim-bqf", requires = { "nvim-treesitter/nvim-treesitter" } })
+  use({ "eandrju/cellular-automaton.nvim" })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

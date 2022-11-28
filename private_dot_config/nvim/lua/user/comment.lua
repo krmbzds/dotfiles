@@ -22,10 +22,8 @@ comment.setup({
         location = require("ts_context_commentstring.utils").get_visual_start_location()
       end
 
-      return require("ts_context_commentstring.internal").calculate_commentstring({
-        key = type,
-        location = location,
-      })
+      ---@diagnostic disable
+      return require("ts_context_commentstring.internal").calculate_commentstring({ key = type, location = location })
     end
   end,
 })

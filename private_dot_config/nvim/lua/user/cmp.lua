@@ -50,12 +50,12 @@ cmp.setup({
     end,
   },
   mapping = cmp.mapping.preset.insert({
-    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({}), { "i", "c" }),
+    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({}), { "i", "c" }),
     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-    ["<m-o>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete({}), { "i", "c" }),
+    ["<m-o>"] = cmp.mapping(cmp.mapping.complete({}), { "i", "c" }),
     -- ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
     ["<C-c>"] = cmp.mapping({
       i = cmp.mapping.abort(),
@@ -83,7 +83,7 @@ cmp.setup({
     ["<Right>"] = cmp.mapping.confirm({ select = true }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if luasnip.expandable() then
-        luasnip.expand()
+        luasnip.expand({})
       elseif cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
@@ -130,7 +130,7 @@ cmp.setup({
   sources = {
     {
       name = "nvim_lsp",
-      filter = function(entry, ctx)
+      filter = function(entry, _) -- entry, ctx
         local kind = require("cmp.types.lsp").CompletionItemKind[entry:get_kind()]
         if kind == "Text" then
           return true
@@ -143,7 +143,7 @@ cmp.setup({
     {
       name = "buffer",
       group_index = 2,
-      filter = function(entry, ctx)
+      filter = function(_, ctx) -- entry, ctx
         if not contains(buffer_fts, ctx.prev_context.filetype) then
           return true
         end

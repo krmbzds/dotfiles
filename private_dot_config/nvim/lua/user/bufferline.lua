@@ -74,6 +74,8 @@ bufferline.setup({
     --   return buffer_a.modified > buffer_b.modified
     -- end
   },
+
+  ---@diagnostic disable
   highlights = {
     fill = {
       fg = { attribute = "fg", highlight = "TabLine" },
@@ -163,4 +165,5 @@ bufferline.setup({
       bg = { attribute = "bg", highlight = "Normal" },
     },
   },
+  ---@diagnostic enable
 })

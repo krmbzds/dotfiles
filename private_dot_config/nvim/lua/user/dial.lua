@@ -8,6 +8,7 @@ if not augend_ok then
   return
 end
 
+---@diagnostic disable
 dial_config.augends:register_group({
   default = {
     augend.integer.alias.decimal_int,
@@ -25,6 +26,7 @@ dial_config.augends:register_group({
     augend.date.alias["%H:%M"],
   },
 })
+---@diagnostic enable
 
 local map = require("dial.map")
 vim.api.nvim_set_keymap("n", "<C-x>", map.inc_normal(), { noremap = true })
