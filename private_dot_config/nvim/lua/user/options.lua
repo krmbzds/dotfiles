@@ -41,6 +41,12 @@ opt.sidescrolloff = 8
 opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
 opt.wildmode = "longest:full,full" -- change tab completion behavior
 opt.shortmess:append("Ic") -- no intro message, no |ins-completion-menu| messages
+opt.spelloptions = { "camel", "noplainbuffer" }
+
+opt.foldcolumn = "auto:4"
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldenable = true
 
 -- disable builtin plugins
 g.loaded_2html_plugin = 1
@@ -64,6 +70,7 @@ g.loaded_vimball = 1
 g.loaded_vimballPlugin = 1
 g.loaded_zip = 1
 g.loaded_zipPlugin = 1
+g.sh_fold_enabled = 3
 
 cmd("set whichwrap+=<,>,[,],h,l")
 cmd([[set iskeyword+=-]])

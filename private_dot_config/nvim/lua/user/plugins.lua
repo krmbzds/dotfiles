@@ -92,12 +92,14 @@ return packer.startup(function(use)
   use({ "nvim-telescope/telescope-frecency.nvim", requires = { "nvim-telescope/telescope.nvim", "tami5/sqlite.lua" } })
 
   -- Treesitter
+  -- stylua: ignore
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   use({ "numToStr/Comment.nvim", requires = { "nvim-treesitter/nvim-treesitter" } })
   use({ "windwp/nvim-autopairs", requires = { "nvim-treesitter/nvim-treesitter" } })
   use({ "JoosepAlviste/nvim-ts-context-commentstring", requires = { "nvim-treesitter/nvim-treesitter" } })
   use({ "RRethy/nvim-treesitter-endwise", requires = { "nvim-treesitter/nvim-treesitter" } })
   use({ "RRethy/nvim-treesitter-textsubjects", requires = { "nvim-treesitter/nvim-treesitter" } })
+  use({ "nvim-treesitter/nvim-treesitter-textobjects", requires = { "nvim-treesitter/nvim-treesitter" } })
   use({ "windwp/nvim-ts-autotag", requires = { "nvim-treesitter/nvim-treesitter" } })
   use({ "ahmedkhalf/project.nvim" })
 
@@ -109,9 +111,12 @@ return packer.startup(function(use)
 
   -- Movement
   use({ "ggandor/leap.nvim" })
-  use({ "abecodes/tabout.nvim", wants = { "nvim-treesitter" }, after = { "cmp-nvim-lsp" } })
+  use({ "abecodes/tabout.nvim", requires = { "nvim-treesitter/nvim-treesitter" }, after = { "cmp-nvim-lsp" } })
+  use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
 
   -- Text editing helpers
+  -- stylua: ignore
+  use({ "kylechui/nvim-surround", requires = { "nvim-treesitter/nvim-treesitter", "nvim-treesitter/nvim-treesitter-textobjects" } })
   use({ "sQVe/sort.nvim" })
   use({ "monaqa/dial.nvim" })
   use({ "jiaoshijie/undotree", requires = { "nvim-lua/plenary.nvim" } })
