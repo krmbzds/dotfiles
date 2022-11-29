@@ -21,19 +21,19 @@ end
 -- nvim-dap
 local dap_config = {
   breakpoint = {
-    text = icons.ui.Bug,
+    text = icons.debugging.breakpoint,
     texthl = "LspDiagnosticsSignError",
     linehl = "",
     numhl = "",
   },
   breakpoint_rejected = {
-    text = icons.ui.Bug,
+    text = icons.debugging.breakpoint_rejected,
     texthl = "LspDiagnosticsSignHint",
     linehl = "",
     numhl = "",
   },
   stopped = {
-    text = icons.ui.ChevronRight,
+    text = icons.debugging.stopped,
     texthl = "LspDiagnosticsSignInformation",
     linehl = "DiagnosticUnderlineInfo",
     numhl = "LspDiagnosticsSignInformation",
@@ -48,7 +48,11 @@ dap.defaults.fallback.terminal_win_cmd = "50vsplit new"
 
 -- nvim-dap-ui
 local dap_ui_config = {
-  icons = { expanded = "▾", collapsed = "▸" },
+  icons = {
+    expanded = icons.debugging.expanded,
+    collapsed = icons.debugging.collapsed,
+    current_frame = icons.debugging.current_frame,
+  },
   mappings = {
     -- Use a table to apply multiple mappings
     expand = { "<CR>", "<2-LeftMouse>" },
@@ -61,7 +65,7 @@ local dap_ui_config = {
   layouts = {
     {
       elements = {
-        "scopes",
+        { id = "scopes", size = 0.25 },
         "breakpoints",
         "stacks",
         "watches",
@@ -74,8 +78,22 @@ local dap_ui_config = {
         "repl",
         "console",
       },
-      size = 10,
+      size = 0.25, -- 25% of total lines
       position = "bottom",
+    },
+  },
+  controls = {
+    enabled = true,
+    element = "repl",
+    icons = {
+      pause = icons.debugging.pause,
+      play = icons.debugging.play,
+      step_into = icons.debugging.step_into,
+      step_over = icons.debugging.step_over,
+      step_out = icons.debugging.step_out,
+      step_back = icons.debugging.step_back,
+      run_last = icons.debugging.run_last,
+      terminate = icons.debugging.terminate,
     },
   },
   floating = {

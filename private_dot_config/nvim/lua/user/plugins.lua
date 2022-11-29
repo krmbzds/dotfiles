@@ -41,14 +41,14 @@ return packer.startup(function(use)
   use({ "nvim-lua/popup.nvim" })
   use({ "MunifTanjim/nui.nvim" })
   use({ "rcarriga/nvim-notify" })
-  use({ "kyazdani42/nvim-web-devicons" })
+  use({ "nvim-tree/nvim-web-devicons" })
   use({ "gpanders/editorconfig.nvim" })
 
   -- UI
   -- stylua: ignore
-  use({ "nvim-neo-tree/neo-tree.nvim", branch = "v2.x", requires = { "nvim-lua/plenary.nvim", "kyazdani42/nvim-web-devicons", "MunifTanjim/nui.nvim" } })
-  use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
-  use({ "akinsho/bufferline.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
+  use({ "nvim-neo-tree/neo-tree.nvim", branch = "v2.x", requires = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" } })
+  use({ "nvim-lualine/lualine.nvim", requires = { "nvim-tree/nvim-web-devicons" } })
+  use({ "akinsho/bufferline.nvim", requires = { "nvim-tree/nvim-web-devicons" } })
   use({ "karb94/neoscroll.nvim" })
   use({ "folke/which-key.nvim" })
   use({ "Pocco81/true-zen.nvim" })
@@ -84,7 +84,7 @@ return packer.startup(function(use)
   use({ "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } })
   use({ "jayp0521/mason-null-ls.nvim", requires = { "williamboman/mason.nvim", "jose-elias-alvarez/null-ls.nvim" } })
   use({ "folke/neodev.nvim", requires = { "hrsh7th/nvim-cmp" } })
-  use({ "folke/trouble.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
+  use({ "folke/trouble.nvim", requires = { "nvim-tree/nvim-web-devicons" } })
 
   -- Telescope
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" } })
