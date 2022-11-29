@@ -18,6 +18,16 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "shenzhen-solitaire" },
+  callback = function()
+    ---@diagnostic disable-next-line
+    vim.opt_local.foldenable = false
+    local url = "https://soundcloud.com/matthewseiji/shenzhen-solitaire-retro-fm-ver"
+    vim.cmd("silent !tsp mpv --loop-playlist=inf --ytdl " .. url)
+  end,
+})
+
 vim.api.nvim_create_autocmd({ "VimResized" }, {
   callback = function()
     vim.cmd("tabdo wincmd =")

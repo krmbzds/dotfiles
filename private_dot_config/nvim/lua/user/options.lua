@@ -15,6 +15,7 @@ opt.hlsearch = true -- highlight all matches on previous search pattern
 opt.ignorecase = true -- ignore case in search patterns
 opt.lazyredraw = true -- do not redraw screen in the middle of a macro
 opt.mouse = "a" -- allow the mouse to be used in neovim
+opt.mousemodel = "extend" -- do now show popup window
 opt.pumheight = 10 -- pop up menu height
 opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
 opt.showtabline = 2 -- always show tabs

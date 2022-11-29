@@ -90,9 +90,6 @@ keymap("n", "]x", "<cmd>lua require('trouble').next({skip_groups = true, jump = 
 keymap("n", "[g", "<cmd>Gitsigns prev_hunk<cr>", opts)
 keymap("n", "]g", "<cmd>Gitsigns next_hunk<cr>", opts)
 
--- Secret
-keymap("n", "<leader>y", "<cmd>CellularAutomaton make_it_rain<cr>", opts)
-
 -- Insert --
 -- Make Control+Backspace delete whole words
 keymap("i", "<C-H>", "<C-W>", opts)

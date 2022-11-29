@@ -214,6 +214,12 @@ local mappings = {
     q = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix List" },
     L = { "<cmd>TroubleToggle lsp_references<cr>", "LSP References" },
   },
+
+  y = {
+    name = "Misc",
+    n = { "<cmd>ShenzhenSolitaireNextGame<cr>", "Shenzhen Solitaire" },
+    y = { "<cmd>CellularAutomaton make_it_rain<cr>", "Make it rain" },
+  },
 }
 
 local vopts = {
