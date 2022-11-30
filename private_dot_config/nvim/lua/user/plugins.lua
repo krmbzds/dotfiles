@@ -121,6 +121,7 @@ return packer.startup(function(use)
   use({ "sQVe/sort.nvim" })
   use({ "monaqa/dial.nvim" })
   use({ "jiaoshijie/undotree", requires = { "nvim-lua/plenary.nvim" } })
+  use({ "gbprod/yanky.nvim" })
 
   -- Hacks
   use({ "max397574/better-escape.nvim" })

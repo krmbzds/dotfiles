@@ -48,6 +48,29 @@ keymap("n", "<leader>e", "<cmd>Neotree toggle position=left<cr>", opts)
 keymap("n", "<leader>E", "<cmd>Neotree toggle position=float<cr>", opts)
 keymap("n", "<leader>0", "<cmd>Neotree focus<cr>", opts)
 
+-- Yanky
+-- default mappings
+keymap("n", "p", "<Plug>(YankyPutAfter)", opts)
+keymap("n", "P", "<Plug>(YankyPutBefore)", opts)
+keymap("n", "gp", "<Plug>(YankyGPutAfter)", opts)
+keymap("n", "gP", "<Plug>(YankyGPutBefore)", opts)
+-- yank-ring
+keymap("n", "<C-n>", "<Plug>(YankyCycleForward)", opts)
+keymap("n", "<C-p>", "<Plug>(YankyCycleBackward)", opts)
+-- preserve cut position on yank
+keymap("n", "y", "<Plug>(YankyYank)", opts)
+-- special put moves (inspired by Unimpaired)
+keymap("n", "]p", "<Plug>(YankyPutIndentAfterLinewise)", opts)
+keymap("n", "[p", "<Plug>(YankyPutIndentBeforeLinewise)", opts)
+keymap("n", "]P", "<Plug>(YankyPutIndentAfterLinewise)", opts)
+keymap("n", "[P", "<Plug>(YankyPutIndentBeforeLinewise)", opts)
+keymap("n", ">p", "<Plug>(YankyPutIndentAfterShiftRight)", opts)
+keymap("n", "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", opts)
+keymap("n", ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", opts)
+keymap("n", "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", opts)
+keymap("n", "=p", "<Plug>(YankyPutAfterFilter)", opts)
+keymap("n", "=P", "<Plug>(YankyPutBeforeFilter)", opts)
+
 -- Unimpaired
 keymap("n", "[a", ":previous<cr>", opts)
 keymap("n", "]a", ":next<cr>", opts)
@@ -110,6 +133,15 @@ keymap("x", "J", ":m '>+1<CR>gv-gv", opts)
 keymap("x", "K", ":m '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":m '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":m '<-2<CR>gv-gv", opts)
+
+-- Yanky
+-- default mappings
+keymap("x", "p", "<Plug>(YankyPutAfter)", opts)
+keymap("x", "P", "<Plug>(YankyPutBefore)", opts)
+keymap("x", "gp", "<Plug>(YankyGPutAfter)", opts)
+keymap("x", "gP", "<Plug>(YankyGPutBefore)", opts)
+-- preserve cut position on yank
+keymap("x", "y", "<Plug>(YankyYank)", opts)
 
 -- Terminal --
 -- Better terminal navigation

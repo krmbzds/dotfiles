@@ -183,6 +183,7 @@ local mappings = {
     k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
     C = { "<cmd>Telescope commands<cr>", "Commands" },
     p = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
+    y = { "<cmd>Telescope yank_history<cr>", "Yank History" },
   },
 
   t = {
@@ -219,6 +220,7 @@ local mappings = {
     name = "Misc",
     n = { "<cmd>ShenzhenSolitaireNextGame<cr>", "Shenzhen Solitaire" },
     y = { "<cmd>CellularAutomaton make_it_rain<cr>", "Make it rain" },
+    h = { "<cmd>YankyClearHistory<cr>", "Clear Yank History" },
   },
 }
 
