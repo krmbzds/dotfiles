@@ -6,6 +6,9 @@ if not status_ok then
   return
 end
 
+-- Give visual feedback when leap is active
+vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
+
 -- Searching in all windows (including the current one) on the tab page.
 function LEAP_ALL_WINDOWS()
   local focusable_windows_on_tabpage = vim.tbl_filter(function(win)
@@ -15,6 +18,7 @@ function LEAP_ALL_WINDOWS()
 end
 
 leap.setup({})
-leap.set_default_keymaps()
 
+-- Keymaps
+leap.set_default_keymaps()
 keymap("n", "<C-s>", ":lua LEAP_ALL_WINDOWS()<cr>", opts)

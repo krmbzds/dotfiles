@@ -51,3 +51,22 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
     vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
   end,
 })
+
+-- Leap
+local leap_illuminate = vim.api.nvim_create_augroup("LeapIlluminate", { clear = true })
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "LeapEnter",
+  callback = function()
+    require("illuminate").pause()
+  end,
+  group = leap_illuminate,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "LeapLeave",
+  callback = function()
+    require("illuminate").resume()
+  end,
+  group = leap_illuminate,
+})
