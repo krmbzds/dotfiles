@@ -123,6 +123,7 @@ return packer.startup(function(use)
   use({ "jiaoshijie/undotree", requires = { "nvim-lua/plenary.nvim" } })
   use({ "gbprod/yanky.nvim" })
   use({ "gbprod/substitute.nvim" })
+  use({ "smjonas/inc-rename.nvim" })
 
   -- Hacks
   use({ "max397574/better-escape.nvim" })
