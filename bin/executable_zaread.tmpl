@@ -1,0 +1,103 @@
+#!/bin/bash
+
+# A modified version of zaread by paoloap
+# Sourced from: https://github.com/paoloap/zaread
+
+# Options
+READER="zathura"
+ZA_CACHE_DIR="{{- .chezmoi.homeDir -}}/.cache/zaread/"
+ZA_CONFIG="{{- .chezmoi.homeDir -}}/zaread/zareadrc/"
+
+# Converters
+EPUB_CMD="ebook-convert"
+MOBI_CMD="ebook-convert"
+OFFICE_CMD="soffice"
+MD_CMD="md2pdf"
+
+# create cache dir
+if [[ ! -d "$ZA_CACHE_DIR" ]]; then
+  mkdir -p "$ZA_CACHE_DIR"
+fi
+
+# exit if no args
+if [ -z "$*" ]; then exit 1; fi
+
+## create position and file variables ##
+
+# complete file name (path excluded):
+file="$(echo "$@" | rev | cut -d'/' -f1 | rev)"
+
+# complete directory path:
+# if it has been inserted absolute path ($@ starts with '/')
+if expr "$*" : "^/" 1>/dev/null; then
+  directory=$(echo "$@" | rev | cut -d'/' -f2- | rev)"/"
+# else (relative path inserted)
+else
+  dir="$(pwd)""/""$(echo "$@" | sed 's|.[^/]*$||')""/"
+  directory="$(echo "$dir" | sed 's|//|/|')"
+fi
+
+# get file type
+
+# if the file is itself a pdf or an epub, or we already have a pdf converted version,
+# then we don't need a converter. But if it's an already converted document, then
+# file position is different: we must distinguish between original and converted files
+file_converter=""
+file_mt="$(file --mime-type "$directory$file" | sed 's/^.*: //')"
+cd "$directory" || return
+
+# $pdffile is a string composed this way: __$file.[pdf,epub]
+# if the converted file exists, then it's named like $pdffile
+pdffile="$(cksum "$file" | sed -r 's/^([0-9]+) ([0-9]+) (.*)$/\1_\2_\3.pdf/')"
+
+if [ "$file_mt" = "application/pdf" ]; then
+  file_converter="none_original"
+elif [[ (-f "$ZA_CACHE_DIR$pdffile") ]]; then
+  file_converter="none_converted"
+elif [ "$file_mt" = "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ] ||
+  [ "$file_mt" = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ] ||
+  [ "$file_mt" = "application/vnd.openxmlformats-officedocument.presentationml.presentation" ] ||
+  [ "$file_mt" = "application/msword" ] ||
+  [ "$file_mt" = "application/vnd.ms-excel" ] ||
+  [ "$file_mt" = "application/vnd.ms-powerpoint" ] ||
+  [ "$file_mt" = "application/vnd.oasis.opendocument.text" ] ||
+  [ "$file_mt" = "application/vnd.oasis.opendocument.spreadsheet" ] ||
+  [ "$file_mt" = "application/vnd.oasis.opendocument.presentation" ] ||
+  [ "$file_mt" = "text/csv" ]; then
+  file_converter="$OFFICE_CMD"
+elif [ "$file_mt" = "application/epub+zip" ] && expr "$file" : "^.*\.epub$" 1>/dev/null; then
+  file_converter="$EPUB_CMD"
+elif [ "$file_mt" = "application/octet-stream" ] && expr "$file" : "^.*\.mobi$" 1>/dev/null; then
+  file_converter="$MOBI_CMD"
+elif expr "$file" : "^.*\.md$"; then
+  file_converter="$MD_CMD"
+fi
+
+if [ -z "$file_converter" ]; then
+  echo "The file format is unsupported."
+  exit 2
+elif [ "$file_converter" = "none_original" ]; then
+  $READER "$directory$file"
+elif [ "$file_converter" = "none_converted" ]; then
+  $READER "$ZA_CACHE_DIR$pdffile"
+else
+  we_can_convert=$(whereis $file_converter | cut -d":" -f2)
+  if [ -z "$we_can_convert" ]; then
+    echo "The command we need to convert, $file_converter, doesn't exist on this machine."
+    exit 4
+  else
+    if [[ $file_converter == "$OFFICE_CMD" ]]; then
+      libreoffice --convert-to pdf "$directory$file" --headless --outdir "$ZA_CACHE_DIR"
+      tmpfile=$(echo "$file" | sed -r 's/.[^\.]*$//')".pdf"
+      mv "$ZA_CACHE_DIR$tmpfile" "$ZA_CACHE_DIR$pdffile"
+    elif [[ $file_converter == "$EPUB_CMD" ]]; then
+      ebook-convert "$directory$file" "$ZA_CACHE_DIR$pdffile"
+    elif [[ $file_converter == "$MOBI_CMD" ]]; then
+      ebook-convert "$directory$file" "$ZA_CACHE_DIR$pdffile"
+    elif [[ $file_converter == "$MD_CMD" ]]; then
+      md2pdf "$directory$file" "$ZA_CACHE_DIR/$pdffile"
+    fi
+  fi
+
+  $READER "$ZA_CACHE_DIR$pdffile"
+fi
