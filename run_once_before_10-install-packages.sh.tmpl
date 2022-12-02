@@ -41,7 +41,7 @@ function install_alacritty() {
   eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | grep "amd64_unstable" | xargs curl -s -L --output "$debfile"
   cd "$tempdir" || return
   sudo dpkg -i "$debfile"
-  sudo apt-mark hold alacritty 
+  sudo apt-mark hold alacritty
   rm "$debfile"
   rm -rf "$tempdir"
   cd - || return
