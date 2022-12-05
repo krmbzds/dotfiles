@@ -155,16 +155,14 @@ local mappings = {
 
   l = {
     name = "LSP",
+    l = { "<cmd>TroubleToggle loclist<cr>", "Location List" },
+    q = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix List" },
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-    d = { "<cmd>Telescope diagnostics bufnr=0 theme=ivy<cr>", "Buffer Diagnostics" },
-    w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
+    A = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
+    d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics" },
+    D = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace" },
     f = { "<cmd>lua vim.lsp.buf.format { async = true }<cr>", "Format" },
-    i = { "<cmd>LspInfo<cr>", "Info" },
-    m = { "<cmd>Mason<cr>", "Mason" },
-    j = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic" },
-    k = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
-    l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-    q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
+    L = { "<cmd>TroubleToggle lsp_references<cr>", "LSP References" },
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
     S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
@@ -204,16 +202,6 @@ local mappings = {
     f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
     h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
     v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
-  },
-
-  x = {
-    name = "Trouble",
-    x = { "<cmd>TroubleToggle<cr>", "Toggle" },
-    w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace" },
-    d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document" },
-    l = { "<cmd>TroubleToggle loclist<cr>", "Location List" },
-    q = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix List" },
-    L = { "<cmd>TroubleToggle lsp_references<cr>", "LSP References" },
   },
 
   y = {
