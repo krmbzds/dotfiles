@@ -1,0 +1,253 @@
+# Based on: https://github.com/SterlingHooten/borg-backup-exclusions-macos
+
+# These are exclusion patterns for borg backup relevant to programming and to macOS
+# Use: borg create --patterns-from="{{- .chezmoi.homeDir -}}/.config/borg/ignore"
+
+# N.B. --patterns-from uses the shell style of patterns by default NOT the fn
+# Shell style counts ** as any character (including path separators)
+
+# A directory exclusion pattern can end either with or without a slash (‘/’).
+# If it ends with a slash, such as some/path/, the directory will be included but not its content.
+# If it does not end with a slash, such as some/path, both the directory and content will be excluded.
+# A minus sign will exclude, but still recurse into the directory to find inclusions (slow)
+# A bang/exclamation point will _not_ recurse into a directory, and thus no inclusion rules will kick in (dangerous)
+
+# N.B. Other directories will be ignored if a file '.nobackup' is present and '--exclude-if-present .nobackup' is used
+
+# System
+! /dev/*
+! /lost+found
+! /media/*
+! /mnt/*
+! /proc/*
+! /run/*
+! /sys/*
+! /tmp/*
+
+# Cache items
+! **/.Cache/
+! **/.Caches/
+! **/.build/
+! **/.cache/
+! **/.caches/
+! **/Cache/
+! **/Caches/
+! **/__pycache__
+! **/cache/
+! **/caches/
+! *.pyc
+
+# Linux
+! **/*~
+! **/.Trash-*
+! **/.directory
+! **/.fuse_hidden*
+! **/.nfs*
+
+# Ruby
+! **/*.gem
+! **/*.rbc
+! **/.bundle/
+! **/.byebug_history
+! **/.yardoc/
+! **/InstalledFiles
+! **/_yardoc/
+! **/coverage/
+! **/lib/bundler/man/
+! **/pkg/
+! **/rdoc/
+! **/spec/examples.txt
+! **/spec/reports/
+! **/test/tmp/
+! **/test/version_tmp/
+! **/tmp/
+! **/vendor/bundle
+! .rvmrc
+! {{ .chezmoi.homeDir -}}/.irbrc
+! {{ .chezmoi.homeDir -}}/.local/share/gem
+
+# History
+! {{ .chezmoi.homeDir -}}/.bash_history
+! {{ .chezmoi.homeDir -}}/.irb_history
+! {{ .chezmoi.homeDir -}}/.lesshst
+! {{ .chezmoi.homeDir -}}/.node_repl_history
+! {{ .chezmoi.homeDir -}}/.python_history
+! {{ .chezmoi.homeDir -}}/.rdbg_history
+! {{ .chezmoi.homeDir -}}/.wget-hsts
+! {{ .chezmoi.homeDir -}}/.zsh_history
+
+# Misc
+! {{ .chezmoi.homeDir -}}/.android
+! {{ .chezmoi.homeDir -}}/.aws
+! {{ .chezmoi.homeDir -}}/.bash_logout
+! {{ .chezmoi.homeDir -}}/.bwsession.gpg
+! {{ .chezmoi.homeDir -}}/.config/Bitwarden*
+! {{ .chezmoi.homeDir -}}/.config/Bob
+! {{ .chezmoi.homeDir -}}/.config/Brave*
+! {{ .chezmoi.homeDir -}}/.config/Ledger Live
+! {{ .chezmoi.homeDir -}}/.config/Signal
+! {{ .chezmoi.homeDir -}}/.config/VirtualBox
+! {{ .chezmoi.homeDir -}}/.config/blender
+! {{ .chezmoi.homeDir -}}/.config/cef_user_data
+! {{ .chezmoi.homeDir -}}/.config/cheat
+! {{ .chezmoi.homeDir -}}/.config/chromium
+! {{ .chezmoi.homeDir -}}/.config/doctl
+! {{ .chezmoi.homeDir -}}/.config/dracula
+! {{ .chezmoi.homeDir -}}/.config/dracula-pro
+! {{ .chezmoi.homeDir -}}/.config/google-chrome
+! {{ .chezmoi.homeDir -}}/.config/jami
+! {{ .chezmoi.homeDir -}}/.config/jami.net
+! {{ .chezmoi.homeDir -}}/.config/keepassxc
+! {{ .chezmoi.homeDir -}}/.config/libreoffice
+! {{ .chezmoi.homeDir -}}/.config/mpv/watch_later
+! {{ .chezmoi.homeDir -}}/.config/newsboat/urls-*.db
+! {{ .chezmoi.homeDir -}}/.config/nvim/plugin
+! {{ .chezmoi.homeDir -}}/.config/obs-studio
+! {{ .chezmoi.homeDir -}}/.config/spotify
+! {{ .chezmoi.homeDir -}}/.config/sublime-*
+! {{ .chezmoi.homeDir -}}/.config/vale
+! {{ .chezmoi.homeDir -}}/.config/yarn
+! {{ .chezmoi.homeDir -}}/.docker
+! {{ .chezmoi.homeDir -}}/.eclipse
+! {{ .chezmoi.homeDir -}}/.editorconfig
+! {{ .chezmoi.homeDir -}}/.fltk
+! {{ .chezmoi.homeDir -}}/.fonts
+! {{ .chezmoi.homeDir -}}/.gitconfig
+! {{ .chezmoi.homeDir -}}/.gnome
+! {{ .chezmoi.homeDir -}}/.gnupg
+! {{ .chezmoi.homeDir -}}/.gphoto
+! {{ .chezmoi.homeDir -}}/.ipython
+! {{ .chezmoi.homeDir -}}/.java
+! {{ .chezmoi.homeDir -}}/.kodi
+! {{ .chezmoi.homeDir -}}/.krew
+! {{ .chezmoi.homeDir -}}/.kube
+! {{ .chezmoi.homeDir -}}/.lgp
+! {{ .chezmoi.homeDir -}}/.links2
+! {{ .chezmoi.homeDir -}}/.local
+! {{ .chezmoi.homeDir -}}/.local/bin
+! {{ .chezmoi.homeDir -}}/.local/etc/bash_completion.d
+! {{ .chezmoi.homeDir -}}/.local/etc/fish
+! {{ .chezmoi.homeDir -}}/.local/include
+! {{ .chezmoi.homeDir -}}/.local/lib
+! {{ .chezmoi.homeDir -}}/.local/share/Anki
+! {{ .chezmoi.homeDir -}}/.local/share/Anki2/addons*
+! {{ .chezmoi.homeDir -}}/.local/share/Cryptomator
+! {{ .chezmoi.homeDir -}}/.local/share/DBeaverData
+! {{ .chezmoi.homeDir -}}/.local/share/Trash
+! {{ .chezmoi.homeDir -}}/.local/share/Zeal/Zeal/docsets/
+! {{ .chezmoi.homeDir -}}/.local/share/bash-completion
+! {{ .chezmoi.homeDir -}}/.local/share/calibre-*
+! {{ .chezmoi.homeDir -}}/.local/share/chezmoi
+! {{ .chezmoi.homeDir -}}/.local/share/dino
+! {{ .chezmoi.homeDir -}}/.local/share/doc
+! {{ .chezmoi.homeDir -}}/.local/share/evolution
+! {{ .chezmoi.homeDir -}}/.local/share/fish
+! {{ .chezmoi.homeDir -}}/.local/share/flatpak
+! {{ .chezmoi.homeDir -}}/.local/share/folks
+! {{ .chezmoi.homeDir -}}/.local/share/gajim
+! {{ .chezmoi.homeDir -}}/.local/share/gh
+! {{ .chezmoi.homeDir -}}/.local/share/gnome-*
+! {{ .chezmoi.homeDir -}}/.local/share/icons
+! {{ .chezmoi.homeDir -}}/.local/share/jami
+! {{ .chezmoi.homeDir -}}/.local/share/kdenlive
+! {{ .chezmoi.homeDir -}}/.local/share/keyrings
+! {{ .chezmoi.homeDir -}}/.local/share/man
+! {{ .chezmoi.homeDir -}}/.local/share/meld
+! {{ .chezmoi.homeDir -}}/.local/share/mime
+! {{ .chezmoi.homeDir -}}/.local/share/mprime
+! {{ .chezmoi.homeDir -}}/.local/share/newsboat
+! {{ .chezmoi.homeDir -}}/.local/share/nvim
+! {{ .chezmoi.homeDir -}}/.local/share/pixmaps
+! {{ .chezmoi.homeDir -}}/.local/share/profanity
+! {{ .chezmoi.homeDir -}}/.local/share/pry
+! {{ .chezmoi.homeDir -}}/.local/share/ptpython
+! {{ .chezmoi.homeDir -}}/.local/share/qalculate
+! {{ .chezmoi.homeDir -}}/.local/share/qutebrowser
+! {{ .chezmoi.homeDir -}}/.local/share/remmina
+! {{ .chezmoi.homeDir -}}/.local/share/rhythmbox
+! {{ .chezmoi.homeDir -}}/.local/share/rink
+! {{ .chezmoi.homeDir -}}/.local/share/sounds
+! {{ .chezmoi.homeDir -}}/.local/share/sponsorblock
+! {{ .chezmoi.homeDir -}}/.local/share/stalefiles
+! {{ .chezmoi.homeDir -}}/.local/share/tmux
+! {{ .chezmoi.homeDir -}}/.local/share/totem
+! {{ .chezmoi.homeDir -}}/.local/share/vale
+! {{ .chezmoi.homeDir -}}/.local/share/virtualenv
+! {{ .chezmoi.homeDir -}}/.local/share/vulkan
+! {{ .chezmoi.homeDir -}}/.local/share/webkitgtk
+! {{ .chezmoi.homeDir -}}/.local/share/zathura
+! {{ .chezmoi.homeDir -}}/.local/share/zeal_cli
+! {{ .chezmoi.homeDir -}}/.local/share/zoxide
+! {{ .chezmoi.homeDir -}}/.local/share/zsh
+! {{ .chezmoi.homeDir -}}/.local/state
+! {{ .chezmoi.homeDir -}}/.m2
+! {{ .chezmoi.homeDir -}}/.mozilla
+! {{ .chezmoi.homeDir -}}/.nv
+! {{ .chezmoi.homeDir -}}/.openfaas
+! {{ .chezmoi.homeDir -}}/.openjfx
+! {{ .chezmoi.homeDir -}}/.p10k*
+! {{ .chezmoi.homeDir -}}/.pki
+! {{ .chezmoi.homeDir -}}/.pomodoro
+! {{ .chezmoi.homeDir -}}/.pulse-cookie
+! {{ .chezmoi.homeDir -}}/.selected_editor
+! {{ .chezmoi.homeDir -}}/.solargraph
+! {{ .chezmoi.homeDir -}}/.ssh
+! {{ .chezmoi.homeDir -}}/.sudo_as_admin_successful
+! {{ .chezmoi.homeDir -}}/.surf
+! {{ .chezmoi.homeDir -}}/.swt
+! {{ .chezmoi.homeDir -}}/.terminfo
+! {{ .chezmoi.homeDir -}}/.terraform.d
+! {{ .chezmoi.homeDir -}}/.themes
+! {{ .chezmoi.homeDir -}}/.tmux
+! {{ .chezmoi.homeDir -}}/.tool-versions
+! {{ .chezmoi.homeDir -}}/.vale.ini
+! {{ .chezmoi.homeDir -}}/.var
+! {{ .chezmoi.homeDir -}}/.vpython*
+! {{ .chezmoi.homeDir -}}/.vscode*
+! {{ .chezmoi.homeDir -}}/.xournal
+! {{ .chezmoi.homeDir -}}/.yarnrc
+! {{ .chezmoi.homeDir -}}/.zcompdump
+! {{ .chezmoi.homeDir -}}/.zsh_history
+! {{ .chezmoi.homeDir -}}/.zshenv
+! {{ .chezmoi.homeDir -}}/.zshrc
+
+# Games
+! {{ .chezmoi.homeDir -}}/.Heaven
+! {{ .chezmoi.homeDir -}}/.config/lutris
+! {{ .chezmoi.homeDir -}}/.factorio
+! {{ .chezmoi.homeDir -}}/.local/share/Steam
+! {{ .chezmoi.homeDir -}}/.local/share/ddnet
+! {{ .chezmoi.homeDir -}}/.local/share/feral-interactive
+! {{ .chezmoi.homeDir -}}/.local/share/vpltd
+! {{ .chezmoi.homeDir -}}/.phoronix-test-suite
+! {{ .chezmoi.homeDir -}}/.steam
+! {{ .chezmoi.homeDir -}}/.wine
+! {{ .chezmoi.homeDir -}}/Steam
+! /usr/games/steam
+! /usr/share/doc/steam
+! /usr/share/lintian/overrides/steam
+
+# Home
+! {{ .chezmoi.homeDir -}}/Arduino
+! {{ .chezmoi.homeDir -}}/Docker
+! {{ .chezmoi.homeDir -}}/Documents/Calibre
+! {{ .chezmoi.homeDir -}}/Games
+! {{ .chezmoi.homeDir -}}/Public
+! {{ .chezmoi.homeDir -}}/Templates
+! {{ .chezmoi.homeDir -}}/Videos
+! {{ .chezmoi.homeDir -}}/VirtualBox*
+! {{ .chezmoi.homeDir -}}/bin
+
+# Packages
+! **/.asdf
+! **/.cargo
+! **/.npm
+! **/node_modules
+
+# Asdf-vm default packages
+! {{ .chezmoi.homeDir -}}/.default-cargo-crates
+! {{ .chezmoi.homeDir -}}/.default-gems
+! {{ .chezmoi.homeDir -}}/.default-golang-pkgs
+! {{ .chezmoi.homeDir -}}/.default-npm-packages
+! {{ .chezmoi.homeDir -}}/.default-python-packages
+
