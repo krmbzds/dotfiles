@@ -131,6 +131,7 @@ local mappings = {
     S = { "<cmd>PackerStatus<cr>", "Status" },
     u = { "<cmd>PackerUpdate<cr>", "Update" },
     d = { "<cmd>PackerClean<cr>", "Clean" },
+    n = { "<cmd>Telescope notify theme=ivy<cr>", "Notifications"}
   },
 
   g = {
@@ -155,14 +156,14 @@ local mappings = {
 
   l = {
     name = "LSP",
-    l = { "<cmd>TroubleToggle loclist<cr>", "Location List" },
-    q = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix List" },
+    l = { "<cmd>lua require('trouble').open('loclist')<cr>", "Location List" },
+    q = { "<cmd>lua require('trouble').open('quickfix')<cr>", "Quickfix List" },
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
     A = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-    d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics" },
-    D = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace" },
+    d = { "<cmd>lua require('trouble').toggle()<cr>", "Document Diagnostics" },
+    D = { "<cmd>lua require('trouble').open('workspace_diagnostics')<cr>", "Workspace" },
     f = { "<cmd>lua vim.lsp.buf.format { async = true }<cr>", "Format" },
-    L = { "<cmd>TroubleToggle lsp_references<cr>", "LSP References" },
+    L = { "<cmd>lua require('trouble').open('lsp_references')<cr>", "LSP References" },
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
     S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },

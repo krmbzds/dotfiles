@@ -1,4 +1,8 @@
 local icons = {
+  telescope = {
+    prompt_prefix = " ",
+    selection_caret = " ",
+  },
   kind = {
     Text = "",
     -- Method = "m",

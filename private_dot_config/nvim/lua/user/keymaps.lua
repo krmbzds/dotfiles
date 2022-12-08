@@ -60,9 +60,6 @@ keymap("n", "X", "<cmd>lua require('substitute.exchange').operator()<cr>", { nor
 keymap("x", "S", "<cmd>lua require('substitute').visual()<cr>", { noremap = true })
 keymap("x", "X", "<cmd>lua require('substitute.exchange').visual()<cr>", { noremap = true })
 
--- Incremental Rename
-keymap("n", "<F2>", ":IncRename ", opts)
-
 -- Yanky
 -- default mappings
 keymap("n", "p", "<Plug>(YankyPutAfter)", opts)

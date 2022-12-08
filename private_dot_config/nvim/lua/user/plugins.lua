@@ -53,6 +53,7 @@ return packer.startup(function(use)
   use({ "folke/which-key.nvim" })
   use({ "Pocco81/true-zen.nvim" })
   use({ "RRethy/vim-illuminate" })
+  use({ "stevearc/dressing.nvim" })
 
   -- Debug Adapter Protocol
   use({ "mfussenegger/nvim-dap" })
@@ -84,7 +85,7 @@ return packer.startup(function(use)
   use({ "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } })
   use({ "jayp0521/mason-null-ls.nvim", requires = { "williamboman/mason.nvim", "jose-elias-alvarez/null-ls.nvim" } })
   use({ "folke/neodev.nvim", requires = { "hrsh7th/nvim-cmp" } })
-  use({ "folke/trouble.nvim", requires = { "nvim-tree/nvim-web-devicons" } })
+  use({ "krmbzds/trouble.nvim", requires = { "nvim-tree/nvim-web-devicons" } })
 
   -- Telescope
   use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" } })
@@ -111,6 +112,7 @@ return packer.startup(function(use)
   use({ "TimUntersberger/neogit", requires = { "nvim-lua/plenary.nvim" } })
 
   -- Movement
+  use({ "hrsh7th/nvim-gtd" })
   use({ "ggandor/leap.nvim" })
   use({ "abecodes/tabout.nvim", requires = { "nvim-treesitter/nvim-treesitter" }, after = { "cmp-nvim-lsp" } })
   use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
@@ -123,7 +125,6 @@ return packer.startup(function(use)
   use({ "jiaoshijie/undotree", requires = { "nvim-lua/plenary.nvim" } })
   use({ "gbprod/yanky.nvim" })
   use({ "gbprod/substitute.nvim" })
-  use({ "smjonas/inc-rename.nvim" })
 
   -- Hacks
   use({ "max397574/better-escape.nvim" })

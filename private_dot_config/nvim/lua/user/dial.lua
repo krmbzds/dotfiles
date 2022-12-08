@@ -29,9 +29,12 @@ dial_config.augends:register_group({
 ---@diagnostic enable
 
 local map = require("dial.map")
-vim.api.nvim_set_keymap("n", "<C-x>", map.inc_normal(), { noremap = true })
-vim.api.nvim_set_keymap("v", "<C-x>", map.inc_visual(), { noremap = true })
-vim.api.nvim_set_keymap("v", "g<C-x>", map.inc_gvisual(), { noremap = true })
-vim.api.nvim_set_keymap("n", "<C-a>", map.dec_normal(), { noremap = true })
-vim.api.nvim_set_keymap("v", "<C-a>", map.dec_visual(), { noremap = true })
-vim.api.nvim_set_keymap("v", "g<C-a>", map.dec_gvisual(), { noremap = true })
+local keymap = vim.api.nvim_set_keymap
+local opts = { noremap = true }
+
+keymap("n", "<C-x>", map.inc_normal(), opts)
+keymap("v", "<C-x>", map.inc_visual(), opts)
+keymap("v", "g<C-x>", map.inc_gvisual(), opts)
+keymap("n", "<C-a>", map.dec_normal(), opts)
+keymap("v", "<C-a>", map.dec_visual(), opts)
+keymap("v", "g<C-a>", map.dec_gvisual(), opts)

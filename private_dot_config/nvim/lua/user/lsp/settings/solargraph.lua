@@ -2,7 +2,7 @@ local util = require("lspconfig/util")
 
 local solargraph_cmd = function()
   local ret_code = nil
-  local jid = vim.fn.jobstart("bundle info solargraph", {
+  local jid = vim.fn.jobstart("grep -o solargraph Gemfile.lock", {
     on_exit = function(_, data)
       ret_code = data
     end,

@@ -7,7 +7,7 @@ local icons = require("user.icons")
 
 notify.setup({
   -- Animation style (see below for details)
-  stages = "fade_in_slide_out",
+  stages = "static",
   -- Function called when a new window is opened, use for changing win settings/config
   on_open = function() end,
   -- Function called when a window is closed
@@ -15,7 +15,7 @@ notify.setup({
   -- Render function for notifications. See notify-render()
   render = "default",
   -- Default timeout for notifications
-  timeout = 175,
+  timeout = 2000,
   -- For stages that change opacity this is treated as the highlight behind the window
   -- Set this to either a highlight group or an RGB hex value e.g. "#000000"
   background_colour = "Normal",
