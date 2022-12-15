@@ -34,6 +34,8 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
+keymap("n", "<S-A-l>", "<cmd>BufferLineMoveNext<CR>", opts)
+keymap("n", "<S-A-h>", "<cmd>BufferLineMovePrev<CR>", opts)
 
 -- Navigate tabs
 keymap("n", "<A-l>", ":tabnext<CR>", opts)
@@ -110,16 +112,6 @@ keymap("n", "[T", ":tfirst<cr>", opts)
 keymap("n", "]T", ":tlast<cr>", opts)
 keymap("n", "[<C-T>", ":ptprevious<cr>", opts)
 keymap("n", "]<C-T>", ":ptnext<cr>", opts)
-
--- Trouble
-keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
-keymap("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
-keymap("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
-keymap("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", opts)
-keymap("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", opts)
-keymap("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", opts)
-keymap("n", "[x", "<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<cr>", opts)
-keymap("n", "]x", "<cmd>lua require('trouble').next({skip_groups = true, jump = true})<cr>", opts)
 
 -- Gitsigns
 keymap("n", "[g", "<cmd>Gitsigns prev_hunk<cr>", opts)

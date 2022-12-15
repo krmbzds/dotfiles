@@ -38,104 +38,420 @@ return packer.startup(function(use)
   use({ "wbthomason/packer.nvim" })
   use({ "lewis6991/impatient.nvim" })
   use({ "nvim-lua/plenary.nvim" })
-  use({ "nvim-lua/popup.nvim" })
+  use({ "kkharji/sqlite.lua" })
   use({ "MunifTanjim/nui.nvim" })
-  use({ "rcarriga/nvim-notify" })
+  use({ "nvim-lua/popup.nvim" })
   use({ "nvim-tree/nvim-web-devicons" })
   use({ "gpanders/editorconfig.nvim" })
 
-  -- UI
-  -- stylua: ignore
-  use({ "nvim-neo-tree/neo-tree.nvim", branch = "v2.x", requires = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" } })
-  use({ "nvim-lualine/lualine.nvim", requires = { "nvim-tree/nvim-web-devicons" } })
-  use({ "akinsho/bufferline.nvim", requires = { "nvim-tree/nvim-web-devicons" } })
-  use({ "karb94/neoscroll.nvim" })
-  use({ "folke/which-key.nvim" })
-  use({ "Pocco81/true-zen.nvim" })
-  use({ "RRethy/vim-illuminate" })
-  use({ "stevearc/dressing.nvim" })
+  use({
+    "stevearc/dressing.nvim",
+    config = function()
+      require("user.dressing")
+    end,
+  })
 
-  -- Debug Adapter Protocol
-  use({ "mfussenegger/nvim-dap" })
-  use({ "suketa/nvim-dap-ruby", requires = { "mfussenegger/nvim-dap" } })
-  use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+  use({
+    "rcarriga/nvim-notify",
+    config = function()
+      require("user.notify")
+    end,
+  })
+
+  use({
+    "nvim-lualine/lualine.nvim",
+    requires = {
+      "nvim-tree/nvim-web-devicons",
+      config = function()
+        require("user.lualine")
+      end,
+    },
+  })
+
+  use({
+    "jiaoshijie/undotree",
+    config = function()
+      require("user.undotree")
+    end,
+  })
 
   -- Colorschemes
-  use({ "Mofiqul/dracula.nvim" })
-  use({ "NvChad/nvim-colorizer.lua" })
+  use({
+    "Mofiqul/dracula.nvim",
+    config = function()
+      require("user.colorscheme")
+    end,
+  })
+
+  use({
+    "NvChad/nvim-colorizer.lua",
+    config = function()
+      require("user.colorizer")
+    end,
+  })
+
+  -- UI
+  use({
+    "akinsho/bufferline.nvim",
+    event = "UIEnter",
+    requires = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("user.bufferline")
+    end,
+  })
+
+  use({
+    "nvim-neo-tree/neo-tree.nvim",
+    cmd = { "Neotree" },
+    branch = "v2.x",
+    requires = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" },
+    config = function()
+      require("user.neo-tree")
+    end,
+  })
+
+  use({
+    "karb94/neoscroll.nvim",
+    event = { "BufRead", "BufNewFile" },
+    config = function()
+      require("user.neoscroll")
+    end,
+  })
+
+  use({
+    "folke/which-key.nvim",
+    config = function()
+      require("user.which-key")
+    end,
+  })
+
+  use({
+    "Pocco81/true-zen.nvim",
+    cmd = { "TZAtaraxis", "TZMinimalist", "TZNarrow", "TZFocus" },
+    config = function()
+      require("user.true-zen")
+    end,
+  })
+
+  -- Debug Adapter Protocol
+  use({
+    "mfussenegger/nvim-dap",
+    event = { "BufRead", "BufNewFile" },
+    requires = {
+      {
+        "rcarriga/nvim-dap-ui",
+        after = "nvim-dap",
+        config = function()
+          require("user.dap-ui")
+        end,
+      },
+      {
+        "suketa/nvim-dap-ruby",
+        after = { "nvim-dap", "nvim-dap-ui" },
+        config = function()
+          require("user.dap-ruby")
+        end,
+      },
+    },
+    config = function()
+      require("user.dap")
+    end,
+  })
 
   -- Completion
-  use({ "hrsh7th/nvim-cmp" })
-  use({ "hrsh7th/cmp-buffer", requires = { "hrsh7th/nvim-cmp" } })
-  use({ "hrsh7th/cmp-path", requires = { "hrsh7th/nvim-cmp" } })
-  use({ "hrsh7th/cmp-cmdline", requires = { "hrsh7th/nvim-cmp" } })
-  use({ "saadparwaiz1/cmp_luasnip", requires = { "hrsh7th/nvim-cmp" } })
-  use({ "hrsh7th/cmp-nvim-lsp", requires = { "hrsh7th/nvim-cmp" } })
-  use({ "hrsh7th/cmp-nvim-lua", requires = { "hrsh7th/nvim-cmp" } })
-
-  -- Snippets
-  use({ "L3MON4D3/LuaSnip" })
-  use({ "rafamadriz/friendly-snippets" })
-  use({ "danymat/neogen", requires = { "nvim-treesitter/nvim-treesitter" } })
+  use({
+    "hrsh7th/nvim-cmp",
+    event = { "InsertEnter" },
+    requires = {
+      {
+        "L3MON4D3/LuaSnip",
+        requires = {
+          { "rafamadriz/friendly-snippets" },
+          {
+            "danymat/neogen",
+            config = function()
+              require("user.neogen")
+            end,
+          },
+        },
+      },
+      { "hrsh7th/cmp-buffer" },
+      { "hrsh7th/cmp-path" },
+      { "hrsh7th/cmp-cmdline" },
+      { "saadparwaiz1/cmp_luasnip" },
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "hrsh7th/cmp-nvim-lua" },
+      { "folke/neodev.nvim" },
+    },
+    config = function()
+      require("user.cmp")
+    end,
+  })
 
   -- Language Server Protocol
-  use({ "neovim/nvim-lspconfig" })
-  use({ "williamboman/mason.nvim", requires = { "neovim/nvim-lspconfig" } })
-  use({ "williamboman/mason-lspconfig.nvim", requires = { "williamboman/mason.nvim" } })
-  use({ "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } })
-  use({ "jayp0521/mason-null-ls.nvim", requires = { "williamboman/mason.nvim", "jose-elias-alvarez/null-ls.nvim" } })
-  use({ "folke/neodev.nvim", requires = { "hrsh7th/nvim-cmp" } })
-  use({ "krmbzds/trouble.nvim", requires = { "nvim-tree/nvim-web-devicons" } })
+  use({
+    "williamboman/mason.nvim",
+    requires = {
+      "williamboman/mason-lspconfig.nvim",
+      requires = {
+        "neovim/nvim-lspconfig",
+        config = function()
+          require("user.lsp.handlers").setup()
+        end,
+      },
+    },
+    config = function()
+      require("user.mason")
+    end,
+  })
+
+  use({
+    "jayp0521/mason-null-ls.nvim",
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+      { "williamboman/mason.nvim" },
+      { "jose-elias-alvarez/null-ls.nvim" },
+    },
+    config = function()
+      require("user.lsp.null-ls")
+    end,
+  })
 
   -- Telescope
-  use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" } })
-  use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make", requires = { "nvim-telescope/telescope.nvim" } })
-  use({ "sudormrfbin/cheatsheet.nvim", requires = { "nvim-telescope/telescope.nvim", "nvim-lua/popup.nvim" } })
-  use({ "nvim-telescope/telescope-frecency.nvim", requires = { "nvim-telescope/telescope.nvim", "tami5/sqlite.lua" } })
+  use({
+    "nvim-telescope/telescope.nvim",
+    config = function()
+      require("user.telescope")
+    end,
+    requires = {
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        run = "make",
+        after = { "telescope.nvim" },
+      },
+      {
+        "nvim-telescope/telescope-frecency.nvim",
+        after = { "telescope.nvim", "sqlite.lua" },
+      },
+      { "sudormrfbin/cheatsheet.nvim", after = { "telescope.nvim" } },
+    },
+  })
 
   -- Treesitter
-  -- stylua: ignore
-  use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-  use({ "numToStr/Comment.nvim", requires = { "nvim-treesitter/nvim-treesitter" } })
-  use({ "windwp/nvim-autopairs", requires = { "nvim-treesitter/nvim-treesitter" } })
-  use({ "JoosepAlviste/nvim-ts-context-commentstring", requires = { "nvim-treesitter/nvim-treesitter" } })
-  use({ "RRethy/nvim-treesitter-endwise", requires = { "nvim-treesitter/nvim-treesitter" } })
-  use({ "RRethy/nvim-treesitter-textsubjects", requires = { "nvim-treesitter/nvim-treesitter" } })
-  use({ "nvim-treesitter/nvim-treesitter-textobjects", requires = { "nvim-treesitter/nvim-treesitter" } })
-  use({ "windwp/nvim-ts-autotag", requires = { "nvim-treesitter/nvim-treesitter" } })
-  use({ "ahmedkhalf/project.nvim" })
+  use({
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
+    config = function()
+      require("user.treesitter")
+    end,
+    {
+      "numToStr/Comment.nvim",
+      after = { "nvim-treesitter" },
+      keys = {
+        { "n", "gc" },
+        { "n", "gb" },
+        { "v", "/" },
+      },
+      config = function()
+        require("user.comment")
+      end,
+    },
+    {
+      "windwp/nvim-autopairs",
+      after = { "nvim-treesitter" },
+      config = function()
+        require("user.autopairs")
+      end,
+    },
+    {
+      "RRethy/vim-illuminate",
+      after = { "nvim-treesitter" },
+      config = function()
+        require("user.illuminate")
+      end,
+    },
+    {
+      "abecodes/tabout.nvim",
+      after = { "cmp-nvim-lsp" },
+      config = function()
+        require("user.tabout")
+      end,
+    },
+    { "JoosepAlviste/nvim-ts-context-commentstring" },
+    { "RRethy/nvim-treesitter-endwise" },
+    { "RRethy/nvim-treesitter-textsubjects" },
+    { "nvim-treesitter/nvim-treesitter-textobjects" },
+    { "windwp/nvim-ts-autotag" },
+    {
+      "kylechui/nvim-surround",
+      after = { "nvim-treesitter", "nvim-treesitter-textobjects" },
+      config = function()
+        require("user.surround")
+      end,
+    },
+    {
+      "kevinhwang91/nvim-bqf",
+      after = { "nvim-treesitter" },
+      config = function()
+        require("user.bqf")
+      end,
+    },
+  })
 
   -- Git
-  use({ "lewis6991/gitsigns.nvim" })
-  use({ "f-person/git-blame.nvim" })
-  use({ "ruifm/gitlinker.nvim", requires = { "nvim-lua/plenary.nvim" } })
-  use({ "TimUntersberger/neogit", requires = { "nvim-lua/plenary.nvim" } })
+  use({
+    "lewis6991/gitsigns.nvim",
+    event = { "BufRead", "BufNewFile" },
+    config = function()
+      require("user.gitsigns")
+    end,
+  })
+
+  use({
+    "f-person/git-blame.nvim",
+    cmd = {
+      "GitBlameInit",
+      "GitBlameEnable",
+      "GitBlameDisable",
+      "GitBlameToggle",
+      "GitBlameOpenCommitURL",
+      "GitBlameCopySHA",
+      "GitBlameCopyCommitURL",
+    },
+    config = function()
+      require("user.git-blame")
+    end,
+  })
+
+  use({
+    "ruifm/gitlinker.nvim",
+    keys = {
+      { "v", "<leader>go" },
+      { "v", "<leader>gc" },
+    },
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("user.gitlinker")
+    end,
+  })
+
+  use({
+    "TimUntersberger/neogit",
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("user.neogit")
+    end,
+  })
 
   -- Movement
-  use({ "hrsh7th/nvim-gtd" })
-  use({ "ggandor/leap.nvim" })
-  use({ "abecodes/tabout.nvim", requires = { "nvim-treesitter/nvim-treesitter" }, after = { "cmp-nvim-lsp" } })
-  use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
+  use({
+    "ahmedkhalf/project.nvim",
+    config = function()
+      require("user.project")
+    end,
+  })
+
+  use({
+    "hrsh7th/nvim-gtd",
+    config = function()
+      require("user.gtd")
+    end,
+  })
+
+  use({
+    "ggandor/leap.nvim",
+    requires = {
+      "ggandor/flit.nvim",
+      config = function()
+        require("flit").setup({})
+      end,
+    },
+    config = function()
+      require("user.leap")
+    end,
+  })
+
+  use({
+    "kevinhwang91/nvim-ufo",
+    requires = "kevinhwang91/promise-async",
+    config = function()
+      require("user.ufo")
+    end,
+  })
 
   -- Text editing helpers
-  -- stylua: ignore
-  use({ "kylechui/nvim-surround", requires = { "nvim-treesitter/nvim-treesitter", "nvim-treesitter/nvim-treesitter-textobjects" } })
   use({ "sQVe/sort.nvim" })
-  use({ "monaqa/dial.nvim" })
-  use({ "jiaoshijie/undotree", requires = { "nvim-lua/plenary.nvim" } })
-  use({ "gbprod/yanky.nvim" })
-  use({ "gbprod/substitute.nvim" })
+
+  use({
+    "monaqa/dial.nvim",
+    keys = {
+      { "n", "<C-a>" },
+      { "n", "<C-x>" },
+      { "v", "<C-a>" },
+      { "v", "<C-x>" },
+      { "v", "g<C-a>" },
+      { "v", "g<C-x>" },
+    },
+    config = function()
+      require("user.dial")
+    end,
+  })
+
+  use({
+    "gbprod/yanky.nvim",
+    event = { "CmdlineEnter", "TextYankPost" },
+    after = { "telescope.nvim" },
+    keys = {
+      "<Plug>(YankyCycleBackward)",
+      "<Plug>(YankyCycleForward)",
+      "<Plug>(YankyGPutAfter)",
+      "<Plug>(YankyGPutBefore)",
+      "<Plug>(YankyPutAfter)",
+      "<Plug>(YankyPutAfterFilter)",
+      "<Plug>(YankyPutBefore)",
+      "<Plug>(YankyPutBeforeFilter)",
+      "<Plug>(YankyPutIndentAfterLinewise)",
+      "<Plug>(YankyPutIndentAfterShiftLeft)",
+      "<Plug>(YankyPutIndentAfterShiftRight)",
+      "<Plug>(YankyPutIndentBeforeLinewise)",
+      "<Plug>(YankyPutIndentBeforeShiftLeft)",
+      "<Plug>(YankyPutIndentBeforeShiftRight)",
+      "<Plug>(YankyYank)",
+    },
+    config = function()
+      require("user.yanky")
+    end,
+  })
+
+  use({
+    "gbprod/substitute.nvim",
+    event = { "CmdlineEnter", "TextYankPost" },
+    setup = function()
+      require("user.substitute")
+    end,
+  })
 
   -- Hacks
-  use({ "max397574/better-escape.nvim" })
-  use({ "antoinemadec/FixCursorHold.nvim" }) -- This is needed to fix lsp doc highlight
+  use({
+    "max397574/better-escape.nvim",
+    event = "InsertCharPre",
+    config = function()
+      require("user.better-escape")
+    end,
+  })
+
+  use({ "antoinemadec/FixCursorHold.nvim", event = { "BufRead", "BufNewFile" } }) -- This is needed to fix lsp doc highlight
+
   use({ "famiu/bufdelete.nvim" })
 
   -- Other
-  use({ "akinsho/toggleterm.nvim" })
-  use({ "kevinhwang91/nvim-bqf", requires = { "nvim-treesitter/nvim-treesitter" } })
-  use({ "eandrju/cellular-automaton.nvim" })
-  use({ "rktjmp/shenzhen-solitaire.nvim" })
+  use({
+    "akinsho/toggleterm.nvim",
+    event = "BufWinEnter",
+    config = function()
+      require("user.toggleterm")
+    end,
+  })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

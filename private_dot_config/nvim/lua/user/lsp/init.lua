@@ -27,8 +27,4 @@ M.server_capabilities = function()
   end)
 end
 
-require("user.mason")
-require("user.lsp.handlers").setup()
-require("user.lsp.null-ls")
-
 return M
