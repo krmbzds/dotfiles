@@ -71,14 +71,6 @@ shellcheck = true
 github_cli = true
 difftastic = true
 
-[logitech.g213]
-enabled = false
-remap_caps_lock = true
-remap_shift = false
-custom_backlight = true
-backlight_color = "22212C"
-device_link = "/dev/input/by-id/usb-Logitech_Gaming_Keyboard_G213_1675395E3037-event-kbd"
-
 [logitech.mx_anywhere_2s]
 enabled = true
 dpi = 400

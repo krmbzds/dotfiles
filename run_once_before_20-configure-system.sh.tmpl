@@ -69,25 +69,6 @@ function logitech_mx_anywhere_2s_set_dpi() {
   {{ end }}
 }
 
-function logitech_g213_set_custom_backlight() {
-  {{ if (and .logitech.g213.enabled .logitech.g213.custom_backlight) }}
-    create_udevmon_service
-    echo '{{- template "udev_rule_g213" . -}}' | sudo tee /etc/udev/rules.d/50-LogitechGamingKeyboardG213.rules > /dev/null
-    enable_service udevmon
-  {{ else }}
-    true
-  {{ end }}
-}
-
-function logitech_g213_remap_keys() {
-  {{ if (and .logitech.g213.enabled .logitech.g213.remap_caps_lock) }}
-    create_udevmon_service
-    enable_service udevmon
-  {{ else }}
-    true
-  {{ end }}
-}
-
 function skyloong_gk61x_remap_keys() {
   {{ if (and .skyloong.gk61x.enabled .skyloong.gk61x.remap_caps_lock) }}
     create_udevmon_service
@@ -129,8 +110,6 @@ compile_libsecret
 configure_docker_postinstall
 import_gpg_key_from_url {{ .gpg.pubkey_url }}
 logitech_mx_anywhere_2s_set_dpi
-logitech_g213_set_custom_backlight
-logitech_g213_remap_keys
 skyloong_gk61x_remap_keys
 ledger_nano_s_setup
 

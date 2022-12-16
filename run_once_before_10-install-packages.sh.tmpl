@@ -238,10 +238,6 @@ function install_packages() {
     ratbagd
     {{ end }}
 
-    {{ if .logitech.g213.custom_backlight }}
-    python3-usb
-    {{ end }}
-
     {{ if .ledger.nano_s.enabled }}
     libfuse2
     {{ end }}
@@ -273,7 +269,7 @@ function install_packages() {
     urlview
     {{ end }}
 
-    {{ if (or (and .logitech.g213.enabled .logitech.g213.remap_caps_lock) (and .skyloong.gk61x.enabled .skyloong.gk61x.remap_caps_lock)) }}
+    {{ if (and .skyloong.gk61x.enabled .skyloong.gk61x.remap_caps_lock) }}
     libevdev-dev
     libudev-dev
     libyaml-cpp-dev
