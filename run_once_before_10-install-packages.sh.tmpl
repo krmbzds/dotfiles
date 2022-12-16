@@ -91,6 +91,50 @@ function install_asdf() {
   {{ end }}
 }
 
+function install_ledger_live() {
+  {{ if .ledger.nano_s.enabled }}
+    local tempdir
+    local pubkey
+    local hashes
+    local sigmsg
+    local url_base
+    local url_sig
+    local file
+    tempdir=$(mktemp -d)
+    pubkey=$(mktemp)
+    hashes=$(mktemp)
+    sigmsg=$(mktemp)
+    url_base="https://download.live.ledger.com"
+    url_sig="https://resources.live.ledger.app/public_resources/signatures"
+    file=$(curl -fsSL $url_base/latest-linux.yml | yq '.files[0].url' )
+    echo '{{- template "ledger_pubkey" . -}}' | base64 --decode > "$pubkey"
+    echo "$url_sig/$file.sha512sum" | sed 's/-linux-x86_64.AppImage//' | xargs curl -s -L --output "$hashes"
+    echo "$url_sig/$file.sha512sum.sig" | sed 's/-linux-x86_64.AppImage//' | xargs curl -s -L --output "$sigmsg"
+    if (openssl dgst -sha256 -verify "$pubkey" -signature "$sigmsg" "$hashes"); then
+      curl -s -L "$url_base/$file" --output "$tempdir/$file"
+      cd "$tempdir"
+      if (sha512sum --ignore-missing --check "$hashes"); then
+        chmod +x "$tempdir/$file"
+        mv "$tempdir/$file" {{ .chezmoi.homeDir -}}/.local/bin/ledger-live.AppImage
+        curl -s -L --output {{ .chezmoi.homeDir -}}/.local/share/icons/ledger-live-icon.png "https://github.com/LedgerHQ/ledger-live/raw/develop/apps/ledger-live-desktop/build-nightly/icon.png"
+        cd - && rm -rf "$tempdir" "$pubkey" "$hashes" "$sigmsg"
+        echo "Ledger Live installed successfully"
+        return 0
+      else
+        echo "Hash mismatch"
+        cd - && rm -rf "$tempdir" "$pubkey" "$hashes" "$sigmsg"
+        return 1
+      fi
+    else
+      echo "Failed to verify sha512sum hashes"
+      rm -rf "$tempdir" "$pubkey" "$hashes" "$sigmsg"
+      return 1
+    fi
+  {{ else }}
+    true
+  {{ end }}
+}
+
 # ****************************************************************************
 # *                                   PPAs                                   *
 # ****************************************************************************
@@ -198,7 +242,7 @@ function install_packages() {
     python3-usb
     {{ end }}
 
-    {{ if .ledger.nano_s }}
+    {{ if .ledger.nano_s.enabled }}
     libfuse2
     {{ end }}
 
@@ -261,6 +305,7 @@ function install_packages() {
   install_anki
   install_faas
   install_asdf
+  install_ledger_live
 }
 
 # ****************************************************************************

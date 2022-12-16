@@ -1,0 +1,10 @@
+{{- if .ledger.nano_s.enabled -}}
+[Desktop Entry]
+Type=Application
+Name=Ledger Live
+Comment=Ledger Live
+Icon={{- .chezmoi.homeDir -}}/.local/share/icons/ledger-live-icon.png
+Exec={{- .chezmoi.homeDir -}}/.local/bin/ledger-live.AppImage
+Terminal=false
+Categories=Finance;
+{{- end }}

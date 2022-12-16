@@ -98,7 +98,7 @@ function skyloong_gk61x_remap_keys() {
 }
 
 function ledger_nano_s_setup() {
-  {{ if .ledger.nano_s }}
+  {{- if .ledger.nano_s.enabled -}}
     create_udevmon_service
     echo '{{- template "udev_rule_ledger" . -}}' | sudo tee /etc/udev/rules.d/20-LedgerNanoS.rules > /dev/null
     enable_service udevmon
