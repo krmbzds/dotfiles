@@ -1,0 +1,5 @@
+#!/bin/sh
+current_file={{- .chezmoi.homeDir -}}/.pomodoro/current
+args=$(cut -d' ' -f2- $current_file)
+eval "$args"
+echo "sleep ${duration}m && [ -s $current_file ] && notify-send '🍅 Pomodoro' 'Session finished' && paplay /usr/share/sounds/Pop/stereo/notification/complete.oga" | at now
