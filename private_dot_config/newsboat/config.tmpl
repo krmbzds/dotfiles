@@ -59,4 +59,9 @@ macro p set browser "tsp mpv --no-video %u"; open-in-browser-and-mark-read ; set
 macro m set browser "tsp mpv {{ if eq .chezmoi.hostname "workstation" }}--profile=DESKTOP{{ end }} --ytdl %u"; open-in-browser-and-mark-read ; set browser "xdg-open %u"
 macro v set browser "setsid mpv --no-video"; open-in-browser-and-mark-read ; set browser "xdg-open %u"
 macro n set browser "tsp mpv {{ if eq .chezmoi.hostname "workstation" }}--profile=DESKTOP{{ end }} --ytdl --ontop --no-border --force-window --autofit=960x540 --geometry=-20-50 %u > /dev/null &"; open-in-browser-and-mark-read ; set browser "xdg-open %u"
+
+# Ignore specific keywords
+ignore-mode "display"
+ignore-article "*" "title =~ \"#shorts\""
+ignore-article "*" "title =~ \"let's cook\""
 {{ end }}
