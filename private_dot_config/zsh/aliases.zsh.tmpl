@@ -65,6 +65,15 @@ function docker() {
 }
 {{ end -}}
 
+{{ if (and (lookPath "cheat") (lookPath "tldr")) -}}
+function cheat() {
+  command cheat "$@" || tldr "$1" || curl -fsSL "https://cheat.sh/$1"
+}
+function tldr() {
+  command tldr "$@" || cheat "$1" || curl -fsSL "https://cheat.sh/$1"
+}
+{{ end -}}
+
 {{ if lookPath "xclip" -}}
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
@@ -73,3 +82,4 @@ alias pbpaste='xclip -selection clipboard -o'
 {{- if (eq .chezmoi.osRelease.name "Pop!_OS") -}}
 alias upgrade='sudo apt update && sudo apt list --upgradable && sudo apt upgrade && sudo apt autopurge && sudo apt autoclean {{- if lookPath "flatpak" }} && flatpak update && flatpak uninstall --unused {{- end -}}'
 {{ end -}}
+
