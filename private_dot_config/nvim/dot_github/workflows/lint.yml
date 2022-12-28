@@ -1,0 +1,25 @@
+name: Lint
+on:
+  push:
+    paths-ignore:
+      - 'pack'
+      - '**.md'
+      - '.gitignore'
+  pull_request:
+    paths-ignore:
+      - 'pack'
+      - '**.md'
+      - '.gitignore'
+jobs:
+  format:
+    name: Stylua
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
+
+      - name: StyLua
+        uses: JohnnyMorganz/stylua-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --color always --check .

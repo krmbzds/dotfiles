@@ -1,7 +1,5 @@
-require("user.impatient")
-require("user.options")
-require("user.keymaps")
-require("user.plugins")
-require("user.autocommands")
-
-vim.opt.laststatus = 3 -- global statusline
+require("config.options")
+require("config.keymaps")
+require("config.lazy")
+require("config.commands")
+require("config.autocommands")
