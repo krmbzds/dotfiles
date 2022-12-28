@@ -17,9 +17,14 @@ chrome.storage.local.set({"noPdfViewer": 1})
 
 // remove some search aliases
 api.removeSearchAlias("b");
+api.removeSearchAlias("e");
 api.removeSearchAlias("g");
 api.removeSearchAlias("s");
 api.removeSearchAlias("w");
+
+// add some search aliases
+api.addSearchAlias("e", "explainshell", "https://explainshell.com/explain?cmd=");
+api.addSearchAlias("g", "grep.app", "https://grep.app/search?q=");
 
 // -----------------------------------------------------------------------------------------------------------------------
 // Settings API
