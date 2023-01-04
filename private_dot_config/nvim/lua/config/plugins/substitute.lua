@@ -15,7 +15,7 @@ function M.config()
     end,
     yank_substituted_text = false,
     range = {
-      prefix = "S",
+      prefix = "su",
       prompt_current_text = false,
       confirm = false,
       complete_word = false,

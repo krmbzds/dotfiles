@@ -1,5 +1,6 @@
 local M = {
   "sQVe/sort.nvim",
+  cmd = { "Sort" },
 }
 
 function M.config()

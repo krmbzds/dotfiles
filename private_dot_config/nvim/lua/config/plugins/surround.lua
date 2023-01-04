@@ -10,16 +10,16 @@ function M.config()
 
   surround.setup({
     keymaps = {
-      insert = "<C-g>z",
-      insert_line = "gC-ggZ",
-      normal = "gz",
-      normal_cur = "gZ",
-      normal_line = "gzgz",
-      normal_cur_line = "gZgZ",
-      visual = "gz",
-      visual_line = "gZ",
-      delete = "gzd",
-      change = "gzc",
+      insert = false,
+      insert_line = false,
+      normal_cur = false,
+      normal_line = false,
+      normal_cur_line = false,
+      visual_line = false,
+      normal = "s",
+      visual = "s",
+      delete = "ds",
+      change = "cs",
     },
   })
 end

@@ -1,6 +1,7 @@
 local M = {
   "ruifm/gitlinker.nvim",
   keys = {
+    { "<leader>gO", mode = "n" },
     { "<leader>go", "<leader>gc", mode = "v" },
   },
   dependencies = {

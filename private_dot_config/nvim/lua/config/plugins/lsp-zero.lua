@@ -57,11 +57,28 @@ function M.config()
     return
   end
 
+  local icons = require("config.icons").diagnostics
+
   local sumneko_lua_opts = require("config.lsp.sumneko_lua")
   local solargraph_opts = require("config.lsp.solargraph")
 
   require("mason.settings").set({ ui = { border = "rounded" } })
   lsp.preset("recommended")
+  lsp.set_preferences({
+    suggest_lsp_servers = true,
+    setup_servers_on_start = true,
+    set_lsp_keymaps = true,
+    configure_diagnostics = true,
+    cmp_capabilities = true,
+    manage_nvim_cmp = false,
+    call_servers = "local",
+    sign_icons = {
+      error = icons.Error,
+      warn = icons.Warning,
+      hint = icons.Hint,
+      info = icons.Information,
+    },
+  })
   lsp.ensure_installed({ "solargraph", "sumneko_lua", "tsserver" })
   lsp.configure("sumneko_lua", sumneko_lua_opts)
   lsp.configure("solargraph", solargraph_opts)

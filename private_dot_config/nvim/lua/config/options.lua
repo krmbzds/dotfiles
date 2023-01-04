@@ -51,7 +51,7 @@ opt.foldlevel = 99
 opt.foldlevelstart = 99
 opt.foldenable = true
 opt.shada = "!,'0,f0,<50,s10,h"
-opt.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize" -- Session options to store in the session
+opt.sessionoptions = "buffers,curdir,globals,tabpages,winpos,winsize" -- Session options to store in the session
 ---@diagnostic enable
 
 -- disable builtin plugins
@@ -82,4 +82,4 @@ g.ts_highlight_lua = true
 
 cmd("set whichwrap+=<,>,[,],h,l")
 cmd([[set iskeyword+=-]])
-cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
+cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])

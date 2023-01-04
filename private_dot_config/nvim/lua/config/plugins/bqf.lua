@@ -10,6 +10,7 @@ function M.config()
 
   bqf.setup({
     preview = {
+      auto_preview = false,
       border_chars = { "│", "│", "─", "─", "╭", "╮", "╰", "╯", "█" },
     },
   })

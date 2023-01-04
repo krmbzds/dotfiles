@@ -178,5 +178,13 @@ local icons = {
     Operator = " ",
     TypeParameter = " ",
   },
+  neotest = {
+    running_animated = { "", "", "", "", "", "", "", "", "", "", "", "" },
+    failed = "",
+    passed = "",
+    running = "",
+    skipped = "",
+    unknown = "",
+  },
 }
 return icons

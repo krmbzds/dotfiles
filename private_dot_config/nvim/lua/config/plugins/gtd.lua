@@ -8,6 +8,10 @@ function M.config()
     return
   end
 
+  local pickers = require("telescope.pickers")
+  local sorters = require("telescope.sorters")
+  local finders = require("telescope.finders")
+
   gtd.setup({
     sources = {
       { name = "lsp" },
@@ -28,7 +32,7 @@ function M.config()
         return entries
       end
 
-      require("telescope.pickers")
+      pickers
         .new({}, {
           prompt_title = false,
           results_title = " Go to definition",
@@ -44,8 +48,8 @@ function M.config()
             results = { "─", " ", " ", " ", "─", "─", " ", " " },
             preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
           },
-          sorter = require("telescope.sorters").get_generic_fuzzy_sorter({}),
-          finder = require("telescope.finders").new_table({
+          sorter = sorters.get_generic_fuzzy_sorter({}),
+          finder = finders.new_table({
             results = entry_maker(locations),
             entry_maker = function(result)
               return {
