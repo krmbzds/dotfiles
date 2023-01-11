@@ -83,3 +83,6 @@ alias pbpaste='xclip -selection clipboard -o'
 alias upgrade='sudo apt update && sudo apt list --upgradable && sudo apt upgrade && sudo apt autopurge && sudo apt autoclean {{- if lookPath "flatpak" }} && flatpak update && flatpak uninstall --unused {{- end -}}'
 {{ end -}}
 
+{{ if lookPath "taskwarrior-tui" -}}
+alias t='taskwarrior-tui'
+{{ end -}}
