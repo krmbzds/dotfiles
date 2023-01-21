@@ -79,7 +79,7 @@ function M.config()
       info = icons.Information,
     },
   })
-  lsp.ensure_installed({ "solargraph", "sumneko_lua", "tsserver" })
+  lsp.ensure_installed({ "cssls", "solargraph", "sumneko_lua", "tsserver" })
   lsp.configure("sumneko_lua", sumneko_lua_opts)
   lsp.configure("solargraph", solargraph_opts)
   lsp.on_attach(function(client, bufnr)
@@ -113,7 +113,18 @@ function M.config()
   })
 
   mason_null_ls.setup({
-    ensure_installed = { "erb_lint", "jq", "prettierd", "shellcheck", "standardrb", "stylua", "tsserver", "vale" },
+    ensure_installed = {
+      "erb_lint",
+      "jq",
+      "prettierd",
+      "shellcheck",
+      "standardrb",
+      "stylelint",
+      "stylua",
+      "taplo",
+      "tsserver",
+      "vale",
+    },
     automatic_installation = true,
     automatic_setup = true,
   })

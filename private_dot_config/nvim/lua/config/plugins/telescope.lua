@@ -89,6 +89,8 @@ function M.config()
           ["<PageUp>"] = actions.results_scrolling_up,
           ["<PageDown>"] = actions.results_scrolling_down,
 
+          ["p"] = require("telescope.actions.layout").toggle_preview,
+
           ["?"] = actions.which_key,
         },
       },

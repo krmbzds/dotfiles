@@ -67,6 +67,9 @@ keymap("x", "su", "<cmd>lua require('substitute').visual()<cr>", { noremap = tru
 keymap("n", "X", "<cmd>lua require('substitute.exchange').operator()<cr>", { noremap = true })
 keymap("x", "X", "<cmd>lua require('substitute.exchange').visual()<cr>", { noremap = true })
 
+-- Treesitter Node Action
+keymap("n", "<A-n>", ":NodeAction<cr>", opts)
+
 -- Yanky
 -- default mappings
 keymap("n", "p", "<Plug>(YankyPutAfter)", opts)
@@ -118,10 +121,18 @@ keymap("n", "]<C-T>", ":ptnext<cr>", opts)
 keymap("n", "[g", "<cmd>Gitsigns prev_hunk<cr>", opts)
 keymap("n", "]g", "<cmd>Gitsigns next_hunk<cr>", opts)
 
--- theprimeagen
-keymap("n", "J", "mzJ`z", opts)
-keymap("n", "<C-d>", "<C-d>zz", opts)
+-- Center screen
 keymap("n", "<C-u>", "<C-u>zz", opts)
+keymap("n", "<C-d>", "<C-d>zz", opts)
+keymap("n", "<C-o>", "<C-o>zz", opts)
+keymap("n", "<C-i>", "<C-i>zz", opts)
+
+-- Keep cursor in place when joining
+keymap("n", "J", "mzJ`z", opts)
+keymap("n", "gJ", "mzgJ`z", opts)
+
+-- Repeat last macro with single key
+keymap("n", ",", "@@", opts)
 
 -- Insert --
 -- Make Control+Backspace delete whole words

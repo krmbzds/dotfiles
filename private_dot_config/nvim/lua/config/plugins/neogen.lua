@@ -1,5 +1,8 @@
 local M = {
   "danymat/neogen",
+  keys = {
+    { "<leader>a", mode = "n" },
+  },
 }
 
 function M.config()

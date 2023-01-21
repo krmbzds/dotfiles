@@ -42,6 +42,12 @@ local opts = {
       },
     },
   },
+  ui = {
+    icons = {
+      cmd = " ",
+      start = "",
+    },
+  },
 }
 
 require("lazy").setup("config.plugins", opts)

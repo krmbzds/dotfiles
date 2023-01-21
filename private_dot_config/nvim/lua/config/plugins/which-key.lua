@@ -86,7 +86,7 @@ function M.config()
 
   -- stylua: ignore
   local mappings = {
-    ["a"] = { "<cmd>Neogen<cr>", "Annotate" },
+    ["a"] = { "<cmd>lua require('neogen').generate({})<cr>", "Annotate" },
     ["w"] = { "<cmd>w!<CR>", "Save" },
     ["q"] = { "<cmd>q!<CR>", "Quit" },
     ["c"] = { "<cmd>lua require('bufdelete').bufdelete(0, false)<CR>", "Close Buffer" },

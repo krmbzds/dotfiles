@@ -1,5 +1,8 @@
 local M = {
   "sudormrfbin/cheatsheet.nvim",
+  keys = {
+    { "<leader>?", mode = "n" },
+  },
 }
 
 function M.config()
