@@ -1,5 +1,5 @@
 local M = {
-  "ahmedkhalf/project.nvim",
+  "krmbzds/project.nvim",
 }
 
 function M.config()
