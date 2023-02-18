@@ -86,3 +86,18 @@ alias upgrade='sudo apt update && sudo apt list --upgradable && sudo apt upgrade
 {{ if lookPath "taskwarrior-tui" -}}
 alias t='taskwarrior-tui'
 {{ end -}}
+
+{{ if lookPath "jekyll" -}}
+function jekyll() {
+  if [[ "$1" == "compose" ]]; then
+    shift
+    command bundle exec jekyll compose --extension adoc "$@"
+  else
+    command bundle exec jekyll "$@"
+  fi
+}
+{{ end -}}
+
+{{ if lookPath "batman" -}}
+alias man=batman
+{{ end -}}
