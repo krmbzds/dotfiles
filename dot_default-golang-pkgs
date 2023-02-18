@@ -1,4 +1,5 @@
-github.com/open-pomodoro/openpomodoro-cli/cmd/pomodoro
-github.com/mikefarah/yq/v4@latest
 github.com/charmbracelet/glow@latest
+github.com/github/hub
+github.com/mikefarah/yq/v4@latest
+github.com/open-pomodoro/openpomodoro-cli/cmd/pomodoro
 mvdan.cc/sh/v3/cmd/shfmt@latest
