@@ -29,7 +29,7 @@ docker = true
 flatpak = true
 newsboat = true
 libreoffice = true
-sublime_text = true
+sublime_text = false
 signal_messenger = true
 
 [gnome]
