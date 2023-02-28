@@ -3,7 +3,9 @@
 # Original source: https://gist.github.com/developer-guy/4de4e2ff2eaa31633a0fef719c92eada
 
 function update() {
+  asdf update
   for i in $(asdf plugin list); do
+    asdf plugin update "$i"
     CURRENT_VERSION=$(asdf current "$i" | awk '{print $2}')
     LATEST_VERSION=$(asdf latest "$i")
     if [[ $(semver_check "$LATEST_VERSION" "$CURRENT_VERSION") -lt 0 ]]; then
