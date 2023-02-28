@@ -139,6 +139,16 @@ function install_ledger_live() {
 # *                                   PPAs                                   *
 # ****************************************************************************
 
+function add_ppa_brave_browser() {
+  {{ if .dependencies.brave }}
+    ! command -v brave-browser &>/dev/null || return 0
+    curl -fsSL 'https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg' | sudo gpg --dearmor -o /usr/share/keyrings/brave-browser-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list > /dev/null
+  {{ else }}
+    true
+  {{ end }}
+}
+
 function add_ppa_sublime_text() {
   {{ if .dependencies.sublime_text }}
     ! command -v subl &>/dev/null || return 0
@@ -245,6 +255,11 @@ function install_packages() {
     libfuse2
     {{ end }}
 
+    {{ if .dependencies.brave }}
+    brave-browser
+    profile-sync-daemon
+    {{ end }}
+
     {{ if .dependencies.zeal }}
     zeal
     {{ end }}
@@ -289,6 +304,7 @@ function install_packages() {
     {{- end }}
   )
 
+  add_ppa_brave_browser
   add_ppa_sublime_text
   add_ppa_docker
   add_ppa_signal_messenger

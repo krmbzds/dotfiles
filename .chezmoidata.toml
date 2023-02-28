@@ -24,6 +24,7 @@ anki = true
 zeal = true
 faas = true
 meld = true
+brave = true
 docker = true
 flatpak = true
 newsboat = true
