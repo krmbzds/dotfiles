@@ -76,7 +76,7 @@ function install_anki() {
 function install_faas() {
   {{ if .dependencies.faas }}
     ! command -v faas-cli &>/dev/null || return 0
-    curl -fsSL 'https://cli.openfaas.com' | sed 's|/usr/local/bin|{{- .chezmoi.homeDir -}}/bin|' | sed 's/export ALIAS_NAME="faas"//' | sed "s|\$REPO version|{{- .chezmoi.homeDir -}}/bin/\$REPO version|" | sh
+    curl -fsSL 'https://cli.openfaas.com' | sed 's|/usr/local/bin|{{- .chezmoi.homeDir -}}/bin|' | sed 's/export ALIAS_NAME="faas"//' | sh
   {{ else }}
     true
   {{ end }}
