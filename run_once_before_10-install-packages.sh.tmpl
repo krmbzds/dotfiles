@@ -106,7 +106,7 @@ function install_ledger_live() {
     sigmsg=$(mktemp)
     url_base="https://download.live.ledger.com"
     url_sig="https://resources.live.ledger.app/public_resources/signatures"
-    file=$(curl -fsSL $url_base/latest-linux.yml | yq '.files[0].url' )
+    file=$(curl -fsSL $url_base/latest-linux.yml | grep "^  - url: " | cut -c10-)
     echo '{{- template "ledger_pubkey" . -}}' | base64 --decode > "$pubkey"
     echo "$url_sig/$file.sha512sum" | sed 's/-linux-x86_64.AppImage//' | xargs curl -s -L --output "$hashes"
     echo "$url_sig/$file.sha512sum.sig" | sed 's/-linux-x86_64.AppImage//' | xargs curl -s -L --output "$sigmsg"
