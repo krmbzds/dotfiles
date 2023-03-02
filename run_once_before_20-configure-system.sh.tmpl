@@ -109,8 +109,8 @@ function configure_docker_postinstall() {
 function configure_profile_sync_daemon() {
   {{ if .dependencies.brave }}
     local rotational
-    rotational=$(lsblk -J -o MOUNTPOINT,ROTA | jq '.blockdevices | .[] |  select(.mountpoint=="/") | .rota')
-    if [ "$rotational" = "false" ]; then
+    rotational=$(lsblk -o MOUNTPOINT,ROTA | grep "/ " | sed 's/[^0-9]//g')
+    if [ "$rotational" = 0 ]; then
       echo '{{ template "psd_brave" . }}' | sudo tee /usr/share/psd/browsers/brave > /dev/null
       enable_service psd
     fi
