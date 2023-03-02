@@ -45,6 +45,18 @@ function install_interception_tools() {
   echo "Interception Tools build successful"
 }
 
+function install_dual_function_keys() {
+  local tempdir
+  tempdir="$(mktemp -d)"
+  git clone https://gitlab.com/interception/linux/plugins/dual-function-keys.git "$tempdir"
+  cd "$tempdir"
+  make
+  mv dual-function-keys "{{- .chezmoi.homeDir -}}/bin/"
+  cd -
+  rm -rf tempdir
+  echo "dual-function-keys build successful"
+}
+
 function install_alacritty() {
   local cmd
   local url
@@ -344,6 +356,7 @@ function install_packages() {
   install_asdf
   install_ledger_live
   install_interception_tools
+  install_dual_function_keys
 }
 
 # ****************************************************************************
