@@ -122,6 +122,7 @@ function install_ledger_live() {
       if (sha512sum --ignore-missing --check "$hashes"); then
         chmod +x "$tempdir/$file"
         mv "$tempdir/$file" {{ .chezmoi.homeDir -}}/.local/bin/ledger-live.AppImage
+        mkdir -p {{ .chezmoi.homeDir -}}/.local/share/icons/
         curl -s -L --output {{ .chezmoi.homeDir -}}/.local/share/icons/ledger-live-icon.png "https://github.com/LedgerHQ/ledger-live/raw/develop/apps/ledger-live-desktop/build-nightly/icon.png"
         cd - && rm -rf "$tempdir" "$pubkey" "$hashes" "$sigmsg"
         echo "Ledger Live installed successfully"
