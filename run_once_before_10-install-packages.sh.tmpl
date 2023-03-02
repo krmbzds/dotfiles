@@ -32,6 +32,19 @@ function remove_packages() {
 # *                           Manual Installations                           *
 # ****************************************************************************
 
+function install_interception_tools() {
+  local tempdir
+  tempdir="$(mktemp -d)"
+  git clone "https://gitlab.com/interception/linux/tools.git" "$tempdir"
+  cd "$tempdir"
+  cmake -B build -DCMAKE_BUILD_TYPE=Release
+  cmake --build build
+  cp "$tempdir/build/"{intercept,mux,udevmon,uinput} "{{ .chezmoi.homeDir -}}/bin/"
+  cd -
+  rm -rf "$tempdir"
+  echo "Interception Tools build successful"
+}
+
 function install_alacritty() {
   local cmd
   local url
@@ -295,6 +308,8 @@ function install_packages() {
     {{ end }}
 
     {{ if (and .skyloong.gk61x.enabled .skyloong.gk61x.remap_caps_lock) }}
+    cmake
+    libboost-dev
     libevdev-dev
     libudev-dev
     libyaml-cpp-dev
@@ -328,6 +343,7 @@ function install_packages() {
   install_faas
   install_asdf
   install_ledger_live
+  install_interception_tools
 }
 
 # ****************************************************************************
