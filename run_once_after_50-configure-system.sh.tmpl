@@ -63,10 +63,13 @@ function install_gnome_user_themes_extension() {
   local gnome_shell_version_major
   gnome_shell_version_major=$(gnome-shell --version 2>/dev/null | awk '{print $NF}' | cut -d. -f1)
   {{ .chezmoi.homeDir -}}/bin/gnome-shell-extension-installer 19 --yes --gnome-version "$gnome_shell_version_major"
-  gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com
   {{ else }}
   true
   {{ end }}
+}
+
+function enable_gnome_user_themes_extension() {
+  {{ if .gnome.dracula }} gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com {{ else }} true {{ end }}
 }
 
 function set_user_theme_to_dracula() {
@@ -149,6 +152,7 @@ set_user_theme_to_dracula
 configure_static_workspaces {{ .gnome.workspace_count }}
 set_logout_confirmation_prompt {{ .gnome.logout_prompt }}
 restart_gnome_shell
+enable_gnome_user_themes_extension
 
 rebuild_bat_cache
 
