@@ -17,12 +17,12 @@ function M.config()
 
   local ignore = require("config.ignore")
   local actions = require("telescope.actions")
-  local icons = require("config.icons")
+  local icons = require("config.icons").telescope
 
   telescope.setup({
     defaults = {
-      prompt_prefix = icons.telescope.prompt_prefix,
-      selection_caret = icons.telescope.selection_caret,
+      prompt_prefix = icons.prompt_prefix,
+      selection_caret = icons.selection_caret,
       path_display = { "smart" },
       file_ignore_patterns = ignore.file_ignore_patterns,
 

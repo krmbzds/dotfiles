@@ -1,6 +1,7 @@
 local fn = vim.fn
 local loop = vim.loop
 local opt = vim.opt
+local icons = require("config.icons").lazy
 
 local lazypath = fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not loop.fs_stat(lazypath) then
@@ -43,10 +44,7 @@ local opts = {
     },
   },
   ui = {
-    icons = {
-      cmd = " ",
-      start = "",
-    },
+    icons = icons,
   },
 }
 

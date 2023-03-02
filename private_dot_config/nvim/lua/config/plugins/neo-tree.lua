@@ -11,7 +11,7 @@ function M.config()
     return
   end
 
-  local icons = require("config.icons")
+  local icons = require("config.icons").neo_tree
   local ignore = require("config.ignore")
 
   neo_tree.setup({
@@ -24,33 +24,33 @@ function M.config()
     popup_border_style = "rounded", -- "double", "none", "rounded", "shadow", "single" or "solid"
     default_component_configs = {
       indent = {
-        indent_marker = icons.neo_tree.indent.IndentMarker,
-        last_indent_marker = icons.neo_tree.indent.LastIndentMarker,
-        expander_collapsed = icons.neo_tree.indent.ExpanderCollapsed,
-        expander_expanded = icons.neo_tree.indent.ExpanderExpanded,
+        indent_marker = icons.indent.IndentMarker,
+        last_indent_marker = icons.indent.LastIndentMarker,
+        expander_collapsed = icons.indent.ExpanderCollapsed,
+        expander_expanded = icons.indent.ExpanderExpanded,
       },
       icon = {
-        folder_closed = icons.neo_tree.icon.folder.Closed,
-        folder_open = icons.neo_tree.icon.folder.Open,
-        folder_empty = icons.neo_tree.icon.folder.Empty,
-        default = icons.neo_tree.icon.Default,
+        folder_closed = icons.icon.folder.Closed,
+        folder_open = icons.icon.folder.Open,
+        folder_empty = icons.icon.folder.Empty,
+        default = icons.icon.Default,
       },
       modified = {
-        symbol = icons.neo_tree.modified.Modified,
+        symbol = icons.modified.Modified,
       },
       git_status = {
         symbols = {
           -- Change type
-          added = icons.neo_tree.git_status.symbols.Added,
-          deleted = icons.neo_tree.git_status.symbols.Deleted,
-          modified = icons.neo_tree.git_status.symbols.Modified,
-          renamed = icons.neo_tree.git_status.symbols.Renamed,
+          added = icons.git_status.symbols.Added,
+          deleted = icons.git_status.symbols.Deleted,
+          modified = icons.git_status.symbols.Modified,
+          renamed = icons.git_status.symbols.Renamed,
           -- Status type
-          untracked = icons.neo_tree.git_status.symbols.Untracked,
-          ignored = icons.neo_tree.git_status.symbols.Ignored,
-          unstaged = icons.neo_tree.git_status.symbols.Unstaged,
-          staged = icons.neo_tree.git_status.symbols.Staged,
-          conflict = icons.neo_tree.git_status.symbols.Conflict,
+          untracked = icons.git_status.symbols.Untracked,
+          ignored = icons.git_status.symbols.Ignored,
+          unstaged = icons.git_status.symbols.Unstaged,
+          staged = icons.git_status.symbols.Staged,
+          conflict = icons.git_status.symbols.Conflict,
         },
         align = "right",
       },

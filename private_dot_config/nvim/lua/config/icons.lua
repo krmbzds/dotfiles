@@ -184,7 +184,21 @@ local icons = {
     passed = "",
     running = "",
     skipped = "",
-    unknown = "",
+    unknown = "",
+  },
+  lazy = {
+    cmd = " ",
+    config = "",
+    event = "",
+    ft = "",
+    init = "⚙",
+    keys = "",
+    plugin = "",
+    runtime = "",
+    source = "",
+    start = "",
+    task = "",
+    lazy = "",
   },
 }
 return icons
