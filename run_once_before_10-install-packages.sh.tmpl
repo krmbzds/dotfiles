@@ -116,7 +116,7 @@ function install_faas() {
 function install_asdf() {
   {{ if .asdf.enabled }}
     ! command -v asdf &>/dev/null || return 0
-    git clone https://github.com/asdf-vm/asdf.git {{ .chezmoi.homeDir -}}/.asdf --branch master
+    git clone https://github.com/asdf-vm/asdf.git {{ .chezmoi.homeDir -}}/.asdf --branch master || true
   {{ else }}
     true
   {{ end }}
