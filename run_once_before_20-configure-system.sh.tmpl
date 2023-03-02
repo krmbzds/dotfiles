@@ -46,6 +46,12 @@ function install_font_source_code_pro() {
 # *                               Configuration                              *
 # ****************************************************************************
 
+function wait_for_apt() {
+  while sudo fuser /var/{lib/{dpkg,apt/lists},cache/apt/archives}/lock >/dev/null 2>&1; do
+    sleep 1
+  done
+}
+
 function import_gpg_key_from_url() {
   curl -sSL "$1" | gpg --import -
 }
@@ -53,9 +59,9 @@ function import_gpg_key_from_url() {
 function compile_libsecret() {
   lib_path=/usr/share/doc/git/contrib/credential/libsecret
   if [ ! -f "$lib_path/git-credential-libsecret" ]; then
-    sudo apt -y install libsecret-1-dev
-    sudo make --directory=$lib_path
-    sudo apt -y purge libsecret-1-dev
+    wait_for_apt && sudo apt -y install libsecret-1-dev
+    wait_for_apt && sudo make --directory=$lib_path
+    wait_for_apt && sudo apt -y purge libsecret-1-dev
   fi
 }
 

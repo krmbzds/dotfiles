@@ -7,13 +7,19 @@ set -e
 # *                                 Cleanup                                  *
 # ****************************************************************************
 
+function wait_for_apt() {
+  while sudo fuser /var/{lib/{dpkg,apt/lists},cache/apt/archives}/lock >/dev/null 2>&1; do
+    sleep 1
+  done
+}
+
 function remove_flatpak() {
   {{ if .dependencies.flatpak }}
   true
   {{ else }}
   command -v flatpak &>/dev/null || return 0
   flatpak uninstall --all
-  sudo apt purge --autoremove flatpak
+  wait_for_apt && sudo apt purge --autoremove flatpak
   rm -rf "{{- .chezmoi.homeDir -}}/.local/share/flatpak"
   {{ end }}
 }
@@ -310,11 +316,11 @@ function install_packages() {
   add_ppa_signal_messenger
   add_ppa_libratbag
 
-  sudo apt -y update
-  sudo apt -y upgrade
-  sudo apt -y install "${packages[@]}"
-  sudo apt -y autoremove
-  sudo apt -y autoclean
+  wait_for_apt && sudo apt -y update
+  wait_for_apt && sudo apt -y upgrade
+  wait_for_apt && sudo apt -y install "${packages[@]}"
+  wait_for_apt && sudo apt -y autoremove
+  wait_for_apt && sudo apt -y autoclean
 
   install_alacritty
   install_anki
