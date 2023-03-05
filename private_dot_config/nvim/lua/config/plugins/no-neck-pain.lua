@@ -17,11 +17,13 @@ function M.config()
 
   no_neck_pain.setup({
     buffers = {
-      backgroundColor = colors.black,
-      textColor = colors.comment,
       right = {
         enabled = false,
       },
+    },
+    colors = {
+      background = colors.black,
+      text = colors.comment,
     },
   })
 end
