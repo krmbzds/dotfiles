@@ -31,14 +31,14 @@ function enable_service() {
 function install_font_meslo() {
   local meslo=(Regular Bold Italic "Bold%20Italic")
   for i in "${meslo[@]}"; do
-    wget -P ~/.fonts/ -nv -nc  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20$i.ttf"
+    wget -P ~/.local/share/fonts/ -nv -nc  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20$i.ttf"
   done
 }
 
 function install_font_source_code_pro() {
   local sourcecodepro=(Black BlackIt Bold BoldIt ExtraLight ExtraLightIt It Light LightIt Medium MediumIt Regular Semibold SemiboldIt)
   for i in "${sourcecodepro[@]}"; do
-    wget -P ~/.fonts/ -nv -nc --content-disposition --max-redirect=3 "https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-$i.ttf?raw=true"
+    wget -P ~/.local/share/fonts/ -nv -nc --content-disposition --max-redirect=3 "https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-$i.ttf?raw=true"
   done
 }
 
