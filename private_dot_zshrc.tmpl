@@ -56,10 +56,6 @@ z4h install romkatv/archive || return
 z4h init || return
 
 # Export environment variables.
-export XDG_DATA_HOME="{{- chezmoi.homeDir -}}/.local/share"
-export XDG_CONFIG_HOME="{{- chezmoi.homeDir -}}/.config"
-export XDG_STATE_HOME="{{- chezmoi.homeDir -}}/.local/state"
-export XDG_CACHE_HOME="{{- chezmoi.homeDir -}}/.cache"
 export GPG_TTY=$TTY
 export FINGERPRINT='{{ .gpg.fingerprint }}'
 export DO_NOT_TRACK=1

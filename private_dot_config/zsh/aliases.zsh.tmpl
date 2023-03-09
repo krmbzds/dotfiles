@@ -101,3 +101,7 @@ function jekyll() {
 {{ if lookPath "batman" -}}
 alias man=batman
 {{ end -}}
+
+{{ if lookPath "wget" -}}
+alias wget='wget --hsts-file={{- .chezmoi.homeDir -}}/.local/share/wget-hsts'
+{{ end -}}
