@@ -3,7 +3,6 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_RUNTIME_DIR="/tmp/runtime-$USER"
 
 # XDG_DATA_HOME
 export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle"
@@ -58,6 +57,3 @@ export PERL_CPANM_HOME="$XDG_CACHE_HOME/cpanm"
 export PYLINTHOME="$XDG_CACHE_HOME/pylint"
 export SOLARGRAPH_CACHE="$XDG_CACHE_HOME/solargraph"
 export STACK_ROOT="$XDG_CACHE_HOME/stack"
-
-# XDG_RUNTIME_DIR
-export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
