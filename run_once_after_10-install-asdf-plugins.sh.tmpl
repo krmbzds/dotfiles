@@ -92,6 +92,11 @@ function install_zeal_docsets() {
   {{ end }}
 }
 
+function install_community_cheats() {
+  mkdir -p {{ .chezmoi.homeDir -}}/.config/cheat/cheatsheets/personal
+  git clone "https://github.com/cheat/cheatsheets" "{{ .chezmoi.homeDir -}}/.config/cheat/cheatsheets/community/" || true
+}
+
 function install_github_cli_extensions() {
   {{ if (and (lookPath "go") .asdf.github_cli) }}
     gh auth login
@@ -119,6 +124,7 @@ function install_vale_styles() {
 
 install_asdf_plugins
 install_zeal_cli && install_zeal_docsets
+install_community_cheats
 install_github_cli_extensions
 install_vale_styles
 
