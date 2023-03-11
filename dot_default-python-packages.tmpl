@@ -1,10 +1,13 @@
-{{ if (and .asdf.neovim (lookPath "python")) -}}
+{{ if .asdf.python -}}
 lookatme
 md2pdf
+xlsx2csv
+{{ if .asdf.neovim -}}
 ptpython
 pynvim
-xlsx2csv
+{{ end -}}
 {{ if .dependencies.newsboat -}}
+cython
 news-please
 yt-dlp
 {{ end -}}

@@ -1,6 +1,6 @@
-{{ if (and .asdf.neovim (lookPath "ruby")) -}}
 asciidoctor
 debug
 irbtools
+{{ if .asdf.neovim -}}
 neovim
 {{ end -}}
