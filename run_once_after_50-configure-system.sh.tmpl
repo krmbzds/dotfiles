@@ -117,6 +117,16 @@ function set_natural_scroll() {
   gsettings set org.gnome.desktop.peripherals.mouse natural-scroll {{ .prefs.natural_scroll }}
 }
 
+function configure_dock() {
+  gsettings set org.gnome.shell.extensions.dash-to-dock autohide {{ .gnome.dash_to_dock.autohide }}
+  gsettings set org.gnome.shell.extensions.dash-to-dock dock-position {{ .gnome.dash_to_dock.position  }}
+}
+
+function configure_pop_cosmic() {
+  gsettings set org.gnome.shell.extensions.pop-cosmic show-application-menu {{ .gnome.pop_cosmic.show_application_menu }}
+  gsettings set org.gnome.shell.extensions.pop-cosmic show-workspaces-button {{ .gnome.pop_cosmic.show_workspaces_button }}
+}
+
 # ****************************************************************************
 # *                                 Defaults                                 *
 # ****************************************************************************
@@ -157,6 +167,8 @@ install_gnome_user_themes_extension || true
 set_user_theme_to_dracula
 configure_static_workspaces {{ .gnome.workspace_count }}
 set_logout_confirmation_prompt {{ .gnome.logout_prompt }}
+configure_dock
+configure_pop_cosmic
 restart_gnome_shell
 enable_gnome_user_themes_extension
 

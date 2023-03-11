@@ -39,6 +39,14 @@ workspace_count = 4
 static_workspaces = true
 logout_prompt = false
 
+[gnome.dash_to_dock]
+autohide = true
+position  = "LEFT"
+
+[gnome.pop_cosmic]
+show_application_menu = false
+show_workspaces_button = false
+
 [asdf]
 enabled = true
 lua = true
