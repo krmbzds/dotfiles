@@ -1,0 +1,13 @@
+{{ if lookPath "wget" -}}
+adjust_extension = on
+content_disposition = on
+continue = on
+follow_ftp = on
+hsts-file = {{ .chezmoi.homeDir -}}/.local/share/wget-hsts
+retry_connrefused = on
+robots = off
+server_response = on
+timeout = 60
+tries = 3
+trust_server_names = on
+{{ end -}}
