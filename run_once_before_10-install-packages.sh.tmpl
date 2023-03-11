@@ -33,28 +33,36 @@ function remove_packages() {
 # ****************************************************************************
 
 function install_interception_tools() {
-  local tempdir
-  tempdir="$(mktemp -d)"
-  git clone "https://gitlab.com/interception/linux/tools.git" "$tempdir"
-  cd "$tempdir"
-  cmake -B build -DCMAKE_BUILD_TYPE=Release
-  cmake --build build
-  cp "$tempdir/build/"{intercept,mux,udevmon,uinput} "{{ .chezmoi.homeDir -}}/bin/"
-  cd -
-  rm -rf "$tempdir"
-  echo "Interception Tools build successful"
+  {{ if lookPath "intercept" }}
+    true
+  {{ else }}
+    local tempdir
+    tempdir="$(mktemp -d)"
+    git clone "https://gitlab.com/interception/linux/tools.git" "$tempdir"
+    cd "$tempdir"
+    cmake -B build -DCMAKE_BUILD_TYPE=Release
+    cmake --build build
+    cp "$tempdir/build/"{intercept,mux,udevmon,uinput} "{{ .chezmoi.homeDir -}}/bin/"
+    cd -
+    rm -rf "$tempdir"
+    echo "Interception Tools build successful"
+  {{ end }}
 }
 
 function install_dual_function_keys() {
-  local tempdir
-  tempdir="$(mktemp -d)"
-  git clone https://gitlab.com/interception/linux/plugins/dual-function-keys.git "$tempdir"
-  cd "$tempdir"
-  make
-  mv dual-function-keys "{{- .chezmoi.homeDir -}}/bin/"
-  cd -
-  rm -rf tempdir
-  echo "dual-function-keys build successful"
+  {{ if lookPath "dual-function-keys" }}
+    true
+  {{ else }}
+    local tempdir
+    tempdir="$(mktemp -d)"
+    git clone https://gitlab.com/interception/linux/plugins/dual-function-keys.git "$tempdir"
+    cd "$tempdir"
+    make
+    mv dual-function-keys "{{- .chezmoi.homeDir -}}/bin/"
+    cd -
+    rm -rf tempdir
+    echo "dual-function-keys build successful"
+  {{ end }}
 }
 
 function install_alacritty() {
