@@ -24,6 +24,17 @@ function enable_service() {
   enable_services "$1"
 }
 
+function enable_user_services() {
+  for service; do
+    systemctl enable --user --now "$service"
+    systemctl try-restart --user "$service" || systemctl start --user "$service"
+  done
+}
+
+function enable_user_service() {
+  enable_user_services "$1"
+}
+
 # ****************************************************************************
 # *                                   Fonts                                  *
 # ****************************************************************************
@@ -112,7 +123,7 @@ function configure_profile_sync_daemon() {
     rotational=$(lsblk -o MOUNTPOINT,ROTA | grep "/ " | sed 's/[^0-9]//g')
     if [ "$rotational" = 0 ]; then
       echo '{{ template "psd_brave" . }}' | sudo tee /usr/share/psd/browsers/brave > /dev/null
-      enable_service psd
+      enable_user_service psd
     fi
   {{ else }}
     true
