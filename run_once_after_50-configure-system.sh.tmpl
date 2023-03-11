@@ -39,6 +39,10 @@ function download_dracula_theme() {
       git -C $dracula_folder pull
   fi
   git -C $dracula_folder submodule update --init themes/gtk
+
+  mkdir -p "{{ .chezmoi.homeDir }}/.local/share/backgrounds/dracula"
+  wget "https://raw.githubusercontent.com/dracula/wallpaper/master/first-collection/pop.png" -O "{{ .chezmoi.homeDir }}/.local/share/backgrounds/dracula/pop.png"
+  gsettings set org.gnome.desktop.background picture-uri-dark "file://{{- .chezmoi.homeDir -}}/.local/share/backgrounds/dracula/pop.png"
   {{ else }}
   true
   {{ end }}
