@@ -18,6 +18,7 @@ editor = "nvim"
 visual = "nvim"
 dracula_pro = true
 dracula_pro_url = "https://github.com/krmbzds/dracula-pro"
+natural_scroll = "true"
 
 [dependencies]
 anki = true

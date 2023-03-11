@@ -112,6 +112,11 @@ function set_logout_confirmation_prompt() {
   gsettings set org.gnome.SessionManager logout-prompt "$1"
 }
 
+function set_natural_scroll() {
+  gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll {{ .prefs.natural_scroll }}
+  gsettings set org.gnome.desktop.peripherals.mouse natural-scroll {{ .prefs.natural_scroll }}
+}
+
 # ****************************************************************************
 # *                                 Defaults                                 *
 # ****************************************************************************
@@ -145,6 +150,7 @@ function update_alternatives() {
 # *                                Main Script                               *
 # ****************************************************************************
 
+set_natural_scroll
 download_dracula_theme
 download_dracula_pro_theme
 install_gnome_user_themes_extension || true
