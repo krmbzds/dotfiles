@@ -167,6 +167,30 @@ function install_ledger_live() {
   {{ end }}
 }
 
+function install_taswarrior_tui() {
+  {{ if .dependencies.taskwarrior }}
+    local cmd
+    local url
+    local debfile
+    local tempdir
+    cmd='curl -fsSL'
+    url='https://api.github.com/repos/kdheepak/taskwarrior-tui/releases/latest'
+    debfile="$(mktemp)"
+    tempdir="$(mktemp -d)"
+    if [ -n "$GITHUB_API_TOKEN" ]; then
+      cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+    fi
+    eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | grep "taskwarrior-tui.deb" | xargs curl -s -L --output "$debfile"
+    cd "$tempdir" || return
+    sudo dpkg -i "$debfile"
+    rm "$debfile"
+    rm -rf "$tempdir"
+    cd - || return
+  {{ else }}
+    true
+  {{ end }}
+}
+
 # ****************************************************************************
 # *                                   PPAs                                   *
 # ****************************************************************************
@@ -336,6 +360,10 @@ function install_packages() {
     {{ if .dependencies.signal_messenger }}
     signal-desktop
     {{- end }}
+
+    {{ if .dependencies.taskwarrior }}
+    taskwarrior
+    {{- end }}
   )
 
   add_ppa_brave_browser
@@ -357,6 +385,7 @@ function install_packages() {
   install_ledger_live
   install_interception_tools
   install_dual_function_keys
+  install_taswarrior_tui
 }
 
 # ****************************************************************************

@@ -29,6 +29,7 @@ docker = true
 flatpak = true
 newsboat = true
 libreoffice = true
+taskwarrior = true
 sublime_text = false
 signal_messenger = true
 
