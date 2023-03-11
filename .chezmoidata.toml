@@ -18,7 +18,6 @@ editor = "nvim"
 visual = "nvim"
 dracula_pro = true
 dracula_pro_url = "https://github.com/krmbzds/dracula-pro"
-natural_scroll = "true"
 
 [dependencies]
 anki = true
@@ -35,9 +34,11 @@ signal_messenger = true
 
 [gnome]
 dracula = true
-workspace_count = 4
-static_workspaces = true
+enable_animations = false
 logout_prompt = false
+natural_scroll = true
+static_workspaces = true
+workspace_count = 4
 
 [gnome.dash_to_dock]
 autohide = true
@@ -46,6 +47,7 @@ position  = "LEFT"
 [gnome.pop_cosmic]
 show_application_menu = false
 show_workspaces_button = false
+workspace_picker_left = true
 
 [asdf]
 enabled = true
