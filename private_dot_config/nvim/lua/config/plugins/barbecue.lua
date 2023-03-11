@@ -35,7 +35,7 @@ function M.config()
     symbols = {
       modified = "●", -- modification indicator
       ellipsis = "…", -- truncation indicator
-      separator = " ", -- entry separator
+      separator = "▸", -- entry separator
     },
     -- icons for different context entry kinds
     kinds = icons, -- `false` to disable kind icons
