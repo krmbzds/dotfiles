@@ -79,12 +79,10 @@ set -g @nova-segment-mode-colors "#7971A9 #2E2B3B"
 {{ end -}}
 
 set -g status-right-length 200
-{{ if .asdf.golang -}}
-set -g @nova-segments-0-right "pomodoro"
-set -g @nova-segment-pomodoro "#({{ .chezmoi.homeDir }}/.asdf/shims/pomodoro status --format ' %%d    %%R   %%c/%%g ') #(TZ="UTC" date +%%H:%%M)"
-{{ end -}}
+set -g @nova-segments-0-right "time"
+set -g @nova-segment-time "#(TZ="UTC" date +%%H:%%M)"
 {{ if .prefs.dracula_pro -}}
-set -g @nova-segment-pomodoro-colors "#2E2B3B #7971A9"
+set -g @nova-segment-time-colors "#2E2B3B #7971A9"
 {{ end -}}
 
 # Other examples:
