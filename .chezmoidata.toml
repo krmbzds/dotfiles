@@ -34,6 +34,7 @@ sublime_text = false
 signal_messenger = true
 
 [gnome]
+center_new_windows = true
 dracula = true
 enable_animations = false
 logout_prompt = false
