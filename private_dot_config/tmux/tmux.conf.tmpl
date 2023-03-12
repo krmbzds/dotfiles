@@ -80,7 +80,7 @@ set -g @nova-segment-mode-colors "#7971A9 #2E2B3B"
 
 set -g status-right-length 200
 set -g @nova-segments-0-right "time"
-set -g @nova-segment-time "#(TZ="UTC" date +%%H:%%M)"
+set -g @nova-segment-time "#({{- .chezmoi.homeDir -}}/bin/utc)"
 {{ if .prefs.dracula_pro -}}
 set -g @nova-segment-time-colors "#2E2B3B #7971A9"
 {{ end -}}
