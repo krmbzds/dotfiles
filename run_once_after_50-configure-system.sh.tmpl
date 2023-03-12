@@ -120,7 +120,8 @@ function configure_gnome() {
   gsettings set org.gnome.desktop.interface enable-animations {{ .gnome.enable_animations }}
   gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll {{ .gnome.natural_scroll }}
   gsettings set org.gnome.desktop.peripherals.mouse natural-scroll {{ .gnome.natural_scroll }}
-  gsettings set org.gnome.mutter center-new-windows {{ .gnome.center_new_windows }}
+  gsettings set org.gnome.mutter center-new-windows {{ .gnome.mutter.center_new_windows }}
+  gsettings set org.gnome.desktop.wm.keybindings move-to-center "['{{- .gnome.mutter.center_window -}}']"
 }
 
 function configure_gnome_dash_to_dock() {

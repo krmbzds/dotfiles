@@ -34,13 +34,16 @@ sublime_text = false
 signal_messenger = true
 
 [gnome]
-center_new_windows = true
 dracula = true
 enable_animations = false
 logout_prompt = false
 natural_scroll = true
 static_workspaces = true
 workspace_count = 4
+
+[gnome.mutter]
+center_new_windows = true
+center_window = "<Super>c"
 
 [gnome.dash_to_dock]
 autohide = true
