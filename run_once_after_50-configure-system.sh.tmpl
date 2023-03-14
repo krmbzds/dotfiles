@@ -25,6 +25,17 @@ function rebuild_bat_cache() {
   {{ end }}
 }
 
+function download_sponsor_times() {
+  {{ if .dependencies.newsboat }}
+    local sponsorblock_dir
+    sponsorblock_dir="{{ .chezmoi.homeDir -}}/.local/share/sponsorblock"
+    mkdir -p "$sponsorblock_dir"
+    wget -c "https://sb.ltn.fi/database/sponsorTimes.csv" -O "$sponsorblock_dir/timestamps.csv"
+  {{ else }}
+    true
+  {{ end }}
+}
+
 # ****************************************************************************
 # *                                    UI                                    *
 # ****************************************************************************
@@ -184,5 +195,6 @@ rebuild_bat_cache
 
 install_and_configure_tpm
 update_alternatives
+download_sponsor_times
 
 {{ end }}
