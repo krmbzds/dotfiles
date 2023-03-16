@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
+  <!-- font rendering settings -->
+  <match target="font">
+    <edit mode="assign" name="lcdfilter">
+      <const>{{- .fonts.lcdfilter -}}</const>
+    </edit>
+  </match>
+  {{ if .fonts.hinting -}}
+  <match target="font">
+    <edit mode="assign" name="hinting">
+      <bool>{{- .fonts.hinting -}}</bool>
+    </edit>
+  </match>
+  <match target="font">
+    <edit mode="assign" name="hintstyle">
+      <const>{{- .fonts.hintstyle -}}</const>
+    </edit>
+  </match>
+  {{ end -}}
+  {{ if .fonts.antialiasing -}}
+  <match target="font">
+    <edit mode="assign" name="antialias">
+      <bool>{{- .fonts.antialiasing -}}</bool>
+    </edit>
+  </match>
+  <match target="font">
+    <edit mode="assign" name="rgba">
+      <const> {{- if eq .fonts.antialiasing_type "subpixel" -}} rgb {{- else -}} grayscale {{- end -}} </const>
+    </edit>
+  </match>
+  {{ end -}}
+  <!-- default font settings -->
   <alias>
     <family>monospace</family>
     <prefer>
@@ -127,5 +158,5 @@
       <string>Caladea</string>
     </edit>
   </match>
-  {{ end -}}
+  {{- end }}
 </fontconfig>

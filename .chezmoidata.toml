@@ -20,6 +20,12 @@ dracula_pro = true
 dracula_pro_url = "https://github.com/krmbzds/dracula-pro"
 
 [fonts]
+antialiasing = true
+antialiasing_type = "subpixel"
+hinting = true
+hintstyle = "hintslight"
+lcdfilter = "lcddefault"
+
 mscore = false
 croscore = true
 crosextra = true
