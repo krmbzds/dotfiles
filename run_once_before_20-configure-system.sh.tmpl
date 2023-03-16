@@ -47,10 +47,23 @@ function install_font_meslo() {
 }
 
 function install_font_source_code_pro() {
-  local sourcecodepro=(Black BlackIt Bold BoldIt ExtraLight ExtraLightIt It Light LightIt Medium MediumIt Regular Semibold SemiboldIt)
-  for i in "${sourcecodepro[@]}"; do
-    wget -P ~/.local/share/fonts/ -nv -nc --content-disposition --max-redirect=3 "https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-$i.ttf?raw=true"
-  done
+  {{ if .fonts.source_code_pro }}
+    local sourcecodepro=(Black BlackIt Bold BoldIt ExtraLight ExtraLightIt It Light LightIt Medium MediumIt Regular Semibold SemiboldIt)
+    for i in "${sourcecodepro[@]}"; do
+      wget -P ~/.local/share/fonts/ -nv -nc --content-disposition --max-redirect=3 "https://github.com/adobe-fonts/source-code-pro/blob/release/TTF/SourceCodePro-$i.ttf?raw=true"
+    done
+  {{ else }}
+    true
+  {{ end }}
+}
+
+function install_font_mscore() {
+  {{ if .fonts.mscore }}
+    echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+    wait_for_apt && sudo apt install -y ttf-mscorefonts-installer
+  {{ else }}
+    true
+  {{ end }}
 }
 
 # ****************************************************************************
@@ -136,6 +149,7 @@ function configure_profile_sync_daemon() {
 
 install_font_meslo
 install_font_source_code_pro
+install_font_mscore
 compile_libsecret
 configure_docker_postinstall
 configure_profile_sync_daemon

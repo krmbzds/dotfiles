@@ -372,6 +372,15 @@ function install_packages() {
     {{ if .dependencies.taskwarrior }}
     taskwarrior
     {{- end }}
+
+    {{ if .fonts.croscore }}
+    fonts-croscore
+    {{- end }}
+
+    {{ if .fonts.crosextra }}
+    fonts-crosextra-carlito
+    fonts-crosextra-caladea
+    {{- end }}
   )
 
   add_ppa_brave_browser

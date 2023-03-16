@@ -19,6 +19,12 @@ visual = "nvim"
 dracula_pro = true
 dracula_pro_url = "https://github.com/krmbzds/dracula-pro"
 
+[fonts]
+mscore = false
+croscore = true
+crosextra = true
+source_code_pro = false
+
 [dependencies]
 anki = true
 zeal = true
