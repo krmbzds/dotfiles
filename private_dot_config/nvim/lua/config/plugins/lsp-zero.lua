@@ -109,6 +109,7 @@ function M.config()
       }),
       null_ls.builtins.formatting.standardrb,
       null_ls.builtins.formatting.stylua,
+      null_ls.builtins.formatting.xmlformat,
     },
   })
 
@@ -124,6 +125,7 @@ function M.config()
       "taplo",
       "tsserver",
       "vale",
+      "xmlformatter",
     },
     automatic_installation = true,
     automatic_setup = true,
