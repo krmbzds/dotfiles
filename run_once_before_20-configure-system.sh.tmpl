@@ -44,6 +44,7 @@ function install_font_meslo() {
   for i in "${meslo[@]}"; do
     wget -P ~/.local/share/fonts/ -nv -nc  "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20$i.ttf"
   done
+  gsettings set org.gnome.desktop.interface monospace-font-name "MesloLGS NF 11"
 }
 
 function install_font_source_code_pro() {
@@ -64,6 +65,10 @@ function install_font_mscore() {
   {{ else }}
     true
   {{ end }}
+}
+
+function rebuild_font_cache() {
+  fc-cache -f -v
 }
 
 # ****************************************************************************
@@ -150,6 +155,7 @@ function configure_profile_sync_daemon() {
 install_font_meslo
 install_font_source_code_pro
 install_font_mscore
+rebuild_font_cache
 compile_libsecret
 configure_docker_postinstall
 configure_profile_sync_daemon
