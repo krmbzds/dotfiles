@@ -25,11 +25,10 @@ antialiasing_type = "subpixel"
 hinting = true
 hintstyle = "hintslight"
 lcdfilter = "lcddefault"
-
-mscore = false
-croscore = true
-crosextra = true
-source_code_pro = false
+font_mscore = true
+font_croscore = true
+font_crosextra = true
+font_source_code_pro = true
 
 [dependencies]
 anki = true

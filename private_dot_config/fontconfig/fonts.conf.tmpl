@@ -38,7 +38,7 @@
       <family>MesloLGS NF</family>
     </prefer>
   </alias>
-  {{ if .fonts.croscore -}}
+  {{ if .fonts.font_croscore -}}
   <alias>
     <family>serif</family>
     <prefer>
@@ -123,7 +123,7 @@
     </edit>
   </match>
   {{ end -}}
-  {{ if .fonts.crosextra -}}
+  {{ if .fonts.font_crosextra -}}
   <!-- Calibri Alternative -->
   <match target="font">
     <test name="family">
