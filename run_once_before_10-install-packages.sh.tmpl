@@ -24,8 +24,17 @@ function remove_flatpak() {
   {{ end }}
 }
 
+function remove_default_packages() {
+  {{ if not .dependencies.evince -}} wait_for_apt && sudo apt purge -y "evince*" {{- end }}
+  {{ if not .dependencies.geary -}} wait_for_apt && sudo apt purge -y geary {{- end }}
+  {{ if not .dependencies.libreoffice -}} wait_for_apt && sudo apt purge -y "libreoffice*" {{- end }}
+  {{ if not .dependencies.simple_scanner -}} wait_for_apt && sudo apt purge -y simple-scan {{- end }}
+  {{ if not .dependencies.totem -}} wait_for_apt && sudo apt purge -y "totem*" {{- end }}
+}
+
 function remove_packages() {
   remove_flatpak
+  remove_default_packages
 }
 
 # ****************************************************************************
@@ -266,7 +275,6 @@ function install_packages() {
     bfs
     entr
     gnupg
-    htop
     libnotify-bin
     pcscd
     scdaemon

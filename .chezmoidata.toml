@@ -37,13 +37,17 @@ faas = true
 meld = true
 brave = true
 broot = true
+geary = false
+totem = false
 docker = true
+evince = false
 flatpak = true
 newsboat = true
-libreoffice = true
 difftastic = true
+libreoffice = false
 taskwarrior = true
 sublime_text = false
+simple_scanner = false
 signal_messenger = true
 
 [gnome]
