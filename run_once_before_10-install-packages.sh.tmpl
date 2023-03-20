@@ -66,24 +66,28 @@ function install_dual_function_keys() {
 }
 
 function install_alacritty() {
-  local cmd
-  local url
-  local debfile
-  local tempdir
-  cmd='curl -fsSL'
-  url='https://api.github.com/repos/barnumbirr/alacritty-debian/releases/latest'
-  debfile="$(mktemp)"
-  tempdir="$(mktemp -d)"
-  if [ -n "$GITHUB_API_TOKEN" ]; then
-    cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
-  fi
-  eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | grep "amd64_unstable" | xargs curl -s -L --output "$debfile"
-  cd "$tempdir" || return
-  sudo dpkg -i "$debfile"
-  sudo apt-mark hold alacritty
-  rm "$debfile"
-  rm -rf "$tempdir"
-  cd - || return
+  {{ if lookPath "alacritty" }}
+    true
+  {{ else }}
+    local cmd
+    local url
+    local debfile
+    local tempdir
+    cmd='curl -fsSL'
+    url='https://api.github.com/repos/barnumbirr/alacritty-debian/releases/latest'
+    debfile="$(mktemp)"
+    tempdir="$(mktemp -d)"
+    if [ -n "$GITHUB_API_TOKEN" ]; then
+      cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+    fi
+    eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | grep "amd64_unstable" | xargs curl -s -L --output "$debfile"
+    cd "$tempdir" || return
+    sudo dpkg -i "$debfile"
+    sudo apt-mark hold alacritty
+    rm "$debfile"
+    rm -rf "$tempdir"
+    cd - || return
+  {{ end }}
 }
 
 function install_anki() {
