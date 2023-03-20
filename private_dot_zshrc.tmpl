@@ -86,6 +86,9 @@ z4h source ~/.asdf/asdf.sh
 {{ if .prefs.dracula_pro -}}
 z4h source ~/.config/zsh/syntax-theme.sh
 {{- end }}
+{{ if .dependencies.broot -}}
+z4h source ~/.config/broot/launcher/bash/br
+{{- end }}
 
 # Define key bindings.
 z4h bindkey z4h-backward-kill-word  Ctrl+Backspace Ctrl+H

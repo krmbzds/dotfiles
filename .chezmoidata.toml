@@ -36,10 +36,12 @@ zeal = true
 faas = true
 meld = true
 brave = true
+broot = true
 docker = true
 flatpak = true
 newsboat = true
 libreoffice = true
+difftastic = true
 taskwarrior = true
 sublime_text = false
 signal_messenger = true
@@ -97,7 +99,6 @@ terraform = true
 lazydocker = true
 shellcheck = true
 github_cli = true
-difftastic = true
 
 [logitech.mx_anywhere_2s]
 enabled = true
