@@ -104,6 +104,9 @@ lazydocker = true
 shellcheck = true
 github_cli = true
 
+[logitech.c920]
+disable_microphone = true
+
 [logitech.mx_anywhere_2s]
 enabled = true
 dpi = 400

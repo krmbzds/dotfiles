@@ -94,6 +94,16 @@ function compile_libsecret() {
   fi
 }
 
+function logitech_c920_disable_microphone() {
+  {{ if .logitech.c920.disable_microphone }}
+    echo '{{- template "udev_rule_c920" . -}}' | sudo tee /etc/udev/rules.d/50-LogitechC920.rules > /dev/null
+    create_udevmon_service
+    enable_services udevmon
+  {{ else }}
+    true
+  {{ end }}
+}
+
 function logitech_mx_anywhere_2s_set_dpi() {
   {{ if (and .logitech.mx_anywhere_2s.enabled .logitech.mx_anywhere_2s.dpi ) }}
     echo '{{- template "udev_rule_2s" . -}}' | sudo tee /etc/udev/rules.d/50-LogitechMXAnywhere2S.rules > /dev/null
@@ -160,8 +170,10 @@ compile_libsecret
 configure_docker_postinstall
 configure_profile_sync_daemon
 import_gpg_key_from_url {{ .gpg.pubkey_url }}
+logitech_c920_disable_microphone
 logitech_mx_anywhere_2s_set_dpi
 skyloong_gk61x_remap_keys
 ledger_nano_s_setup
+enable_service pcscd
 
 {{ end }}
