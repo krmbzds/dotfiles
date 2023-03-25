@@ -87,6 +87,14 @@ function enable_gnome_user_themes_extension() {
   {{ if .gnome.dracula }} gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com {{ else }} true {{ end }}
 }
 
+function disable_desktop_icons_extension() {
+  {{ if .gnome.desktop.icons -}}
+  true
+  {{ else }}
+  gnome-extensions disable "ding@rastersoft.com"
+  {{ end }}
+}
+
 function set_user_theme_to_dracula() {
   {{ if .gnome.dracula }}
   gsettings set org.gnome.desktop.interface gtk-theme "Dracula-dark"

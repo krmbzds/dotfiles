@@ -60,6 +60,7 @@ static_workspaces = true
 workspace_count = 4
 
 [gnome.desktop]
+icons = false
 clock_format = '24h'
 show_date = true
 show_seconds = false
