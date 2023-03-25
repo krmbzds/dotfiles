@@ -386,6 +386,10 @@ function install_packages() {
     taskwarrior
     {{- end }}
 
+    {{ if .dependencies.zathura }}
+    zathura
+    {{- end }}
+
     {{ if .fonts.font_croscore }}
     fonts-croscore
     {{- end }}

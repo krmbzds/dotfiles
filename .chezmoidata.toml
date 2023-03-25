@@ -41,6 +41,7 @@ geary = false
 totem = false
 docker = true
 evince = false
+zathura = true
 flatpak = true
 newsboat = true
 difftastic = true

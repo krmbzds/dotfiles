@@ -169,9 +169,18 @@ function set_alacritty_as_default_terminal_emulator() {
   {{ end }}
 }
 
+function set_zathura_as_default_pdf_viewer() {
+  {{ if (and .dependencies.zathura (lookPath "zathura")) }}
+  xdg-mime default org.pwmt.zathura.desktop application/pdf
+  {{ else }}
+  true
+  {{ end }}
+}
+
 function update_alternatives() {
   set_neovim_as_default_editor
   set_alacritty_as_default_terminal_emulator
+  set_zathura_as_default_pdf_viewer
 }
 
 
