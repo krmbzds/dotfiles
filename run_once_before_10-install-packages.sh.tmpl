@@ -212,6 +212,15 @@ function install_taswarrior_tui() {
   {{ end }}
 }
 
+function install_mpv_nightly() {
+  {{ if .dependencies.newsboat }}
+    ! command -v mpv &>/dev/null || return 0
+    wait_for_apt && sudo apt install -t "o=UvT" mpv
+  {{ else }}
+    true
+  {{ end }}
+}
+
 # ****************************************************************************
 # *                                   PPAs                                   *
 # ****************************************************************************
@@ -259,6 +268,16 @@ function add_ppa_signal_messenger() {
 function add_ppa_libratbag() {
   {{ if .logitech.mx_anywhere_2s.enabled }}
     sudo add-apt-repository -y ppa:libratbag-piper/piper-libratbag-git
+  {{ else }}
+    true
+  {{ end }}
+}
+
+function add_ppa_mpv_nightly() {
+  {{ if .dependencies.newsboat }}
+    ! command -v mpv &>/dev/null || return 0
+    curl -fsSL 'https://non-gnu.uvt.nl/debian/uvt_key.gpg' | sudo gpg --dearmor -o /usr/share/keyrings/uvt-nl.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/uvt-nl.gpg] https://non-gnu.uvt.nl/debian $(lsb_release -sc) uvt" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
   {{ else }}
     true
   {{ end }}
@@ -357,7 +376,6 @@ function install_packages() {
     {{ end }}
 
     {{ if .dependencies.newsboat }}
-    mpv
     newsboat
     playerctl
     task-spooler
@@ -405,6 +423,7 @@ function install_packages() {
   add_ppa_docker
   add_ppa_signal_messenger
   add_ppa_libratbag
+  add_ppa_mpv_nightly
 
   wait_for_apt && sudo apt -y update
   wait_for_apt && sudo apt -y upgrade
@@ -420,6 +439,7 @@ function install_packages() {
   install_interception_tools
   install_dual_function_keys
   install_taswarrior_tui
+  install_mpv_nightly
 }
 
 # ****************************************************************************
