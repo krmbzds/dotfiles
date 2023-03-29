@@ -18,3 +18,6 @@ Apply dotfiles:
 ----
 sh -c "$(curl -fsSL get.chezmoi.io)" -- init --apply krmbzds
 ----
+
+
+Works best on a fresh install of `Pop!_OS 22.04 LTS`.
