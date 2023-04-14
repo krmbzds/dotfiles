@@ -221,6 +221,40 @@ function install_mpv_nightly() {
   {{ end }}
 }
 
+function install_mpv_plugin_mpris() {
+  {{ if .dependencies.newsboat }}
+    local cmd
+    local url
+    local fpath
+    cmd='curl -fsSL'
+    fpath="{{- .chezmoi.homeDir -}}/.config/mpv/scripts/mpris.so"
+    url="https://api.github.com/repos/hoyon/mpv-mpris/releases/latest"
+    if [ -n "$GITHUB_API_TOKEN" ]; then
+      cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+    fi
+    eval "$cmd $url" | grep 'mpris.so' | grep 'browser_' | cut -d\" -f4  | xargs curl -s -L --output "$fpath"
+  {{ else }}
+    true
+  {{ end }}
+}
+
+function install_mpv_plugin_quality_menu() {
+  {{ if .dependencies.newsboat }}
+    local cmd
+    local url
+    local fpath
+    cmd='curl -fsSL'
+    fpath="{{- .chezmoi.homeDir -}}/.config/mpv/scripts/quality-menu.lua"
+    url="https://api.github.com/repos/christoph-heinrich/mpv-quality-menu/releases/latest"
+    if [ -n "$GITHUB_API_TOKEN" ]; then
+      cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+    fi
+    eval "$cmd $url" | grep 'quality-menu.lua' | grep 'browser_' | cut -d\" -f4  | xargs curl -s -L --output "$fpath"
+  {{ else }}
+    true
+  {{ end }}
+}
+
 # ****************************************************************************
 # *                                   PPAs                                   *
 # ****************************************************************************
@@ -440,6 +474,7 @@ function install_packages() {
   install_dual_function_keys
   install_taswarrior_tui
   install_mpv_nightly
+  install_mpv_plugin_mpris
 }
 
 # ****************************************************************************
