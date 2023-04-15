@@ -1,0 +1,20 @@
+{{- if .dependencies.whispercpp -}}
+#!/bin/bash
+
+# usage: popup <program> <args...>
+
+set -eu
+
+if [[ -n "${TMUX:-}" ]]; then
+  RUNDIR="/run/user/$UID/whisper-nvim"
+  mkdir -p $RUNDIR 
+  outfile="$(mktemp --tmpdir=$RUNDIR)"
+  trap "rm -f ${outfile}" INT ERR EXIT
+
+  tmux popup -d "$PWD" -E bash -c "\"\$@\" < /dev/tty | tee '$outfile'" -- "$@"
+
+  cat "$outfile"
+else
+  "$@"
+fi
+{{ end }}

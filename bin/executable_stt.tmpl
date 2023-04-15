@@ -1,0 +1,21 @@
+{{- if .dependencies.whispercpp -}}
+#!/bin/bash
+
+set -eu
+RUNDIR="/run/user/$UID/whisper-nvim"
+MODELDIR="{{ .chezmoi.homeDir }}/.local/share/whisper-cpp/models"
+mkdir -p $RUNDIR 
+arecord -f S16_LE -d 10 -r 16000 $RUNDIR/stt.wav &> $RUNDIR/stt.log &
+pid=$!
+trap "kill $pid" ERR INT
+
+echo -n 'Recording. Hit enter to stop: ' >&2
+read < /dev/tty
+kill $pid
+
+echo 'Transcribing..' >&2
+whispercpp {{ if eq .chezmoi.hostname "workstation" -}} -t 7 {{- end }} -l en -m "$MODELDIR/ggml-tiny.en.bin" -f "$RUNDIR/stt.wav" --no-timestamps 1> "$RUNDIR/stt.txt" 2> /dev/null
+
+sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/ /g' -e 's/\[BLANK_AUDIO\]//g' "$RUNDIR/stt.txt" | sed -e 's/^[[:space:]]*//g; s/[[:space:]]*$//' -e 's/[ \t]*$//'
+rm "$RUNDIR/stt.wav" "$RUNDIR/stt.txt" >&2
+{{ end }}

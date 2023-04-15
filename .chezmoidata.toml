@@ -45,6 +45,7 @@ zathura = true
 flatpak = true
 newsboat = true
 difftastic = true
+whispercpp = true
 libreoffice = false
 taskwarrior = true
 sublime_text = false

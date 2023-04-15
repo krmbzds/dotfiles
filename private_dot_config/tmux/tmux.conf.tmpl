@@ -35,6 +35,11 @@ bind j select-pane -D
 bind k select-pane -U
 bind l select-pane -R
 
+{{ if .dependencies.whispercpp -}}
+# Use whisper.cpp to transcribe speech
+bind v run-shell "popup stt | tmux load-buffer - ; tmux paste-buffer"
+{{ end -}}
+
 # Use vim-style resize keys
 bind -r H resize-pane -L 5
 bind -r J resize-pane -D 5
