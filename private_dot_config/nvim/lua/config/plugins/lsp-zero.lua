@@ -19,7 +19,7 @@ local M = {
 
     -- Snippets
     "L3MON4D3/LuaSnip",
-    "rafamadriz/friendly-snippets",
+    "krmbzds/friendly-snippets",
 
     -- Miscellaneous
     "j-hui/fidget.nvim",
@@ -164,7 +164,9 @@ function M.config()
 
   local compare = require("cmp.config.compare")
 
-  require("luasnip/loaders/from_vscode").lazy_load() -- friendly-snippets
+  require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath("config") .. "/snippets/" })
+  require("luasnip.loaders.from_vscode").lazy_load() -- friendly-snippets
+  luasnip.filetype_extend("ruby", { "rails" })
 
   local check_backspace = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -172,6 +174,10 @@ function M.config()
   end
 
   vim.g.cmp_active = true
+
+  luasnip.config.setup({
+    updateevents = "TextChanged,TextChangedI", -- dynamic snippets update as you type
+  })
 
   cmp.setup({
     enabled = function()
@@ -194,6 +200,11 @@ function M.config()
       ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
       ["<C-Space>"] = cmp.mapping(cmp.mapping.complete({}), { "i", "c" }),
       ["<m-o>"] = cmp.mapping(cmp.mapping.complete({}), { "i", "c" }),
+      ["<C-u>"] = function()
+        if luasnip.choice_active() then
+          require("luasnip.extras.select_choice")()
+        end
+      end,
       -- ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
       ["<C-c>"] = cmp.mapping({
         i = cmp.mapping.abort(),
