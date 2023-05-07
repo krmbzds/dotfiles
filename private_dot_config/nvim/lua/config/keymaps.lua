@@ -132,7 +132,7 @@ keymap("n", "J", "mzJ`z", opts)
 keymap("n", "gJ", "mzgJ`z", opts)
 
 -- Repeat last macro with single key
-keymap("n", ",", "@@", opts)
+keymap("n", ",", ":lua REPEAT_LAST_MACRO_OR_Q()<CR>", opts)
 
 -- Insert --
 -- Make Control+Backspace delete whole words

@@ -56,3 +56,14 @@ end, { desc = "Search clipboard contents on grep.app" })
 api.nvim_create_user_command("GrepAppInput", function()
   grep_app(input({ prompt = "grep.app: ", completion = "buffer" }), "Search cancelled")
 end, { desc = "Search input on grep.app" })
+
+-- Global functions
+function REPEAT_LAST_MACRO_OR_Q()
+  if pcall(function()
+    return vim.fn.getreg("@@") == ""
+  end) then
+    vim.cmd("normal! @q")
+  else
+    vim.cmd("normal! @@")
+  end
+end
