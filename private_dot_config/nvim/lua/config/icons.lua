@@ -190,15 +190,15 @@ local icons = {
     cmd = " ",
     config = "",
     event = "",
-    ft = "",
+    ft = " ",
     init = "⚙",
     keys = "",
+    lazy = "",
     plugin = "",
     runtime = "",
-    source = "",
+    source = " ",
     start = "",
     task = "",
-    lazy = "",
   },
 }
 return icons
