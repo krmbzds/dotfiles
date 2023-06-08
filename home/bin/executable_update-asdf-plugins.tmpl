@@ -21,8 +21,8 @@ function update() {
     else
       echo "✓ $i ($CURRENT_VERSION)"
     fi
-    if [[ ! -v GITHUB_API_TOKEN ]]; then
-      echo "No GITHUB_API_TOKEN, sleeping for 5 seconds..."
+    if [[ ! -v GITHUB_TOKEN ]]; then
+      echo "No GITHUB_TOKEN, sleeping for 5 seconds..."
       sleep 5
     fi
   done

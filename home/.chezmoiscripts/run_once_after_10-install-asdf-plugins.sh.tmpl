@@ -65,8 +65,8 @@ function install_zeal_cli() {
   local cmd='curl -fsSL'
   local url='https://api.github.com/repos/Morpheus636/zeal-cli/releases/latest'
   local executable={{ .chezmoi.homeDir }}/bin/zeal-cli
-  if [ -n "$GITHUB_API_TOKEN" ]; then
-    cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+  if [ -n "$GITHUB_TOKEN" ]; then
+    cmd="$cmd --header 'Authorization: token $GITHUB_TOKEN'"
   fi
   eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | xargs curl -s -L --output "$executable"
   chmod +x "$executable"

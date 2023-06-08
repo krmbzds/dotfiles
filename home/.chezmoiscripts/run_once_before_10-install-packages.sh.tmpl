@@ -86,8 +86,8 @@ function install_alacritty() {
     url='https://api.github.com/repos/barnumbirr/alacritty-debian/releases/latest'
     debfile="$(mktemp)"
     tempdir="$(mktemp -d)"
-    if [ -n "$GITHUB_API_TOKEN" ]; then
-      cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+    if [ -n "$GITHUB_TOKEN" ]; then
+      cmd="$cmd --header 'Authorization: token $GITHUB_TOKEN'"
     fi
     eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | grep "amd64_unstable" | xargs curl -s -L --output "$debfile"
     cd "$tempdir" || return
@@ -110,8 +110,8 @@ function install_anki() {
     url='https://api.github.com/repos/ankitects/anki/releases/latest'
     archive="$(mktemp)"
     tempdir="$(mktemp -d)"
-    if [ -n "$GITHUB_API_TOKEN" ]; then
-      cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+    if [ -n "$GITHUB_TOKEN" ]; then
+      cmd="$cmd --header 'Authorization: token $GITHUB_TOKEN'"
     fi
     eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | grep "linux" | grep "qt6" | xargs curl -s -L --output "$archive"
     tar -xf "$archive" -C "$tempdir" --strip-components=1
@@ -198,8 +198,8 @@ function install_taswarrior_tui() {
     url='https://api.github.com/repos/kdheepak/taskwarrior-tui/releases/latest'
     debfile="$(mktemp)"
     tempdir="$(mktemp -d)"
-    if [ -n "$GITHUB_API_TOKEN" ]; then
-      cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+    if [ -n "$GITHUB_TOKEN" ]; then
+      cmd="$cmd --header 'Authorization: token $GITHUB_TOKEN'"
     fi
     eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | grep "taskwarrior-tui.deb" | xargs curl -s -L --output "$debfile"
     cd "$tempdir" || return
@@ -230,8 +230,8 @@ function install_mpv_plugin_mpris() {
     spath="{{- .chezmoi.homeDir -}}/.config/mpv/scripts/"
     mkdir -p "$spath"
     url="https://api.github.com/repos/hoyon/mpv-mpris/releases/latest"
-    if [ -n "$GITHUB_API_TOKEN" ]; then
-      cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+    if [ -n "$GITHUB_TOKEN" ]; then
+      cmd="$cmd --header 'Authorization: token $GITHUB_TOKEN'"
     fi
     eval "$cmd $url" | grep 'mpris.so' | grep 'browser_' | cut -d\" -f4  | xargs curl -s -L --output "$spath/mpris.so"
   {{ else }}
@@ -248,8 +248,8 @@ function install_mpv_plugin_quality_menu() {
     spath="{{- .chezmoi.homeDir -}}/.config/mpv/scripts/"
     mkdir -p "$spath"
     url="https://api.github.com/repos/christoph-heinrich/mpv-quality-menu/releases/latest"
-    if [ -n "$GITHUB_API_TOKEN" ]; then
-      cmd="$cmd --header 'Authorization: token $GITHUB_API_TOKEN'"
+    if [ -n "$GITHUB_TOKEN" ]; then
+      cmd="$cmd --header 'Authorization: token $GITHUB_TOKEN'"
     fi
     eval "$cmd $url" | grep 'quality-menu.lua' | grep 'browser_' | cut -d\" -f4  | xargs curl -s -L --output "$spath/quality-menu.lua"
   {{ else }}
