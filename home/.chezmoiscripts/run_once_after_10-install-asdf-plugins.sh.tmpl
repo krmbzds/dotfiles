@@ -31,7 +31,6 @@ function install_asdf_plugins() {
   {{ if .asdf.python }}     install_asdf_global_plugin  python     latest  "https://github.com/danhper/asdf-python.git"             {{ end }}
 
   {{ if .asdf.fd }}         install_asdf_global_plugin  fd         latest  "https://gitlab.com/wt0f/asdf-fd.git"                    {{ end }}
-  {{ if .asdf.jq }}         install_asdf_global_plugin  jq         latest  "https://github.com/azmcode/asdf-jq.git"                 {{ end }}
   {{ if .asdf.xh }}         install_asdf_global_plugin  xh         latest  "https://github.com/NeoHsu/asdf-xh"                      {{ end }}
   {{ if .asdf.bat }}        install_asdf_global_plugin  bat        latest  "https://gitlab.com/wt0f/asdf-bat.git"                   {{ end }}
   {{ if .asdf.duf }}        install_asdf_global_plugin  duf        latest  "https://github.com/NeoHsu/asdf-duf.git"                 {{ end }}

@@ -90,7 +90,6 @@ golang = true
 nodejs = true
 python = true
 fd = true
-jq = true
 xh = true
 bat = true
 duf = true
