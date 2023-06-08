@@ -44,6 +44,7 @@ evince = false
 zathura = true
 flatpak = true
 newsboat = true
+brave_beta = true
 difftastic = true
 whispercpp = true
 libreoffice = false

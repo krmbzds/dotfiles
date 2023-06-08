@@ -146,11 +146,12 @@ function configure_docker_postinstall() {
 }
 
 function configure_profile_sync_daemon() {
-  {{ if .dependencies.brave }}
+  {{ if (or .dependencies.brave .dependencies.brave_beta) }}
     local rotational
     rotational=$(lsblk -o MOUNTPOINT,ROTA | grep "/ " | sed 's/[^0-9]//g')
     if [ "$rotational" = 0 ]; then
-      echo '{{ template "psd_brave" . }}' | sudo tee /usr/share/psd/browsers/brave > /dev/null
+      {{ if .dependencies.brave -}} echo '{{ template "psd_brave" . }}' | sudo tee /usr/share/psd/browsers/brave > /dev/null {{- end }}
+      {{ if .dependencies.brave_beta -}} echo '{{ template "psd_brave_beta" . }}' | sudo tee /usr/share/psd/browsers/brave-beta > /dev/null {{- end }}
       enable_user_service psd
     fi
   {{ else }}
