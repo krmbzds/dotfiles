@@ -259,21 +259,26 @@ function install_mpv_plugin_quality_menu() {
 
 function install_whispercpp() {
   {{ if .dependencies.whispercpp }}
-    local tempdir
-    local modeldir
-    local modelurl
-    tempdir="$(mktemp -d)"
-    modeldir="{{ .chezmoi.homeDir }}/.local/share/whisper-cpp/models"
-    modelurl="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin"
-    git clone "https://github.com/ggerganov/whisper.cpp" "$tempdir"
-    cd "$tempdir"
-    make
-    mv "$tempdir/main" "{{ .chezmoi.homeDir -}}/bin/whispercpp"
-    cd -
-    rm -rf "$tempdir"
-    echo "whisper.cpp installed successfully"
-    wget -P "$modeldir" -nv -nc --content-disposition "$modelurl"
-    echo "tiny.en ggml model downloaded successfully"
+  if grep -Eq '.*avx2.*f16c.*fma.*|.*avx2.*fma.*f16c.*|.*f16c.*avx2.*fma.*|.*f16c.*fma.*avx2.*|.*fma.*avx2.*f16c.*|.*fma.*f16c.*avx2.*' /proc/cpuinfo; then
+      echo "Processor supports AVX2, FMA, and F16C. Proceeding with whispercpp installation..."
+      local tempdir
+      local modeldir
+      local modelurl
+      tempdir="$(mktemp -d)"
+      modeldir="{{ .chezmoi.homeDir }}/.local/share/whisper-cpp/models"
+      modelurl="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin"
+      git clone "https://github.com/ggerganov/whisper.cpp" "$tempdir"
+      cd "$tempdir"
+      make
+      mv "$tempdir/main" "{{ .chezmoi.homeDir -}}/bin/whispercpp"
+      cd -
+      rm -rf "$tempdir"
+      echo "whisper.cpp installed successfully"
+      wget -P "$modeldir" -nv -nc --content-disposition "$modelurl"
+      echo "tiny.en ggml model downloaded successfully"
+  else
+      echo "Processor does not support AVX2, FMA, and F16C. Skipping whispercpp installation..."
+  fi
   {{ else }}
     true
   {{ end }}
