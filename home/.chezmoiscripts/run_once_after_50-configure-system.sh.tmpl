@@ -165,6 +165,15 @@ function configure_gnome_pop_cosmic() {
   gsettings set org.gnome.shell.extensions.pop-cosmic workspace-picker-left {{ .gnome.pop_cosmic.workspace_picker_left }}
 }
 
+function disable_ipv6() {
+  {{ if not .network.ipv6 -}}
+    sudo kernelstub -a "ipv6.disable=1"
+    echo "disable_ipv6: kernelstub changes require reboot to take effect..."
+  {{ else -}}
+  true
+  {{ end -}}
+}
+
 # ****************************************************************************
 # *                                 Defaults                                 *
 # ****************************************************************************
@@ -224,5 +233,7 @@ rebuild_bat_cache
 install_and_configure_tpm
 update_alternatives
 download_sponsor_times
+
+disable_ipv6
 
 {{ end }}

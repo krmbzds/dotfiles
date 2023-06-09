@@ -113,6 +113,9 @@ lazydocker = true
 shellcheck = true
 github_cli = true
 
+[network]
+ipv6 = false
+
 [logitech.c920]
 disable_microphone = true
 
