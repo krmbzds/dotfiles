@@ -61,7 +61,7 @@ function install_font_source_code_pro() {
 function install_font_mscore() {
   {{ if .fonts.font_mscore }}
     echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
-    wait_for_apt && sudo apt install -y ttf-mscorefonts-installer
+    wait_for_apt && sudo apt -y install ttf-mscorefonts-installer
   {{ else }}
     true
   {{ end }}

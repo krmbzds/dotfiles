@@ -19,17 +19,17 @@ function remove_flatpak() {
   {{ else }}
   command -v flatpak &>/dev/null || return 0
   flatpak uninstall --all
-  wait_for_apt && sudo apt purge --autoremove flatpak
+  wait_for_apt && sudo apt -y purge --autoremove flatpak
   rm -rf "{{- .chezmoi.homeDir -}}/.local/share/flatpak"
   {{ end }}
 }
 
 function remove_default_packages() {
-  {{ if not .dependencies.evince -}} wait_for_apt && sudo apt purge -y "evince*" {{- end }}
-  {{ if not .dependencies.geary -}} wait_for_apt && sudo apt purge -y geary {{- end }}
-  {{ if not .dependencies.libreoffice -}} wait_for_apt && sudo apt purge -y "libreoffice*" {{- end }}
-  {{ if not .dependencies.simple_scanner -}} wait_for_apt && sudo apt purge -y simple-scan {{- end }}
-  {{ if not .dependencies.totem -}} wait_for_apt && sudo apt purge -y "totem*" {{- end }}
+  {{ if not .dependencies.evince -}} wait_for_apt && sudo apt -y purge "evince*" {{- end }}
+  {{ if not .dependencies.geary -}} wait_for_apt && sudo apt -y purge geary {{- end }}
+  {{ if not .dependencies.libreoffice -}} wait_for_apt && sudo apt -y purge "libreoffice*" {{- end }}
+  {{ if not .dependencies.simple_scanner -}} wait_for_apt && sudo apt -y purge simple-scan {{- end }}
+  {{ if not .dependencies.totem -}} wait_for_apt && sudo apt -y purge "totem*" {{- end }}
 }
 
 function remove_packages() {
@@ -215,7 +215,7 @@ function install_taswarrior_tui() {
 function install_mpv_nightly() {
   {{ if .dependencies.newsboat }}
     ! command -v mpv &>/dev/null || return 0
-    wait_for_apt && sudo apt install -t "o=UvT" mpv
+    wait_for_apt && sudo apt -y install -t "o=UvT" mpv
   {{ else }}
     true
   {{ end }}
