@@ -123,6 +123,19 @@ function skyloong_gk61x_remap_keys() {
   {{ end }}
 }
 
+function configure_touchpad_scrolling_pixel_distance() {
+  {{ if .hardware.huawei.gxtp7863.touchpad.enabled }}
+    if xinput list | grep -q "GXTP7863:00 27C6:01E8 Touchpad"; then
+      touchpad_id=$(xinput list | grep -i "GXTP7863:00 27C6:01E8 Touchpad" | sed 's/.*id=\([0-9]*\).*/\1/')
+      xinput set-prop "$touchpad_id" "libinput Scrolling Pixel Distance" {{ .hardware.huawei.gxtp7863.touchpad.scrolling_pixel_distance }}
+    else
+      true
+    fi
+  {{ else }}
+    true
+  {{ end }}
+}
+
 function ledger_nano_s_setup() {
   {{- if .hardware.ledger.nano_s.enabled }}
     create_udevmon_service
@@ -174,6 +187,7 @@ import_gpg_key_from_url {{ .gpg.pubkey_url }}
 logitech_c920_disable_microphone
 logitech_mx_anywhere_2s_set_dpi
 skyloong_gk61x_remap_keys
+configure_touchpad_scrolling_pixel_distance
 ledger_nano_s_setup
 enable_service pcscd
 
