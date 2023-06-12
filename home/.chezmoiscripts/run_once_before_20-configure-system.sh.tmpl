@@ -95,7 +95,7 @@ function compile_libsecret() {
 }
 
 function logitech_c920_disable_microphone() {
-  {{ if .logitech.c920.disable_microphone }}
+  {{ if .hardware.logitech.c920.disable_microphone }}
     echo '{{- template "udev_rule_c920" . -}}' | sudo tee /etc/udev/rules.d/50-LogitechC920.rules > /dev/null
     create_udevmon_service
     enable_services udevmon
@@ -105,7 +105,7 @@ function logitech_c920_disable_microphone() {
 }
 
 function logitech_mx_anywhere_2s_set_dpi() {
-  {{ if (and .logitech.mx_anywhere_2s.enabled .logitech.mx_anywhere_2s.dpi ) }}
+  {{ if (and .hardware.logitech.mx_anywhere_2s.enabled .hardware.logitech.mx_anywhere_2s.dpi ) }}
     echo '{{- template "udev_rule_2s" . -}}' | sudo tee /etc/udev/rules.d/50-LogitechMXAnywhere2S.rules > /dev/null
     create_udevmon_service
     enable_services udevmon ratbagd
@@ -115,7 +115,7 @@ function logitech_mx_anywhere_2s_set_dpi() {
 }
 
 function skyloong_gk61x_remap_keys() {
-  {{ if (and .skyloong.gk61x.enabled .skyloong.gk61x.remap_caps_lock) }}
+  {{ if (and .hardware.skyloong.gk61x.enabled .hardware.skyloong.gk61x.remap_caps_lock) }}
     create_udevmon_service
     enable_service udevmon
   {{ else }}
@@ -124,7 +124,7 @@ function skyloong_gk61x_remap_keys() {
 }
 
 function ledger_nano_s_setup() {
-  {{- if .ledger.nano_s.enabled }}
+  {{- if .hardware.ledger.nano_s.enabled }}
     create_udevmon_service
     echo '{{- template "udev_rule_ledger" . -}}' | sudo tee /etc/udev/rules.d/20-LedgerNanoS.rules > /dev/null
     enable_service udevmon

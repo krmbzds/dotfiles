@@ -1,15 +1,15 @@
-{{- if (and .skyloong.gk61x.enabled (or .skyloong.gk61x.remap_caps_lock .skyloong.gk61x.remap_shift)) -}}
+{{- if (and .hardware.skyloong.gk61x.enabled (or .hardware.skyloong.gk61x.remap_caps_lock .hardware.skyloong.gk61x.remap_shift)) -}}
 TIMING:
   TAP_MILLISEC: 200
   DOUBLE_TAP_MILLISEC: 150
 
 MAPPINGS:
-  {{ if .skyloong.gk61x.remap_caps_lock -}}
+  {{ if .hardware.skyloong.gk61x.remap_caps_lock -}}
   - KEY: KEY_CAPSLOCK
     TAP: KEY_ESC
     HOLD: KEY_LEFTCTRL
   {{ end -}}
-  {{ if .skyloong.gk61x.remap_shift -}}
+  {{ if .hardware.skyloong.gk61x.remap_shift -}}
   - KEY: KEY_LEFTSHIFT
     TAP: [KEY_LEFTSHIFT, KEY_9]
     HOLD: KEY_LEFTSHIFT

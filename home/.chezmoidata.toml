@@ -116,19 +116,19 @@ github_cli = true
 [network]
 ipv6 = false
 
-[logitech.c920]
+[hardware.logitech.c920]
 disable_microphone = true
 
-[logitech.mx_anywhere_2s]
+[hardware.logitech.mx_anywhere_2s]
 enabled = true
 dpi = 400
 device_name = "Anywhere 2S"
 
-[skyloong.gk61x]
+[hardware.skyloong.gk61x]
 enabled = true
 remap_caps_lock = true
 remap_shift = false
 device_link = "/dev/input/by-id/usb-SEMITEK_USB-HID_Gaming_Keyboard_SN0000000001-event-kbd"
 
-[ledger.nano_s]
+[hardware.ledger.nano_s]
 enabled = true

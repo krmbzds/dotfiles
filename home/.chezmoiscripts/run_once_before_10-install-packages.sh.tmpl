@@ -144,7 +144,7 @@ function install_asdf() {
 }
 
 function install_ledger_live() {
-  {{ if .ledger.nano_s.enabled }}
+  {{ if .hardware.ledger.nano_s.enabled }}
     local tempdir
     local pubkey
     local hashes
@@ -340,7 +340,7 @@ function add_ppa_signal_messenger() {
 }
 
 function add_ppa_libratbag() {
-  {{ if .logitech.mx_anywhere_2s.enabled }}
+  {{ if .hardware.logitech.mx_anywhere_2s.enabled }}
     sudo add-apt-repository -y ppa:libratbag-piper/piper-libratbag-git
   {{ else }}
     true
@@ -417,11 +417,11 @@ function install_packages() {
 
     {{ end }}
 
-    {{ if .logitech.mx_anywhere_2s.enabled }}
+    {{ if .hardware.logitech.mx_anywhere_2s.enabled }}
     ratbagd
     {{ end }}
 
-    {{ if .ledger.nano_s.enabled }}
+    {{ if .hardware.ledger.nano_s.enabled }}
     libfuse2
     {{ end }}
 
@@ -463,7 +463,7 @@ function install_packages() {
     urlview
     {{ end }}
 
-    {{ if (and .skyloong.gk61x.enabled .skyloong.gk61x.remap_caps_lock) }}
+    {{ if (and .hardware.skyloong.gk61x.enabled .hardware.skyloong.gk61x.remap_caps_lock) }}
     cmake
     libboost-dev
     libevdev-dev

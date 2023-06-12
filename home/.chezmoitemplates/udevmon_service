@@ -1,5 +1,5 @@
-{{- if (or .logitech.mx_anywhere_2s.enabled .skyloong.gk61x.enabled) -}}
-{{- if (or .logitech.mx_anywhere_2s.enabled .skyloong.gk61x.remap_caps_lock .skyloong.gk61x.remap_shift) -}}
+{{- if (or .hardware.logitech.mx_anywhere_2s.enabled .hardware.skyloong.gk61x.enabled) -}}
+{{- if (or .hardware.logitech.mx_anywhere_2s.enabled .hardware.skyloong.gk61x.remap_caps_lock .hardware.skyloong.gk61x.remap_shift) -}}
 [Unit]
 Description=udevmon
 Wants=systemd-udev-settle.service
