@@ -35,8 +35,10 @@ zstyle ':z4h:autosuggestions' forward-char 'partial-accept'
 # Recursively traverse directories when TAB-completing files.
 zstyle ':z4h:fzf-complete' recurse-dirs 'yes'
 
+{{ if .asdf.direnv -}}
 # Enable direnv to automatically source .envrc files.
 zstyle ':z4h:direnv' enable 'yes'
+{{- end }}
 
 {{ if .prefs.dracula_pro -}}
 # Customize fzf theme

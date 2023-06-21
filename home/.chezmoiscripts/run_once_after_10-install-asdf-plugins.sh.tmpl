@@ -43,6 +43,7 @@ function install_asdf_plugins() {
   {{ if .asdf.delta }}      install_asdf_global_plugin  delta      latest  "https://github.com/andweeb/asdf-delta.git"              {{ end }}
   {{ if .asdf.doctl }}      install_asdf_global_plugin  doctl      latest  "https://github.com/maristgeek/asdf-doctl.git"           {{ end }}
   {{ if .asdf.viddy }}      install_asdf_global_plugin  viddy      latest  "https://github.com/ryodocx/asdf-viddy.git"              {{ end }}
+  {{ if .asdf.direnv }}     install_asdf_global_plugin  direnv     latest  "https://github.com/asdf-community/asdf-direnv"          {{ end }}
   {{ if .asdf.neovim }}     install_asdf_global_plugin  neovim    nightly  "https://github.com/richin13/asdf-neovim.git"            {{ end }}
   {{ if .asdf.stylua }}     install_asdf_global_plugin  stylua     latest  "https://github.com/jc00ke/asdf-stylua.git"              {{ end }}
   {{ if .asdf.kubectl }}    install_asdf_global_plugin  kubectl    latest  "https://github.com/Banno/asdf-kubectl.git"              {{ end }}

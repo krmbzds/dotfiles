@@ -103,6 +103,7 @@ cheat = true
 delta = true
 doctl = true
 viddy = true
+direnv = true
 neovim = true
 stylua = true
 kubectl = true
