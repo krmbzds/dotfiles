@@ -55,11 +55,29 @@ speed=1.33
 # File Type Profiles
 [extension.gif]
 cache=no
-no-pause
 loop-file=yes
+no-pause
+save-position-on-quit=no
+
 [extension.webm]
-no-pause
 loop-file=yes
+no-pause
+save-position-on-quit=no
+
+[extension.mjpg]
+audio-buffer=0
+cache-pause=no
+cache=no
+demuxer-lavf-analyzeduration=0.1
+demuxer-lavf-o-add=fflags=+nobuffer
+demuxer-lavf-probe-info=nostreams
+demuxer-lavf-probescore=25
+interpolation=no
+save-position-on-quit=no
+vd-lavc-threads=1
+vf-remove=vdpaupp
+video-latency-hacks=yes
+video-sync=audio
 
 osd-scale=1
 osd-font-size=55
