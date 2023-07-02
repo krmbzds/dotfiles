@@ -415,6 +415,17 @@ function install_packages() {
     zlib1g-dev
     {{ end }}
 
+    {{ if .asdf.postgres }}
+    build-essential
+    icu-devtools
+    libcurl4-openssl-dev
+    libreadline-dev
+    libssl-dev
+    linux-headers-$(uname -r)
+    uuid-dev
+    zlib1g-dev
+    {{ end }}
+
     {{ end }}
 
     {{ if .hardware.logitech.mx_anywhere_2s.enabled }}

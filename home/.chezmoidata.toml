@@ -90,6 +90,7 @@ yarn = true
 golang = true
 nodejs = true
 python = true
+postgres = true
 fd = true
 xh = true
 bat = true

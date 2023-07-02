@@ -13,6 +13,7 @@ function update() {
       python) CONFIGURE_OPTS=--enable-optimizations asdf install "$i" "$LATEST_VERSION" ;;
       ruby) CONFIGURE_OPTS="--without-tcl --without-tk" asdf install "$i" "$LATEST_VERSION" ;;
       rust) RUST_WITHOUT=rust-docs,rust-other-component asdf install "$i" "$LATEST_VERSION" ;;
+      postgres) POSTGRES_EXTRA_CONFIGURE_OPTIONS=--with-uuid=e2fs asdf install "$i" "$LATEST_VERSION" ;; 
       lua) asdf install "$i" "5.1.5" ;;
       neovim) asdf uninstall neovim nightly; asdf install neovim nightly ;;
       *) asdf install "$i" "$LATEST_VERSION" ;;
