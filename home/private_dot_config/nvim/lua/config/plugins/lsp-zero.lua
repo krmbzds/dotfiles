@@ -22,7 +22,7 @@ local M = {
     "krmbzds/friendly-snippets",
 
     -- Miscellaneous
-    "j-hui/fidget.nvim",
+    { "j-hui/fidget.nvim", branch = "legacy" },
   },
 }
 

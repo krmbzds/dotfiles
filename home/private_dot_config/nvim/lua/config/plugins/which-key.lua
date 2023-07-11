@@ -213,7 +213,7 @@ function M.config()
       l = { "<cmd>lua require('neotest').run.run_last()<CR>", "Run last test" },
       s = { function()
         local neotest = require("neotest")
-        for _, adapter_id in ipairs(neotest.run.adapters()) do
+        for _, adapter_id in ipairs(neotest.state.adapter_ids()) do
           neotest.run.run({ suite = true, adapter = adapter_id })
         end
       end, "Test suite" },

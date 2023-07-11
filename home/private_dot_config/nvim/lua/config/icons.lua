@@ -184,7 +184,7 @@ local icons = {
     passed = "",
     running = "",
     skipped = "",
-    unknown = "",
+    unknown = "",
   },
   lazy = {
     cmd = " ",

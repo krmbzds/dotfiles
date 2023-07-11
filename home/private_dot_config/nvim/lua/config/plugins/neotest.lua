@@ -23,7 +23,7 @@ function M.config()
 
   neotest.setup({
     adapters = {
-      rspec({ rspec_cmd = { "bundle", "exec", "rspec" } }),
+      require("neotest-rspec"),
     },
     icons = {
       running_animated = icons.running_animated,
