@@ -4,4 +4,9 @@
 {{ template "gitignore_macos" . }}
 {{ else if (eq .chezmoi.os "windows" ) }}
 {{ template "gitignore_windows" . }}
-{{ end }}
+{{ end -}}
+
+# dotenv, dotenv-rails, direnv
+.env
+.env*.local
+.direnv
