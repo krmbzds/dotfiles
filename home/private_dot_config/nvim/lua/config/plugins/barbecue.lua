@@ -32,9 +32,9 @@ function M.config()
     theme = "dracula", -- `auto` defaults to your current colorscheme
     show_modified = false, -- whether to replace file icon with the modified symbol when buffer is modified
     symbols = {
-      modified = "●", -- modification indicator
-      ellipsis = "…", -- truncation indicator
-      separator = "▸", -- entry separator
+      modified = icons.symbols.modified, -- modification indicator
+      ellipsis = icons.symbols.ellipsis, -- truncation indicator
+      separator = icons.symbols.separator, -- entry separator
     },
     -- icons for different context entry kinds
     kinds = icons, -- `false` to disable kind icons
