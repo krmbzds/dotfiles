@@ -120,6 +120,18 @@ function install_vale_styles() {
   {{ end }}
 }
 
+function fix_irb_reline_theme() {
+  {{ if .asdf.ruby }}
+    {{ if (or .prefs.dracula_pro .gnome.dracula) -}}
+      gem install specific_install
+      asdf reshim ruby latest
+      gem specific_install "https://github.com/krmbzds/reline"
+    {{ else }}
+      true
+    {{ end }}
+  {{ end }}
+}
+
 # ****************************************************************************
 # *                                Main Script                               *
 # ****************************************************************************
@@ -129,5 +141,6 @@ install_zeal_cli && install_zeal_docsets
 install_community_cheats
 install_github_cli_extensions
 install_vale_styles
+fix_irb_reline_theme
 
 {{ end }}
