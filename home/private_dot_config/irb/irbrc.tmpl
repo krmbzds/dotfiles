@@ -1,16 +1,79 @@
 # frozen_string_literal: false
 
+require "cd"
+require "clipboard"
+require "debugging/howtocall"
+require "debugging/q"
+require "debugging/re"
+require "interactive_editor"
+require "looksee"
+
 require "irbtools/configure"
-IRB.conf[:prompt_mode] = :default
+
+Irbtools.add_library "interactive_editor", thread: :stdlib
+Irbtools.add_library "debugging/q", thread: :paint
+Irbtools.add_library "debugging/re", thread: :paint
+Irbtools.add_library "debugging/howtocall", thread: :paint
+Irbtools.add_library "readline", thread: :readline
+Irbtools.add_library "os", thread: :os
+Irbtools.add_library "ruby_engine", thread: :re
+Irbtools.add_library "ruby_version", thread: :rv
 Irbtools.welcome_message = ""
 
-# https://gist.github.com/gucki/6523172
-# https://gist.github.com/DGCK81LNN/cb701f85b861b6bc3b2c8953370b62db
-# https://gist.github.com/karmatr0n/7266751236e4af267ed4feb78ae549e3
-# https://gist.github.com/swanson/3ca98caff43d52f62b4b99f6f2c7444c
-# https://gist.github.com/rishiip/2fb7302c1cb0dd490ae3760acfbdfa99
-# https://gist.github.com/mattantonelli/0d9ead06d1fc4a50f09551e7a6523653
-# https://gist.github.com/g13ydson/983aad59acb2e6db18127134a01d7e59
+def cat(path) = File.read(path)
+def cd(path = nil) = Cd.cd(path)
+def clear = system("clear")
+def copy(str) = Clipboard.copy(str)
+def copy_output = copy(context.instance_variable_get(:@eval_history_values).inspect.gsub(/^\d+ (.*)/, '\1'))
+def ld(lib) = load lib.to_s + ".rb"
+def ll(path = ".") = Cd.cd.ls(path)
+def paste = Clipboard.paste
+def rq(lib) = Require lib.to_s
+def rr(lib) = require_relative lib.to_s
+def time
+  start = Time.now
+  yield
+  eta = Time.now - start
+  mm, ss = eta.divmod(60)
+  hh, mm = mm.divmod(60)
+  dd, hh = hh.divmod(24)
+  puts "[%s] Took %d days %2d hours %2d minutes %2d seconds." % [Time.now.strftime("%T"), dd, hh, mm, ss]
+  eta
+end
+
+{{ if (or .prefs.dracula_pro .gnome.dracula) -}}
+if Reline.respond_to?(:dialog_default_bg_color)
+  Reline.dialog_default_bg_color = :black
+  Reline.dialog_default_fg_color = :yellow
+  Reline.dialog_highlight_bg_color = :blue
+  Reline.dialog_highlight_fg_color = :white
+end
+{{- end }}
+
+IRB.conf[:INSPECT_MODE] = :inspect
+IRB.conf[:SAVE_HISTORY] = 1000
+IRB.conf[:USE_AUTOCOMPLETE] = true
+IRB.conf[:USE_MULTILINE] = true
+IRB.conf[:prompt_mode] = :default
+
+if defined?(IRB::Color)
+  clear, bold, green, blue, cyan = "\e[0m", "\e[1m", "\e[32m", "\e[34m", "\e[36m"
+  icon =
+    case ENV["RAILS_ENV"]
+    when "test" then "🧪 "
+    when "development" then "🔨 "
+    when "staging" then "🍿 "
+    when "production" then "🚨 "
+    end
+
+  IRB.conf[:PROMPT][:DEFAULT] = {
+    PROMPT_I: "#{icon}#{cyan}#{bold}%N#{clear}(#{green}#{bold}%m#{clear})[#{blue}%02n#{clear}:%i]> ",
+    PROMPT_N: "#{icon}#{cyan}#{bold}%N#{clear}(#{green}#{bold}%m#{clear})[#{blue}%02n#{clear}:%i]> ",
+    PROMPT_S: "#{icon}#{cyan}#{bold}%N#{clear}(#{green}#{bold}%m#{clear})[#{blue}%02n#{clear}:%i]%l ",
+    PROMPT_C: "#{icon}#{cyan}#{bold}%N#{clear}(#{green}#{bold}%m#{clear})[#{blue}%02n#{clear}:%i]* ",
+    RETURN: "=> %s\n"
+  }
+end
 
 module IRB
   module InputCompletor
@@ -102,7 +165,6 @@ module IRB
         message = $2
         begin
           candidates = eval("#{receiver}.constants.collect{|m| m.to_s}", bind, __FILE__, __LINE__)
-          # candidates |= eval("#{receiver}.methods.collect{|m| m.to_s}", bind)
         rescue Exception
           candidates = []
         end
@@ -247,39 +309,6 @@ module IRB
   end
 end
 
-{{ if (or .prefs.dracula_pro .gnome.dracula) -}}
-# https://github.com/ruby/irb/pull/337
-# https://github.com/ruby/reline/pull/413
-
-# To fix terrible white on cyan completions
-# gem install specific_install
-# gem specific_install https://github.com/krmbzds/reline
-# gem "reline", "0.3.2", :github => 'krmbzds/reline'
-if Reline.respond_to?(:dialog_default_bg_color)
-  Reline.dialog_default_bg_color = :black
-  Reline.dialog_default_fg_color = :yellow
-  Reline.dialog_highlight_bg_color = :blue
-  Reline.dialog_highlight_fg_color = :white
-end
-{{ end -}}
-
-# https://github.com/stefansundin/dotfiles/blob/master/.irbrc
-def clear
-  system("clear")
-end
-
-def time
-  start = Time.now
-  yield
-  eta = Time.now - start
-  mm, ss = eta.divmod(60)
-  hh, mm = mm.divmod(60)
-  dd, hh = hh.divmod(24)
-  puts "[%s] Took %d days %2d hours %2d minutes %2d seconds." % [Time.now.strftime("%T"), dd, hh, mm, ss]
-  eta
-end
-
-# https://github.com/k0kubun/dotfiles/commits/master/config/.irbrc
 autoload :Base64, "base64"
 autoload :CGI, "cgi"
 autoload :CSV, "csv"
@@ -305,6 +334,7 @@ unless defined?(IRB::METHOD_AUTOLOAD)
     Time => {parse: "time"}
   })
 end
+
 Kernel.module_eval do
   def method_missing(name, *args, &block)
     if lib = IRB::METHOD_AUTOLOAD[self][name]
@@ -315,45 +345,3 @@ Kernel.module_eval do
   end
 end
 
-IRB.conf[:USE_MULTILINE] = true
-IRB.conf[:USE_AUTOCOMPLETE] = true
-IRB.conf[:SAVE_HISTORY] = 1000
-IRB.conf[:INSPECT_MODE] = :inspect
-if defined?(IRB::Color) # just for consistency
-  clear = "\e[0m"
-  bold = "\e[1m"
-  green = "\e[32m"
-  blue = "\e[34m"
-  cyan = "\e[36m"
-  # My addition for Rails
-  icon = case ENV["RAILS_ENV"]
-  when "test" then "🧪 "
-  when "development" then "🔨 "
-  when "staging" then "🍿 "
-  when "production" then "🚨 "
-  end
-  IRB.conf[:PROMPT][:DEFAULT] = {
-    PROMPT_I: "#{icon}#{cyan}#{bold}%N#{clear}(#{green}#{bold}%m#{clear})[#{blue}%02n#{clear}:%i]> ",
-    PROMPT_N: "#{icon}#{cyan}#{bold}%N#{clear}(#{green}#{bold}%m#{clear})[#{blue}%02n#{clear}:%i]> ",
-    PROMPT_S: "#{icon}#{cyan}#{bold}%N#{clear}(#{green}#{bold}%m#{clear})[#{blue}%02n#{clear}:%i]%l ",
-    PROMPT_C: "#{icon}#{cyan}#{bold}%N#{clear}(#{green}#{bold}%m#{clear})[#{blue}%02n#{clear}:%i]* ",
-    RETURN: "=> %s\n"
-  }
-end
-
-begin
-  require "irb/cmd/whereami"
-rescue LoadError
-  require "irb/cmd/nop"
-  module IRB
-    module ExtendCommand
-      class Whereami < Nop
-        def execute(*)
-          code = irb_context.workspace.code_around_binding
-          puts code || "The current context doesn't have code."
-        end
-      end
-    end
-  end
-  IRB::ExtendCommandBundle.def_extend_command(:irb_whereami, :Whereami, "irb/cmd/nop", [:whereami, IRB::ExtendCommandBundle::NO_OVERRIDE])
-end
