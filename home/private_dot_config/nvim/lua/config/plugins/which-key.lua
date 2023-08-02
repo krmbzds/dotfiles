@@ -148,7 +148,7 @@ function M.config()
 
     g = {
       name = "Git",
-      g = { "<cmd>!smerge .<cr>", "Open GUI" },
+      g = { "<cmd>lua require('neogit').open({ kind = 'split' })<cr>", "Neogit" },
       j = { "<cmd>lua require('gitsigns').next_hunk()<cr>", "Next hunk" },
       k = { "<cmd>lua require('gitsigns').prev_hunk()<cr>", "Prev hunk" },
       l = { "<cmd>lua require('gitsigns').blame_line()<cr>", "Blame line" },
@@ -209,7 +209,7 @@ function M.config()
       name = "Neotest",
       o = { "<cmd>lua require('neotest').summary.toggle()<CR>", "Toggle summary" },
       n = { "<cmd>lua require('neotest').run.run()<CR>", "Test nearest" },
-      f = { "<cmd>lua require('neotest').run.run(vim.fn.expand(' % '))<CR>", "Test file" },
+      f = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<CR>", "Test file" },
       l = { "<cmd>lua require('neotest').run.run_last()<CR>", "Run last test" },
       s = { function()
         local neotest = require("neotest")
