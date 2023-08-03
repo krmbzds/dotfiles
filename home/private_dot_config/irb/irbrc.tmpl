@@ -30,6 +30,16 @@ def ll(path = ".") = Cd.cd.ls(path)
 def paste = Clipboard.paste
 def rq(lib) = Require lib.to_s
 def rr(lib) = require_relative lib.to_s
+def rrq(lib)
+  $".dup.each { |path|
+    if %r{/#{lib}\.rb$}.match?(path)
+      $".delete path.to_s
+      require path.to_s
+    end
+  }
+  require lib.to_s
+  true
+end
 def time
   start = Time.now
   yield
