@@ -19,5 +19,11 @@ Apply dotfiles:
 sh -c "$(curl -fsSL get.chezmoi.io)" -- init --apply krmbzds
 ----
 
-
 Works best on a fresh install of `Pop!_OS 22.04 LTS`.
+
+== Make it your own
+
+1. https://github.com/krmbzds/dotfiles/fork[Fork] the repository
+1. Modify link:home/.chezmoidata.toml[home/.chezmoidata.toml] to fit your needs
+1. Set up zsh for Humans
+1. Apply dotfiles with your own username `--apply <USERNAME>`
