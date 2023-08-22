@@ -21,7 +21,7 @@ bind | split-window -h
 bind - split-window -v
 
 # Reload config with shortcut
-bind r source-file ~/.config/tmux/tmux.conf
+bind r source-file {{ .chezmoi.homeDir -}}/.config/tmux/tmux.conf
 
 # Use vim-style keybindings in copy mode
 setw -g mode-keys vi
@@ -96,5 +96,5 @@ set -g @nova-segment-time-colors "#2E2B3B #7971A9"
 # set -g @plugin 'git@bitbucket.com:user/plugin'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.local/share/tmux/plugins/"
-run '~/.local/share/tmux/plugins/tpm/tpm'
+set-environment -g TMUX_PLUGIN_MANAGER_PATH "{{- .chezmoi.homeDir -}}/.local/share/tmux/plugins/"
+run '{{- .chezmoi.homeDir -}}/.local/share/tmux/plugins/tpm/tpm'
