@@ -366,9 +366,17 @@ function install_packages() {
 
     at
     bfs
+    cmake
     entr
+    gnome-clocks
+    gnome-screenshot
+    gnome-sound-recorder
     gnupg
+    libboost-dev
+    libevdev-dev
     libnotify-bin
+    libudev-dev
+    libyaml-cpp-dev
     pcscd
     scdaemon
     tmux
@@ -473,14 +481,6 @@ function install_packages() {
     playerctl
     task-spooler
     urlview
-    {{ end }}
-
-    {{ if (and .hardware.skyloong.gk61x.enabled .hardware.skyloong.gk61x.remap_caps_lock) }}
-    cmake
-    libboost-dev
-    libevdev-dev
-    libudev-dev
-    libyaml-cpp-dev
     {{ end }}
 
     {{ if .dependencies.libreoffice }}
