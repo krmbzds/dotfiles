@@ -42,16 +42,20 @@ function remove_packages() {
 # ****************************************************************************
 
 function install_keyd() {
-  {{ if .keyd.enabled }}
-    local tempdir
-    tempdir="$(mktemp -d)"
-    git clone "https://github.com/rvaiya/keyd" "$tempdir"
-    cd "$tempdir" || return
-    make && sudo make install
-    cd - || return
-    rm -rf "$tempdir"
-  {{ else }}
+  {{ if lookPath "keyd" }}
     true
+  {{ else }}
+    {{ if .keyd.enabled }}
+      local tempdir
+      tempdir="$(mktemp -d)"
+      git clone "https://github.com/rvaiya/keyd" "$tempdir"
+      cd "$tempdir" || return
+      make && sudo make install
+      cd - || return
+      rm -rf "$tempdir"
+    {{ else }}
+      true
+    {{ end }}
   {{ end }}
 }
 
@@ -81,28 +85,32 @@ function install_alacritty() {
 }
 
 function install_anki() {
-  {{ if .dependencies.anki }}
-    ! command -v anki &>/dev/null || return 0
-    local cmd
-    local url
-    local archive
-    local tempdir
-    cmd='curl -fsSL'
-    url='https://api.github.com/repos/ankitects/anki/releases/latest'
-    archive="$(mktemp)"
-    tempdir="$(mktemp -d)"
-    if [ -n "$GITHUB_TOKEN" ]; then
-      cmd="$cmd --header 'Authorization: token $GITHUB_TOKEN'"
-    fi
-    eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | grep "linux" | grep "qt6" | xargs curl -s -L --output "$archive"
-    tar -xf "$archive" -C "$tempdir" --strip-components=1
-    cd "$tempdir" || return
-    PREFIX="{{- .chezmoi.homeDir -}}/.local" ./install.sh
-    rm "$archive"
-    rm -rf "$tempdir"
-    cd - || return
-  {{ else }}
+  {{ if lookPath "anki" }}
     true
+  {{ else }}
+    {{ if .dependencies.anki }}
+      ! command -v anki &>/dev/null || return 0
+      local cmd
+      local url
+      local archive
+      local tempdir
+      cmd='curl -fsSL'
+      url='https://api.github.com/repos/ankitects/anki/releases/latest'
+      archive="$(mktemp)"
+      tempdir="$(mktemp -d)"
+      if [ -n "$GITHUB_TOKEN" ]; then
+        cmd="$cmd --header 'Authorization: token $GITHUB_TOKEN'"
+      fi
+      eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | grep "linux" | grep "qt6" | xargs curl -s -L --output "$archive"
+      tar -xf "$archive" -C "$tempdir" --strip-components=1
+      cd "$tempdir" || return
+      PREFIX="{{- .chezmoi.homeDir -}}/.local" ./install.sh
+      rm "$archive"
+      rm -rf "$tempdir"
+      cd - || return
+    {{ else }}
+      true
+    {{ end }}
   {{ end }}
 }
 
@@ -125,71 +133,79 @@ function install_asdf() {
 }
 
 function install_ledger_live() {
-  {{ if .hardware.ledger.nano_s.enabled }}
-    local tempdir
-    local pubkey
-    local hashes
-    local sigmsg
-    local url_base
-    local url_sig
-    local file
-    tempdir=$(mktemp -d)
-    pubkey=$(mktemp)
-    hashes=$(mktemp)
-    sigmsg=$(mktemp)
-    url_base="https://download.live.ledger.com"
-    url_sig="https://resources.live.ledger.app/public_resources/signatures"
-    file=$(curl -fsSL $url_base/latest-linux.yml | grep "^  - url: " | cut -c10-)
-    echo '{{- template "ledger_pubkey" . -}}' | base64 --decode > "$pubkey"
-    echo "$url_sig/$file.sha512sum" | sed 's/-linux-x86_64.AppImage//' | xargs curl -s -L --output "$hashes"
-    echo "$url_sig/$file.sha512sum.sig" | sed 's/-linux-x86_64.AppImage//' | xargs curl -s -L --output "$sigmsg"
-    if (openssl dgst -sha256 -verify "$pubkey" -signature "$sigmsg" "$hashes"); then
-      curl -s -L "$url_base/$file" --output "$tempdir/$file"
-      cd "$tempdir"
-      if (sha512sum --ignore-missing --check "$hashes"); then
-        chmod +x "$tempdir/$file"
-        mv "$tempdir/$file" {{ .chezmoi.homeDir -}}/.local/bin/ledger-live.AppImage
-        mkdir -p {{ .chezmoi.homeDir -}}/.local/share/icons/
-        curl -s -L --output {{ .chezmoi.homeDir -}}/.local/share/icons/ledger-live-icon.png "https://github.com/LedgerHQ/ledger-live/raw/develop/apps/ledger-live-desktop/build-nightly/icon.png"
-        cd - && rm -rf "$tempdir" "$pubkey" "$hashes" "$sigmsg"
-        echo "Ledger Live installed successfully"
-        return 0
+  {{ if lookPath "ledger-live.AppImage" }}
+    true
+  {{ else }}
+    {{ if .hardware.ledger.nano_s.enabled }}
+      local tempdir
+      local pubkey
+      local hashes
+      local sigmsg
+      local url_base
+      local url_sig
+      local file
+      tempdir=$(mktemp -d)
+      pubkey=$(mktemp)
+      hashes=$(mktemp)
+      sigmsg=$(mktemp)
+      url_base="https://download.live.ledger.com"
+      url_sig="https://resources.live.ledger.app/public_resources/signatures"
+      file=$(curl -fsSL $url_base/latest-linux.yml | grep "^  - url: " | cut -c10-)
+      echo '{{- template "ledger_pubkey" . -}}' | base64 --decode > "$pubkey"
+      echo "$url_sig/$file.sha512sum" | sed 's/-linux-x86_64.AppImage//' | xargs curl -s -L --output "$hashes"
+      echo "$url_sig/$file.sha512sum.sig" | sed 's/-linux-x86_64.AppImage//' | xargs curl -s -L --output "$sigmsg"
+      if (openssl dgst -sha256 -verify "$pubkey" -signature "$sigmsg" "$hashes"); then
+        curl -s -L "$url_base/$file" --output "$tempdir/$file"
+        cd "$tempdir"
+        if (sha512sum --ignore-missing --check "$hashes"); then
+          chmod +x "$tempdir/$file"
+          mv "$tempdir/$file" {{ .chezmoi.homeDir -}}/.local/bin/ledger-live.AppImage
+          mkdir -p {{ .chezmoi.homeDir -}}/.local/share/icons/
+          curl -s -L --output {{ .chezmoi.homeDir -}}/.local/share/icons/ledger-live-icon.png "https://github.com/LedgerHQ/ledger-live/raw/develop/apps/ledger-live-desktop/build-nightly/icon.png"
+          cd - && rm -rf "$tempdir" "$pubkey" "$hashes" "$sigmsg"
+          echo "Ledger Live installed successfully"
+          return 0
+        else
+          echo "Hash mismatch"
+          cd - && rm -rf "$tempdir" "$pubkey" "$hashes" "$sigmsg"
+          return 1
+        fi
       else
-        echo "Hash mismatch"
-        cd - && rm -rf "$tempdir" "$pubkey" "$hashes" "$sigmsg"
+        echo "Failed to verify sha512sum hashes"
+        rm -rf "$tempdir" "$pubkey" "$hashes" "$sigmsg"
         return 1
       fi
-    else
-      echo "Failed to verify sha512sum hashes"
-      rm -rf "$tempdir" "$pubkey" "$hashes" "$sigmsg"
-      return 1
-    fi
-  {{ else }}
-    true
+    {{ else }}
+      true
+    {{ end }}
   {{ end }}
 }
 
 function install_taswarrior_tui() {
-  {{ if .dependencies.taskwarrior }}
-    local cmd
-    local url
-    local debfile
-    local tempdir
-    cmd='curl -fsSL'
-    url='https://api.github.com/repos/kdheepak/taskwarrior-tui/releases/latest'
-    debfile="$(mktemp)"
-    tempdir="$(mktemp -d)"
-    if [ -n "$GITHUB_TOKEN" ]; then
-      cmd="$cmd --header 'Authorization: token $GITHUB_TOKEN'"
-    fi
-    eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | grep "taskwarrior-tui.deb" | xargs curl -s -L --output "$debfile"
-    cd "$tempdir" || return
-    sudo dpkg -i "$debfile"
-    rm "$debfile"
-    rm -rf "$tempdir"
-    cd - || return
-  {{ else }}
+  {{ if lookPath "taskwarrior-tui" }}
     true
+  {{ else }}
+    {{ if .dependencies.taskwarrior }}
+      local cmd
+      local url
+      local debfile
+      local tempdir
+      cmd='curl -fsSL'
+      url='https://api.github.com/repos/kdheepak/taskwarrior-tui/releases/latest'
+      debfile="$(mktemp)"
+      tempdir="$(mktemp -d)"
+      if [ -n "$GITHUB_TOKEN" ]; then
+        cmd="$cmd --header 'Authorization: token $GITHUB_TOKEN'"
+      fi
+      eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | grep "taskwarrior-tui.deb" | xargs curl -s -L --output "$debfile"
+      cd "$tempdir" || return
+      sudo dpkg -i "$debfile"
+      rm "$debfile"
+      rm -rf "$tempdir"
+      cd - || return
+    {{ else }}
+      true
+    {{ end }}
   {{ end }}
 }
 
@@ -239,29 +255,33 @@ function install_mpv_plugin_quality_menu() {
 }
 
 function install_whispercpp() {
-  {{ if .dependencies.whispercpp }}
-  if grep -Eq '.*avx2.*f16c.*fma.*|.*avx2.*fma.*f16c.*|.*f16c.*avx2.*fma.*|.*f16c.*fma.*avx2.*|.*fma.*avx2.*f16c.*|.*fma.*f16c.*avx2.*' /proc/cpuinfo; then
-      echo "Processor supports AVX2, FMA, and F16C. Proceeding with whispercpp installation..."
-      local tempdir
-      local modeldir
-      local modelurl
-      tempdir="$(mktemp -d)"
-      modeldir="{{ .chezmoi.homeDir }}/.local/share/whisper-cpp/models"
-      modelurl="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin"
-      git clone "https://github.com/ggerganov/whisper.cpp" "$tempdir"
-      cd "$tempdir"
-      make
-      mv "$tempdir/main" "{{ .chezmoi.homeDir -}}/bin/whispercpp"
-      cd -
-      rm -rf "$tempdir"
-      echo "whisper.cpp installed successfully"
-      wget -P "$modeldir" -nv -nc --content-disposition "$modelurl"
-      echo "tiny.en ggml model downloaded successfully"
-  else
-      echo "Processor does not support AVX2, FMA, and F16C. Skipping whispercpp installation..."
-  fi
-  {{ else }}
+  {{ if lookPath "whispercpp" }}
     true
+  {{ else }}
+    {{ if .dependencies.whispercpp }}
+      if grep -Eq '.*avx2.*f16c.*fma.*|.*avx2.*fma.*f16c.*|.*f16c.*avx2.*fma.*|.*f16c.*fma.*avx2.*|.*fma.*avx2.*f16c.*|.*fma.*f16c.*avx2.*' /proc/cpuinfo; then
+          echo "Processor supports AVX2, FMA, and F16C. Proceeding with whispercpp installation..."
+          local tempdir
+          local modeldir
+          local modelurl
+          tempdir="$(mktemp -d)"
+          modeldir="{{ .chezmoi.homeDir }}/.local/share/whisper-cpp/models"
+          modelurl="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin"
+          git clone "https://github.com/ggerganov/whisper.cpp" "$tempdir"
+          cd "$tempdir"
+          make
+          mv "$tempdir/main" "{{ .chezmoi.homeDir -}}/bin/whispercpp"
+          cd -
+          rm -rf "$tempdir"
+          echo "whisper.cpp installed successfully"
+          wget -P "$modeldir" -nv -nc --content-disposition "$modelurl"
+          echo "tiny.en ggml model downloaded successfully"
+      else
+          echo "Processor does not support AVX2, FMA, and F16C. Skipping whispercpp installation..."
+      fi
+    {{ else }}
+      true
+    {{ end }}
   {{ end }}
 }
 
