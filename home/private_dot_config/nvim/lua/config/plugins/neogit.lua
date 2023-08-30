@@ -83,7 +83,7 @@ function M.config()
       diffview = nil,
     },
     -- Setting any section to `false` will make the section not render at all
-    sections = {
+    section = {
       untracked = {
         folded = false,
       },
