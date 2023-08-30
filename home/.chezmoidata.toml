@@ -54,6 +54,7 @@ whispercpp = true
 libreoffice = false
 taskwarrior = true
 sublime_text = false
+sublime_merge = true
 simple_scanner = false
 signal_messenger = true
 
