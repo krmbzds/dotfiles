@@ -41,36 +41,17 @@ function remove_packages() {
 # *                           Manual Installations                           *
 # ****************************************************************************
 
-function install_interception_tools() {
-  {{ if lookPath "intercept" }}
-    true
-  {{ else }}
+function install_keyd() {
+  {{ if .keyd.enabled }}
     local tempdir
     tempdir="$(mktemp -d)"
-    git clone "https://gitlab.com/interception/linux/tools.git" "$tempdir"
-    cd "$tempdir"
-    cmake -B build -DCMAKE_BUILD_TYPE=Release
-    cmake --build build
-    cp "$tempdir/build/"{intercept,mux,udevmon,uinput} "{{ .chezmoi.homeDir -}}/bin/"
-    cd -
+    git clone "https://github.com/rvaiya/keyd" "$tempdir"
+    cd "$tempdir" || return
+    make && sudo make install
+    cd - || return
     rm -rf "$tempdir"
-    echo "Interception Tools build successful"
-  {{ end }}
-}
-
-function install_dual_function_keys() {
-  {{ if lookPath "dual-function-keys" }}
-    true
   {{ else }}
-    local tempdir
-    tempdir="$(mktemp -d)"
-    git clone https://gitlab.com/interception/linux/plugins/dual-function-keys.git "$tempdir"
-    cd "$tempdir"
-    make
-    mv dual-function-keys "{{- .chezmoi.homeDir -}}/bin/"
-    cd -
-    rm -rf tempdir
-    echo "dual-function-keys build successful"
+    true
   {{ end }}
 }
 
@@ -529,9 +510,8 @@ function install_packages() {
   install_anki
   install_faas
   install_asdf
+  install_keyd
   install_ledger_live
-  install_interception_tools
-  install_dual_function_keys
   install_taswarrior_tui
   install_mpv_nightly
   install_mpv_plugin_mpris

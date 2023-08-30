@@ -7,12 +7,6 @@ set -e
 # *                            Service Management                            *
 # ****************************************************************************
 
-function create_udevmon_service() {
-  mkdir -p '{{ .chezmoi.homeDir -}}/.config/interception-tools'
-  echo '{{ template "udevmon_config" . }}' | sudo tee {{ .chezmoi.homeDir -}}/.config/interception-tools/udevmon.yaml > /dev/null
-  echo '{{ template "udevmon_service" . }}' | sudo tee /etc/systemd/system/udevmon.service > /dev/null
-}
-
 function enable_services() {
   for service; do
     sudo systemctl enable --now "$service"
@@ -97,8 +91,6 @@ function compile_libsecret() {
 function logitech_c920_disable_microphone() {
   {{ if .hardware.logitech.c920.disable_microphone }}
     echo '{{- template "udev_rule_c920" . -}}' | sudo tee /etc/udev/rules.d/50-LogitechC920.rules > /dev/null
-    create_udevmon_service
-    enable_services udevmon
   {{ else }}
     true
   {{ end }}
@@ -107,20 +99,21 @@ function logitech_c920_disable_microphone() {
 function logitech_mx_anywhere_2s_set_dpi() {
   {{ if (and .hardware.logitech.mx_anywhere_2s.enabled .hardware.logitech.mx_anywhere_2s.dpi ) }}
     echo '{{- template "udev_rule_2s" . -}}' | sudo tee /etc/udev/rules.d/50-LogitechMXAnywhere2S.rules > /dev/null
-    create_udevmon_service
-    enable_services udevmon ratbagd
+    enable_services ratbagd
   {{ else }}
     true
   {{ end }}
 }
 
-function skyloong_gk61x_remap_keys() {
-  {{ if (and .hardware.skyloong.gk61x.enabled .hardware.skyloong.gk61x.remap_caps_lock) }}
-    create_udevmon_service
-    enable_service udevmon
+function configure_keyd() {
+  {{ if (and .keyd.enabled .keyd.remap_capslock) }}
+    sudo mkdir -p /etc/keyd/
+    sudo touch /etc/keyd/default.conf
+    echo '{{- template "keyd_default_config" . -}}' | sudo tee /etc/keyd/default.conf > /dev/null
+    enable_service keyd
   {{ else }}
     true
-  {{ end }}
+  {{ end }} 
 }
 
 function configure_touchpad_scrolling_pixel_distance() {
@@ -138,9 +131,7 @@ function configure_touchpad_scrolling_pixel_distance() {
 
 function ledger_nano_s_setup() {
   {{- if .hardware.ledger.nano_s.enabled }}
-    create_udevmon_service
     echo '{{- template "udev_rule_ledger" . -}}' | sudo tee /etc/udev/rules.d/20-LedgerNanoS.rules > /dev/null
-    enable_service udevmon
   {{ else }}
     true
   {{ end }}
@@ -186,7 +177,7 @@ configure_profile_sync_daemon
 import_gpg_key_from_url {{ .gpg.pubkey_url }}
 logitech_c920_disable_microphone
 logitech_mx_anywhere_2s_set_dpi
-skyloong_gk61x_remap_keys
+configure_keyd
 configure_touchpad_scrolling_pixel_distance
 ledger_nano_s_setup
 enable_service pcscd

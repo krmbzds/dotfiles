@@ -1,0 +1,12 @@
+{{- if (and .keyd.enabled .keyd.remap_capslock) -}}
+[ids]
+
+*
+
+[main]
+
+{{ if .keyd.remap_capslock -}}
+capslock = overload(control, esc)
+{{ end -}}
+
+{{- end }}

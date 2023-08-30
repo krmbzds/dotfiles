@@ -13,6 +13,10 @@ signing_key = "38FD2B3F677F9C34"
 [git.commit]
 gpgsign = "true"
 
+[keyd]
+enabled = true
+remap_capslock = true
+
 [prefs]
 editor = "nvim"
 visual = "nvim"
