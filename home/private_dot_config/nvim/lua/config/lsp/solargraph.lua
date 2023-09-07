@@ -1,6 +1,6 @@
 local function solargraph_cmd()
   local ret_code = nil
-  local jid = vim.fn.jobstart("grep -o solargraph Gemfile.lock", {
+  local jid = vim.fn.jobstart("grep -rl solargraph --include Gemfile --include Gemfile.lock --include *.gemspec .", {
     on_exit = function(_, data)
       ret_code = data
     end,
