@@ -171,7 +171,7 @@ function M.config()
       A = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
       d = { "<cmd>Telescope diagnostics bufnr=0 theme=ivy<cr>", "Buffer Diagnostics" },
       D = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
-      f = { "<cmd>lua vim.lsp.buf.format { async = true }<cr>", "Format" },
+      f = { "<cmd>Format<cr>", "Format" },
       q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
       r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
       s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },

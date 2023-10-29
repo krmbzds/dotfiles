@@ -112,7 +112,7 @@ function M.config()
         case_mode = "smart_case", -- or "ignore_case" or "respect_case"
       },
       frecency = {
-        auto_validate = true,
+        auto_validate = false,
         db_safe_mode = false,
         default_workspace = "CWD",
         ignore_patterns = ignore.file_ignore_patterns,

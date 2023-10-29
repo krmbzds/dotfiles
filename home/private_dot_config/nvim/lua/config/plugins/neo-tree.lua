@@ -1,7 +1,7 @@
 local M = {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = { "Neotree" },
-  branch = "v2.x",
+  branch = "v3.x",
   dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" },
 }
 
@@ -119,7 +119,10 @@ function M.config()
       },
     },
     filesystem = {
-      follow_current_file = true,
+      follow_current_file = {
+        enabled = true, -- This will find and focus the file in the active buffer every time
+        leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+      },
       use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes instead of relying on nvim autocmd events.
       async_directory_scan = false, -- Scan files synchronously
       window = {

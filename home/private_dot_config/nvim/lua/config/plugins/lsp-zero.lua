@@ -48,7 +48,6 @@ function M.config()
   local icons = require("config.icons").diagnostics
 
   local lua_ls_opts = require("config.lsp.lua_ls")
-  local ruby_ls_opts = require("config.lsp.ruby_ls")
   local solargraph_opts = require("config.lsp.solargraph")
 
   require("mason.settings").set({ ui = { border = "rounded" } })
@@ -68,9 +67,8 @@ function M.config()
       info = icons.Information,
     },
   })
-  lsp.ensure_installed({ "ruby_ls", "solargraph", "lua_ls", "tsserver" })
+  lsp.ensure_installed({ "solargraph", "lua_ls", "tsserver" })
   lsp.configure("lua_ls", lua_ls_opts)
-  lsp.configure("ruby_ls", ruby_ls_opts)
   lsp.configure("solargraph", solargraph_opts)
   lsp.on_attach(function(client, bufnr)
     if vim.b.lsp_attached then
@@ -88,7 +86,7 @@ function M.config()
   lsp.setup()
 
   vim.diagnostic.config({
-    signs = { severity = { min = vim.diagnostic.severity.HINT } },
+    signs = { severity = { min = vim.diagnostic.severity.WARN } },
     underline = false,
     update_in_insert = false,
     virtual_text = { severity = { min = vim.diagnostic.severity.ERROR } },
