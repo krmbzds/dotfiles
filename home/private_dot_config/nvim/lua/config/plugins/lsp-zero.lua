@@ -1,5 +1,6 @@
 local M = {
   "VonHeikemen/lsp-zero.nvim",
+  branch = "v3.x",
   dependencies = {
     -- LSP Support
     "neovim/nvim-lspconfig",
@@ -310,7 +311,7 @@ function M.config()
     },
   })
 
-  fidget.setup({ text = { spinner = "square_corners" } })
+  fidget.setup()
 end
 
 return M
