@@ -269,7 +269,17 @@ function install_whispercpp() {
           modelurl="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin"
           git clone "https://github.com/ggerganov/whisper.cpp" "$tempdir"
           cd "$tempdir"
-          make
+          make clean
+
+          cuda_support=$(nvcc --version 2>&1)
+          cuda_status=$?
+
+          if [ $cuda_status -eq 0 ]; then
+            WHISPER_CUBLAS=1 make -j
+          else
+            make -j
+          fi
+
           mv "$tempdir/main" "{{ .chezmoi.homeDir -}}/bin/whispercpp"
           cd -
           rm -rf "$tempdir"
