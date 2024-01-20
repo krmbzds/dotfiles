@@ -31,8 +31,23 @@ function M.config()
     return
   end
 
-  local status_lsp_zero_ok, lsp = pcall(require, "lsp-zero")
+  local status_lsp_zero_ok, lsp_zero = pcall(require, "lsp-zero")
   if not status_lsp_zero_ok then
+    return
+  end
+
+  local status_mason_ok, mason = pcall(require, "mason")
+  if not status_mason_ok then
+    return
+  end
+
+  local status_mason_settings_ok, mason_settings = pcall(require, "mason.settings")
+  if not status_mason_settings_ok then
+    return
+  end
+
+  local status_mason_lspconfig_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
+  if not status_mason_lspconfig_ok then
     return
   end
 
@@ -51,9 +66,16 @@ function M.config()
   local lua_ls_opts = require("config.lsp.lua_ls")
   local solargraph_opts = require("config.lsp.solargraph")
 
-  require("mason.settings").set({ ui = { border = "rounded" } })
-  lsp.preset("recommended")
-  lsp.set_preferences({
+  mason.setup({})
+  mason_settings.set({ ui = { border = "rounded" } })
+  mason_lspconfig.setup({
+    ensure_installed = { "solargraph", "lua_ls", "tsserver" },
+    handlers = {
+      lsp_zero.default_setup,
+    },
+  })
+  lsp_zero.preset("recommended")
+  lsp_zero.set_preferences({
     suggest_lsp_servers = true,
     setup_servers_on_start = true,
     set_lsp_keymaps = true,
@@ -68,10 +90,9 @@ function M.config()
       info = icons.Information,
     },
   })
-  lsp.ensure_installed({ "solargraph", "lua_ls", "tsserver" })
-  lsp.configure("lua_ls", lua_ls_opts)
-  lsp.configure("solargraph", solargraph_opts)
-  lsp.on_attach(function(client, bufnr)
+  lsp_zero.configure("lua_ls", lua_ls_opts)
+  lsp_zero.configure("solargraph", solargraph_opts)
+  lsp_zero.on_attach(function(client, bufnr)
     if vim.b.lsp_attached then
       return
     end
@@ -83,8 +104,8 @@ function M.config()
       navic.attach(client, bufnr)
     end
   end)
-  lsp.nvim_workspace(lua_ls_opts)
-  lsp.setup()
+  -- lsp.nvim_workspace(lua_ls_opts)
+  lsp_zero.setup()
 
   vim.diagnostic.config({
     signs = { severity = { min = vim.diagnostic.severity.WARN } },
