@@ -59,31 +59,6 @@ function install_keyd() {
   {{ end }}
 }
 
-function install_alacritty() {
-  {{ if lookPath "alacritty" }}
-    true
-  {{ else }}
-    local cmd
-    local url
-    local debfile
-    local tempdir
-    cmd='curl -fsSL'
-    url='https://api.github.com/repos/barnumbirr/alacritty-debian/releases/latest'
-    debfile="$(mktemp)"
-    tempdir="$(mktemp -d)"
-    if [ -n "$GITHUB_TOKEN" ]; then
-      cmd="$cmd --header 'Authorization: token $GITHUB_TOKEN'"
-    fi
-    eval "$cmd $url" | grep 'browser_' | cut -d\" -f4 | grep "amd64_unstable" | xargs curl -s -L --output "$debfile"
-    cd "$tempdir" || return
-    sudo dpkg -i "$debfile"
-    sudo apt-mark hold alacritty
-    rm "$debfile"
-    rm -rf "$tempdir"
-    cd - || return
-  {{ end }}
-}
-
 function install_anki() {
   {{ if lookPath "anki" }}
     true
@@ -299,6 +274,12 @@ function install_whispercpp() {
 # *                                   PPAs                                   *
 # ****************************************************************************
 
+function add_ppa_for_alacritty() {
+  ! command -v alacritty &>/dev/null || return 0
+  curl -fsSL 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x52b24df7d43b5377' | sudo gpg --dearmor -o /usr/share/keyrings/alacritty-keyring.gpg
+  echo "deb [signed-by=/usr/share/keyrings/alacritty-keyring.gpg arch=amd64] https://ppa.launchpadcontent.net/aslatter/ppa/ubuntu jammy main" | sudo tee /etc/apt/sources.list.d/alacritty.list > /dev/null
+}
+
 function add_ppa_brave_browser() {
   {{ if .dependencies.brave }}
     ! command -v brave-browser &>/dev/null || return 0
@@ -375,6 +356,7 @@ function add_ppa_mpv_nightly() {
 function install_packages() {
   local packages=(
 
+    alacritty
     at
     bfs
     cmake
@@ -530,6 +512,7 @@ function install_packages() {
     {{- end }}
   )
 
+  add_ppa_for_alacritty
   add_ppa_brave_browser
   add_ppa_brave_browser_beta
   add_ppa_sublime
@@ -544,7 +527,6 @@ function install_packages() {
   wait_for_apt && sudo apt -y autoremove
   wait_for_apt && sudo apt -y autoclean
 
-  install_alacritty
   install_anki
   install_faas
   install_asdf
