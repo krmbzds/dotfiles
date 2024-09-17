@@ -241,7 +241,7 @@ function install_whispercpp() {
           local modelurl
           tempdir="$(mktemp -d)"
           modeldir="{{ .chezmoi.homeDir }}/.local/share/whisper-cpp/models"
-          modelurl="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin"
+          modelurl="https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.en.bin"
           git clone "https://github.com/ggerganov/whisper.cpp" "$tempdir"
           cd "$tempdir"
           make clean
@@ -250,7 +250,7 @@ function install_whispercpp() {
           cuda_status=$?
 
           if [ $cuda_status -eq 0 ]; then
-            WHISPER_CUBLAS=1 make -j
+            GGML_CUDA=1 CUDA_DOCKER_ARCH=all make -j
           else
             make -j
           fi
