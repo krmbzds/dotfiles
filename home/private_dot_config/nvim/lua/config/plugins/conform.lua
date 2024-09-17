@@ -13,6 +13,7 @@ function M.config()
     formatters_by_ft = {
       lua = { "stylua" },
       ruby = { "standardrb" },
+      yaml = { "yamlfmt" },
     },
   })
 end

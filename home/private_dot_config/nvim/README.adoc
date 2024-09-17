@@ -10,6 +10,10 @@
 :dotfiles: https://github.com/krmbzds/dotfiles[dotfiles]
 :screenshot: https://user-images.githubusercontent.com/1383035/204065677-fa889e66-cad1-4aa8-bc78-1fd12d25775d.png
 
+link:https://dotfyle.com/krmbzds/nvim[image:https://dotfyle.com/krmbzds/nvim/badges/plugins?style=plastic[]]
+link:https://dotfyle.com/krmbzds/nvim[image:https://dotfyle.com/krmbzds/nvim/badges/leaderkey?style=plastic[]]
+link:https://dotfyle.com/krmbzds/nvim[image:https://dotfyle.com/krmbzds/nvim/badges/plugin-manager?style=plastic[]]
+
 My personal Neovim configuration, 100% Lua.
 
 == Screenshot

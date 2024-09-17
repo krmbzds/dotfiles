@@ -69,7 +69,7 @@ function M.config()
   mason.setup({})
   mason_settings.set({ ui = { border = "rounded" } })
   mason_lspconfig.setup({
-    ensure_installed = { "solargraph", "lua_ls", "tsserver" },
+    ensure_installed = { "solargraph", "lua_ls", "ts_ls" },
     handlers = {
       lsp_zero.default_setup,
     },
