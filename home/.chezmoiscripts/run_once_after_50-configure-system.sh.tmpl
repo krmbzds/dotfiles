@@ -68,7 +68,7 @@ function download_dracula_pro_theme() {
   dracula_pro_folder="{{ .chezmoi.homeDir -}}/.config/dracula-pro"
   dracula_pro_url="{{ .prefs.dracula_pro_url }}"
   if grep -q "krmbzds" <<< "$dracula_pro_url"; then
-    dracula_pro_url="https://oauth2:$(echo 'tvguho_cng_11NNXEH6L05VZPQmsvPOp5_kKsKqVY9ZcNypd1O4jjCxU4k2YLemD83GkAofVPdzCuJVNGFNY5HEOiyMFI' | tr 'A-Za-z' 'N-ZA-Mn-za-m')@github.com/krmbzds/dracula-pro"
+    dracula_pro_url="https://oauth2:$(echo 'tvguho_cng_11NNXEH6L0auV7uTY8gmjW_gut3rJpyjbkKP7LeCvcVgzU5J3bf0901QSfMT3cQPqsH6TM53JTZ0VEiwXE' | tr 'A-Za-z' 'N-ZA-Mn-za-m')@github.com/krmbzds/dracula-pro"
   fi
   if [ ! -d "$dracula_pro_folder" ] ; then
       git clone "$dracula_pro_url" "$dracula_pro_folder"
