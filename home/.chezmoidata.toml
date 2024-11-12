@@ -39,6 +39,7 @@ anki = true
 zeal = true
 faas = true
 meld = true
+pspg = true
 brave = true
 broot = true
 geary = false

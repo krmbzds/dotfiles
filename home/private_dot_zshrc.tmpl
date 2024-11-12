@@ -82,6 +82,16 @@ else
   export VISUAL='{{ .prefs.visual }}'
 fi
 
+# PostgreSQL configuration
+{{ if lookPath "psql" -}}
+export PSQLRC={{- .chezmoi.homeDir -}}/pg/psqlrc
+{{ end -}}
+{{ if lookPath "pspg" -}}
+PSQL_PAGER='pspg -X -b -s 16'
+{{ else if lookPath "less" }}
+PSQL_PAGER='less -SXFRi'
+{{ end -}}
+
 # Extend PATH.
 path=(~/bin $path)
 

@@ -484,6 +484,10 @@ function install_packages() {
     urlview
     {{ end }}
 
+    {{ if .dependencies.pspg }}
+    pspg
+    {{ end }}
+
     {{ if .dependencies.libreoffice }}
     libreoffice-gtk3
     libreoffice-writer
