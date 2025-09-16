@@ -72,6 +72,7 @@ export GPG_TTY=$TTY
 export FINGERPRINT='{{ .gpg.fingerprint }}'
 export DO_NOT_TRACK=1
 export TIME_STYLE=long-iso
+export MANPAGER='nvim -u NORC -c "runtime! plugin/man.vim" -c "Man!"'
 
 # Set editor for local and remote environments.
 if [[ -n "$SSH_CONNECTION" ]]; then
