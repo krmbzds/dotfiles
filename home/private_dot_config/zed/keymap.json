@@ -1,0 +1,118 @@
+[
+  {
+    "context": "Dock || Terminal || Editor",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-\\": "workspace::ToggleBottomDock"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-\\": "workspace::ToggleBottomDock"
+    }
+  },
+  {
+    "context": "Editor && VimControl && !VimWaiting && !menu",
+    "bindings": {
+      "space e": "project_panel::ToggleFocus",
+      "space E": "workspace::ToggleLeftDock",
+
+      "alt-h": "pane::ActivatePreviousItem",
+      "alt-l": "pane::ActivateNextItem",
+      "shift-h": "pane::ActivatePreviousItem",
+      "shift-l": "pane::ActivateNextItem",
+
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp",
+
+      "ctrl-d": ["workspace::SendKeystrokes", "ctrl-d z z"],
+      "ctrl-u": ["workspace::SendKeystrokes", "ctrl-u z z"],
+      "ctrl-o": ["workspace::SendKeystrokes", "ctrl-o z z"],
+      "ctrl-i": ["workspace::SendKeystrokes", "ctrl-i z z"],
+
+      "J": ["workspace::SendKeystrokes", "m z J ` z"],
+      "n": ["workspace::SendKeystrokes", "n z z"],
+      "shift-n": ["workspace::SendKeystrokes", "shift-n z z"],
+
+      "] g": "editor::GoToHunk",
+      "[ g": "editor::GoToPreviousHunk",
+
+      "] d": "editor::GoToDiagnostic",
+      "[ d": "editor::GoToPreviousDiagnostic",
+
+      "space w": "workspace::Save",
+      "space q": "pane::CloseActiveItem",
+      "space c": "pane::CloseActiveItem",
+      "space z": "workspace::ToggleCenteredLayout",
+      "space P": "projects::OpenRecent",
+      "space /": "editor::ToggleComments",
+
+      "space b b": "pane::ActivatePreviousItem",
+
+      "space d t": "editor::ToggleBreakpoint",
+
+      "space g j": "editor::GoToHunk",
+      "space g k": "editor::GoToPreviousHunk",
+      "space g l": "editor::ToggleGitBlame",
+      "space g r": "editor::RevertSelectedHunks",
+
+      "space l a": "editor::ToggleCodeActions",
+      "space l d": "diagnostics::Deploy",
+      "space l f": "editor::Format",
+      "space l r": "editor::Rename",
+      "space l s": "outline::Toggle",
+      "space l S": "project_symbols::Toggle",
+
+      "space f": "file_finder::Toggle",
+      "space s f": "file_finder::Toggle",
+      "space s g": "workspace::NewSearch",
+      "space s p": "projects::OpenRecent",
+
+      "space t c": "pane::CloseActiveItem",
+      "space t j": "pane::ActivateNextItem",
+      "space t k": "pane::ActivatePreviousItem",
+      "space t h": "pane::SwapItemLeft",
+      "space t l": "pane::SwapItemRight"
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp",
+      "shift-j": "editor::MoveLineDown",
+      "shift-k": "editor::MoveLineUp",
+      "space /": "editor::ToggleComments"
+    }
+  },
+  {
+    "context": "EmptyPane || SharedScreen",
+    "bindings": {
+      "space e": "project_panel::ToggleFocus",
+      "space E": "workspace::ToggleLeftDock",
+      "space f": "file_finder::Toggle",
+      "space space": "file_finder::Toggle",
+      "space f n": "workspace::NewFile",
+      "space f p": "projects::OpenRecent",
+      "space s g": "workspace::NewSearch",
+      "space q q": "zed::Quit"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "j": "menu::SelectNext",
+      "k": "menu::SelectPrev",
+      "h": "project_panel::CollapseSelectedEntry",
+      "l": "project_panel::ExpandSelectedEntry",
+      "o": "project_panel::Open",
+      "space": "project_panel::Open",
+      "space e": "project_panel::ToggleFocus",
+      "space E": "workspace::ToggleLeftDock"
+    }
+  }
+]
