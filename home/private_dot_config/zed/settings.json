@@ -27,7 +27,7 @@
   "buffer_font_size": 13.0,
   "theme": {
     "mode": "dark",
-    "light": "Alucard Pro (Alucard)",
+    "light": "Dracula Pro (Alucard)",
     "dark": "Dracula Pro",
   },
   "edit_predictions": {
@@ -144,5 +144,8 @@
     "regex": false,
   },
   "preferred_line_length": 120,
-  "which_key": { "enabled": true },
+  "which_key": {
+    "enabled": true,
+    "delay_ms": 100,
+  },
 }
